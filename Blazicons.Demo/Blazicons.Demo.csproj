@@ -1,0 +1,195 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>11.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Version>0.1</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Logo.svg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="Pages\Index.razor" />
+    <None Include="Shared\MainLayout.razor" />
+    <None Include="wwwroot\css\app.scss" />
+    <None Include="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+    <None Include="wwwroot\favicon.svg" />
+    <None Include="wwwroot\images\blazicons-512.svg" />
+    <None Include="wwwroot\js\Blazicons.Demo.js" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.esm.js" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\bootstrap-grid.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\bootstrap-reboot.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\bootstrap-utilities.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\bootstrap.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\forms\_floating-labels.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\forms\_form-check.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\forms\_form-control.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\forms\_form-range.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\forms\_form-select.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\forms\_form-text.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\forms\_input-group.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\forms\_labels.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\forms\_validation.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\helpers\_clearfix.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\helpers\_color-bg.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\helpers\_colored-links.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\helpers\_position.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\helpers\_ratio.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\helpers\_stacks.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\helpers\_stretched-link.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\helpers\_text-truncation.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\helpers\_visually-hidden.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\helpers\_vr.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_alert.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_backdrop.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_banner.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_border-radius.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_box-shadow.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_breakpoints.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_buttons.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_caret.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_clearfix.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_color-scheme.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_container.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_deprecate.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_forms.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_gradients.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_grid.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_image.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_list-group.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_lists.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_pagination.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_reset-text.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_resize.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_table-variants.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_text-truncate.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_transition.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_utilities.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\mixins\_visually-hidden.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\utilities\_api.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\vendor\_rfs.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_accordion.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_alert.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_badge.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_breadcrumb.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_button-group.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_buttons.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_card.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_carousel.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_close.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_containers.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_dropdown.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_forms.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_functions.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_grid.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_helpers.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_images.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_list-group.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_maps.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_mixins.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_modal.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_nav.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_navbar.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_offcanvas.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_pagination.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_placeholders.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_popover.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_progress.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_reboot.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_root.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_spinners.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_tables.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_toasts.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_tooltip.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_transitions.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_type.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_utilities.scss" />
+    <None Include="wwwroot\lib\twitter-bootstrap\scss\_variables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BindingBits" Version="1.5.390" />
+    <PackageReference Include="Blazicons.Bootstrap" Version="1.0.2-alpha" />
+    <PackageReference Include="Blazicons.FluentUI" Version="1.0.2-alpha" />
+    <PackageReference Include="Blazicons.FontAwesome" Version="1.0.0-alpha" />
+    <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="1.0.1-alpha" />
+    <PackageReference Include="Blazicons.Ionicons" Version="1.0.0-alpha" />
+    <PackageReference Include="Blazicons.MaterialDesignIcons" Version="1.0.0-alpha" />
+    <PackageReference Include="CodeCasing" Version="2.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+      <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.4.27">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.51.0.59060">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Text.Analyzers" Version="3.3.3">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
