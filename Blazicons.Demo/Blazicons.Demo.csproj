@@ -4,8 +4,15 @@
     <LangVersion>11.0</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.1</Version>
   </PropertyGroup>
+  <ItemGroup>
+    <TrimmerRootAssembly Include="Blazicons.Bootstrap" />
+    <TrimmerRootAssembly Include="Blazicons.FluentUI" />
+    <TrimmerRootAssembly Include="Blazicons.FontAwesome" />
+    <TrimmerRootAssembly Include="Blazicons.GoogleMaterialDesign" />
+    <TrimmerRootAssembly Include="Blazicons.Ionicons" />
+    <TrimmerRootAssembly Include="Blazicons.MaterialDesignIcons" />
+  </ItemGroup>
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
