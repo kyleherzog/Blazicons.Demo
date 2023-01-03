@@ -30,11 +30,13 @@ public partial class Index : IDisposable
 
     public string ActiveIconCopyNameLink => $"javascript:navigator.clipboard.writeText('{ActiveIcon.Code}');";
 
+    public string ActiveIconCopyPackageLink => $"javascript:navigator.clipboard.writeText('{ActiveIcon.Assembly}');";
+
     public string ActiveIconDisplayName => ActiveIcon?.Name.ExpandToTitleCase() ?? string.Empty;
 
     public string ActiveIconExample => $"<Blazicon Svg=\"{ActiveIcon.Code}\"></Blazicon>";
 
-    public string ActiveIconNugetAddress => $"https://www.nuget.org/packages/Blazicons.{ActiveIcon.Assembly}";
+    public string ActiveIconNugetAddress => $"https://www.nuget.org/packages/{ActiveIcon.Assembly}";
 
     public string? ActiveQuery
     {
@@ -139,6 +141,8 @@ public partial class Index : IDisposable
     private void AddLibraryIcons(Type type)
     {
         var properties = type.GetProperties();
+
+        properties = properties.OrderBy(x => x.Name).ToArray();
 
         foreach (var property in properties)
         {
