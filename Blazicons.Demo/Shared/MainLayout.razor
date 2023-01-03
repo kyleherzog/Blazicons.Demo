@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+
+<div class="d-flex flex-column" style="max-height: 100vh; overflow-y:hidden;">
+    <header>
+        <nav class="navbar navbar-expand bg-primary bg-gradient navbar-dark text-white px-2">
+            <div class="container-fluid">
+                <div class="row w-100">
+                    <div class="col">
+                        <a class="navbar-brand me-0" href="/"><Blazicon Svg="@Logo"></Blazicon> Blazicons</a>
+                        <span class="tagline"> - Icon Component Libraries for Blazor</span>
+                    </div>
+                    <div class="col text-end pe-0">
+                        <ul class="navbar-nav justify-content-end">
+                            <li class="nav-item">
+                                <a href="https://twitter.com/kyleherzog" target="_blank" title="Twitter" class="nav-link"><Blazicon Svg="MdiIcon.Twitter"></Blazicon></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/kyleherzog/Blazicons" target="_blank" title="GitHub Repo" class="nav-link"><Blazicon Svg="MdiIcon.Github"></Blazicon></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="flex-fill">@Body</div>
+</div>
