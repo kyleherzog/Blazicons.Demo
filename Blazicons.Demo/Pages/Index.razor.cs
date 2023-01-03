@@ -1,5 +1,4 @@
 ﻿using System.Reactive.Linq;
-using Blazicons.Demo.Components;
 using Blazicons.Demo.Models;
 using CodeCasing;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -58,23 +57,6 @@ public partial class Index : IDisposable
         }
     }
 
-    private void LoadFilteredIcons()
-    {
-        var result = Icons.AsEnumerable();
-        if (!string.IsNullOrEmpty(ActiveQuery))
-        {
-            result = Icons.Where(x => x.Name.Contains(ActiveQuery, StringComparison.OrdinalIgnoreCase));
-        }
-
-        if (!string.IsNullOrEmpty(LibraryFilter))
-        {
-            result = result.Where(x => x.Library == LibraryFilter);
-        }
-
-        filteredIcons.Clear();
-        filteredIcons.AddRange(result);
-    }
-
     public IList<IconEntry> FilteredIcons
     {
         get
@@ -82,8 +64,6 @@ public partial class Index : IDisposable
             return filteredIcons;
         }
     }
-
-    public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
 
     public IList<IconEntry> Icons { get; } = new List<IconEntry>();
 
@@ -112,6 +92,8 @@ public partial class Index : IDisposable
     }
 
     public IconSearchModel Search { get; }
+
+    public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
 
     public void Dispose()
     {
@@ -178,6 +160,23 @@ public partial class Index : IDisposable
     private void HideModal()
     {
         IsShowingModal = false;
+    }
+
+    private void LoadFilteredIcons()
+    {
+        var result = Icons.AsEnumerable();
+        if (!string.IsNullOrEmpty(ActiveQuery))
+        {
+            result = Icons.Where(x => x.Name.Contains(ActiveQuery, StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (!string.IsNullOrEmpty(LibraryFilter))
+        {
+            result = result.Where(x => x.Library == LibraryFilter);
+        }
+
+        filteredIcons.Clear();
+        filteredIcons.AddRange(result);
     }
 
     private void ShowIconDetails(IconEntry entry)
