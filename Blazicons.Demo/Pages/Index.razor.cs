@@ -1,6 +1,8 @@
 ﻿using System.Reactive.Linq;
+using Blazicons.Demo.Components;
 using Blazicons.Demo.Models;
 using CodeCasing;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace Blazicons.Demo.Pages;
 
@@ -50,34 +52,44 @@ public partial class Index : IDisposable
             if (activeQuery != value)
             {
                 activeQuery = value;
+                LoadFilteredIcons();
                 _ = InvokeAsync(StateHasChanged);
             }
         }
+    }
+
+    private void LoadFilteredIcons()
+    {
+        var result = Icons.AsEnumerable();
+        if (!string.IsNullOrEmpty(ActiveQuery))
+        {
+            result = Icons.Where(x => x.Name.Contains(ActiveQuery, StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (!string.IsNullOrEmpty(LibraryFilter))
+        {
+            result = result.Where(x => x.Library == LibraryFilter);
+        }
+
+        filteredIcons.Clear();
+        filteredIcons.AddRange(result);
     }
 
     public IList<IconEntry> FilteredIcons
     {
         get
         {
-            var result = Icons.AsEnumerable();
-            if (!string.IsNullOrEmpty(ActiveQuery))
-            {
-                result = Icons.Where(x => x.Name.Contains(ActiveQuery, StringComparison.OrdinalIgnoreCase));
-            }
-
-            if (!string.IsNullOrEmpty(LibraryFilter))
-            {
-                result = result.Where(x => x.Library == LibraryFilter);
-            }
-
-            filteredIcons.Clear();
-            filteredIcons.AddRange(result);
-
             return filteredIcons;
         }
     }
 
+    public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
+
     public IList<IconEntry> Icons { get; } = new List<IconEntry>();
+
+    public string? IconsFilteredCount => filteredIcons.Count.ToString("N0");
+
+    public string IconsTotalCount => Icons.Count.ToString("N0");
 
     public bool IsShowingModal { get; set; }
 
@@ -93,6 +105,7 @@ public partial class Index : IDisposable
             if (libraryFilter != value)
             {
                 libraryFilter = value;
+                LoadFilteredIcons();
                 StateHasChanged();
             }
         }
@@ -134,6 +147,8 @@ public partial class Index : IDisposable
         AddLibraryIcons(typeof(Ionicon));
         AddLibraryIcons(typeof(FluentUiIcon));
         AddLibraryIcons(typeof(FluentUiFilledIcon));
+
+        LoadFilteredIcons();
 
         return base.OnInitializedAsync();
     }

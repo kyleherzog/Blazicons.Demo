@@ -5,10 +5,14 @@
 <main class="d-flex flex-nowrap align-items-stretch">
     <div class="p-3 flex-shrink-0 text-light bg-dark border-end border-secondary" style="overflow-y: auto;">
         <EditForm Model="Search">
-            <div class="mb-3">
+            <div>
                 <input type="search" placeholder="Search..." id="SearchQuery" class="form-control" @bind-value="@Search.Query" @bind-value:event="oninput" />
             </div>
         </EditForm>
+        <div class="text-muted text-center mb-3">
+            <IconCount IconsFilteredCount="@IconsFilteredCount" IconsTotalCount="@IconsTotalCount"></IconCount>
+        </div>
+
         <CascadingValue Value="this">
             <div class="btn-group-vertical w-100" role="group">
                 <FontLibrarySelection IsSelected="true"><Blazicon Svg="MdiIcon.FilterOff" /> All Icon Libraries</FontLibrarySelection>
@@ -34,7 +38,7 @@
                 <div>--No icons found--</div>
             }
 
-            <Virtualize Items="FilteredIcons" Context="icon" OverscanCount="144">
+            <Virtualize @ref="VirtualizedIcons" Items="FilteredIcons" Context="icon" OverscanCount="144">
                 <button class="icon-tile col-lg-1 col-md-2 col-sm-3 mb-3 text-center text-light" title="@icon.Code" @onclick="() => ShowIconDetails(icon)">
 
                     <div style="font-size: 300%; line-height: 1;"><Blazicon Svg="icon.Icon"></Blazicon></div>
