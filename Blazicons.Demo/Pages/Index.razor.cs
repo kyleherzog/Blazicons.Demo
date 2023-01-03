@@ -6,8 +6,8 @@ namespace Blazicons.Demo.Pages;
 
 public partial class Index : IDisposable
 {
-    private string? activeQuery;
     private readonly List<IconEntry> filteredIcons = new();
+    private string? activeQuery;
     private bool hasDisposed;
     private string? libraryFilter;
     private IDisposable? queryChangedSubscription;
@@ -34,7 +34,7 @@ public partial class Index : IDisposable
 
     public string ActiveIconDisplayName => ActiveIcon?.Name.ExpandToTitleCase() ?? string.Empty;
 
-    public string ActiveIconExample => $"<Blazicon Svg=\"{ActiveIcon.Code}\"></Blazicon>";
+    public string ActiveIconExample => $"<Blazicon Svg=\"{ActiveIcon.Code}\" />";
 
     public string ActiveIconNugetAddress => $"https://www.nuget.org/packages/{ActiveIcon.Assembly}";
 

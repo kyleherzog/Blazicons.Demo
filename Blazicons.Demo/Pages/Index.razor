@@ -11,19 +11,19 @@
         </EditForm>
         <CascadingValue Value="this">
             <div class="btn-group-vertical w-100" role="group">
-                <FontLibrarySelection IsSelected="true"><Blazicon Svg="MdiIcon.FilterOff"></Blazicon> All Icon Libraries</FontLibrarySelection>
-                <FontLibrarySelection Name="MdiIcon"><Blazicon Svg="MdiIcon.VectorSquare"></Blazicon> Material Design Icons</FontLibrarySelection>
-                <FontLibrarySelection Name="FontAwesomeRegularIcon"><Blazicon Svg="FontAwesomeRegularIcon.FontAwesome"></Blazicon> Font Awesome - Regular</FontLibrarySelection>
-                <FontLibrarySelection Name="FontAwesomeSolidIcon"><Blazicon Svg="FontAwesomeSolidIcon.FontAwesome"></Blazicon> Font Awesome - Solid</FontLibrarySelection>
-                <FontLibrarySelection Name="BootstrapIcon"><Blazicon Svg="BootstrapIcon.BootstrapFill"></Blazicon> Bootstrap</FontLibrarySelection>
-                <FontLibrarySelection Name="GoogleMaterialOutlinedIcon"><Blazicon Svg="GoogleMaterialOutlinedIcon.DesignServices"></Blazicon> Google Material - Outlined</FontLibrarySelection>
-                <FontLibrarySelection Name="GoogleMaterialFilledIcon"><Blazicon Svg="GoogleMaterialFilledIcon.DesignServices"></Blazicon> Google Material - Filled</FontLibrarySelection>
-                <FontLibrarySelection Name="GoogleMaterialRoundIcon"><Blazicon Svg="GoogleMaterialRoundIcon.DesignServices"></Blazicon> Google Material - Round</FontLibrarySelection>
-                <FontLibrarySelection Name="GoogleMaterialSharpIcon"><Blazicon Svg="GoogleMaterialSharpIcon.DesignServices"></Blazicon> Google Material - Sharp</FontLibrarySelection>
-                <FontLibrarySelection Name="GoogleMaterialTwoToneIcon"><Blazicon Svg="GoogleMaterialTwoToneIcon.DesignServices"></Blazicon> Google Material - Two Tone</FontLibrarySelection>
-                <FontLibrarySelection Name="Ionicon"><Blazicon Svg="Ionicon.LogoIonic"></Blazicon> Ionicons</FontLibrarySelection>
-                <FontLibrarySelection Name="FluentUiIcon"><Blazicon Svg="FluentUiIcon.Fluent"></Blazicon> Fluent UI</FontLibrarySelection>
-                <FontLibrarySelection Name="FluentUiFilledIcon"><Blazicon Svg="FluentUiFilledIcon.Fluent"></Blazicon> Fluent UI - Filled</FontLibrarySelection>
+                <FontLibrarySelection IsSelected="true"><Blazicon Svg="MdiIcon.FilterOff" /> All Icon Libraries</FontLibrarySelection>
+                <FontLibrarySelection Name="MdiIcon"><Blazicon Svg="MdiIcon.VectorSquare" /> Material Design Icons</FontLibrarySelection>
+                <FontLibrarySelection Name="FontAwesomeRegularIcon"><Blazicon Svg="FontAwesomeRegularIcon.FontAwesome" /> Font Awesome - Regular</FontLibrarySelection>
+                <FontLibrarySelection Name="FontAwesomeSolidIcon"><Blazicon Svg="FontAwesomeSolidIcon.FontAwesome" /> Font Awesome - Solid</FontLibrarySelection>
+                <FontLibrarySelection Name="BootstrapIcon"><Blazicon Svg="BootstrapIcon.BootstrapFill" /> Bootstrap</FontLibrarySelection>
+                <FontLibrarySelection Name="GoogleMaterialOutlinedIcon"><Blazicon Svg="GoogleMaterialOutlinedIcon.DesignServices" /> Google Material - Outlined</FontLibrarySelection>
+                <FontLibrarySelection Name="GoogleMaterialFilledIcon"><Blazicon Svg="GoogleMaterialFilledIcon.DesignServices" /> Google Material - Filled</FontLibrarySelection>
+                <FontLibrarySelection Name="GoogleMaterialRoundIcon"><Blazicon Svg="GoogleMaterialRoundIcon.DesignServices" /> Google Material - Round</FontLibrarySelection>
+                <FontLibrarySelection Name="GoogleMaterialSharpIcon"><Blazicon Svg="GoogleMaterialSharpIcon.DesignServices" /> Google Material - Sharp</FontLibrarySelection>
+                <FontLibrarySelection Name="GoogleMaterialTwoToneIcon"><Blazicon Svg="GoogleMaterialTwoToneIcon.DesignServices" /> Google Material - Two Tone</FontLibrarySelection>
+                <FontLibrarySelection Name="Ionicon"><Blazicon Svg="Ionicon.LogoIonic" /> Ionicons</FontLibrarySelection>
+                <FontLibrarySelection Name="FluentUiIcon"><Blazicon Svg="FluentUiIcon.Fluent" /> Fluent UI</FontLibrarySelection>
+                <FontLibrarySelection Name="FluentUiFilledIcon"><Blazicon Svg="FluentUiFilledIcon.Fluent" /> Fluent UI - Filled</FontLibrarySelection>
             </div>
         </CascadingValue>
     </div>
@@ -60,18 +60,17 @@
                         <span style="line-height: 1; font-size: 300%;">
                             <Blazicon Svg='ActiveIcon.Icon'></Blazicon>
                         </span>
-                        @ActiveIcon.Code <a href="@ActiveIconCopyNameLink" title="Copy"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
+                        @ActiveIcon.Code <a href="@ActiveIconCopyNameLink" title="Copy Blazicon Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
                     </div>
 
                     <div class="mb-3">
-                        <strong>Package</strong>
+                        <strong>Package</strong> <a href="@ActiveIconCopyPackageLink" title="Copy Package Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
                         <div>
                             <a target="_blank" href="@ActiveIconNugetAddress"><img alt="@ActiveIcon.Assembly" title="@ActiveIcon.Assembly" src="@ActiveIcon.BadgeLink"></a>
-                            <a href="@ActiveIconCopyPackageLink" title="Copy"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
                         </div>
                     </div>
 
-                    <strong>Example</strong> <a href="@ActiveIconCopyExampleLink" title="Copy"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
+                    <strong>Example</strong> <a href="@ActiveIconCopyExampleLink" title="Copy Example"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
                     <div>
                         <code>@ActiveIconExample</code>
                     </div>
