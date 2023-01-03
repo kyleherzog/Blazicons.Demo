@@ -4,25 +4,8 @@ namespace Blazicons.Demo.Components;
 
 public partial class IconCount
 {
-    private string iconsFilteredCount = string.Empty;
-
     [Parameter]
-    public string IconsFilteredCount
-    {
-        get
-        {
-            return iconsFilteredCount;
-        }
-
-        set
-        {
-            if (iconsFilteredCount != value)
-            {
-                iconsFilteredCount = value;
-                _ = InvokeAsync(StateHasChanged);
-            }
-        }
-    }
+    public string IconsFilteredCount { get; set; } = string.Empty;
 
     [Parameter]
     public string IconsTotalCount { get; set; } = string.Empty;
