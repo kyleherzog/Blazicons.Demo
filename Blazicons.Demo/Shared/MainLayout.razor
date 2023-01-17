@@ -1,21 +1,21 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="d-flex flex-column" style="max-height: 100vh; overflow-y:hidden;">
+<div class="d-flex flex-column bg-dark" style="max-height: 100vh; overflow-y:hidden;">
     <header>
-        <nav class="navbar navbar-expand bg-primary bg-gradient navbar-dark text-white px-2">
+        <nav class="navbar navbar-expand bg-primary bg-gradient navbar-dark text-white px-md-2 pt-0 pb-1 py-md-2">
             <div class="container-fluid">
-                <div class="row w-100">
-                    <div class="col">
-                        <a class="navbar-brand me-0" href="/"><Blazicon Svg="@Logo"></Blazicon> Blazicons</a>
-                        <span class="tagline"> - Icon Component Libraries for Blazor</span>
+                <div class="d-flex justify-content-between w-100">
+                    <div>
+                        <a class="navbar-brand me-2 d-block d-md-inline" href="/"><Blazicon Svg="@Logo"></Blazicon> Blazicons</a>
+                        <span class="tagline d-none d-md-inline">Icon Component Libraries for Blazor</span>
                     </div>
-                    <div class="col text-end pe-0">
+                    <div class="text-end pe-0">
                         <ul class="navbar-nav justify-content-end">
                             <li class="nav-item">
-                                <a href="https://twitter.com/kyleherzog" target="_blank" title="Twitter" class="nav-link"><Blazicon Svg="MdiIcon.Twitter"></Blazicon></a>
+                                <a href="https://github.com/kyleherzog/Blazicons#overview" target="_blank" title="Help/Documentation" class="nav-link"><Blazicon Svg="MdiIcon.HelpCircle" /></a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/kyleherzog/Blazicons" target="_blank" title="GitHub Repo" class="nav-link"><Blazicon Svg="MdiIcon.Github"></Blazicon></a>
+                                <a href="https://github.com/kyleherzog/Blazicons" target="_blank" title="GitHub Repo" class="nav-link"><Blazicon Svg="MdiIcon.Github" /></a>
                             </li>
                         </ul>
                     </div>
@@ -24,4 +24,7 @@
         </nav>
     </header>
     <div class="flex-fill">@Body</div>
+    <div>
+        <Footer></Footer>
+    </div>
 </div>

@@ -2,35 +2,47 @@
 
 <PageTitle>Blazicons</PageTitle>
 
-<main class="d-flex flex-nowrap align-items-stretch">
-    <div class="p-3 flex-shrink-0 text-light bg-dark border-end border-secondary" style="overflow-y: auto;">
+<main class="d-flex flex-column flex-md-row flex-nowrap align-items-stretch">
+    <div class="p-3 pb-md-3 pb-0 flex-shrink-0" style="overflow-y: auto;">
+        <div class="text-light">
         <EditForm Model="Search">
             <div>
                 <input type="search" placeholder="Search..." id="SearchQuery" class="form-control" @bind-value="@Search.Query" @bind-value:event="oninput" />
             </div>
         </EditForm>
-        <div class="text-muted text-center mb-3">
+        <div class="text-muted text-center">
             <IconCount IconsFilteredCount="@IconsFilteredCount" IconsTotalCount="@IconsTotalCount"></IconCount>
+            <div class="@FilterAreaTogglerClass">
+                <a href="javascript:void()" @onclick="HandleFilterExpandToggle"><FilterDisplay ChildContent="LibraryFilterContent"></FilterDisplay></a>
+            </div>
         </div>
 
-        <CascadingValue Value="this">
-            <div class="btn-group-vertical w-100" role="group">
-                <FontLibrarySelection IsSelected="true"><Blazicon Svg="MdiIcon.FilterOff" /> All Icon Libraries</FontLibrarySelection>
-                <FontLibrarySelection Name="MdiIcon"><Blazicon Svg="MdiIcon.VectorSquare" /> Material Design Icons</FontLibrarySelection>
-                <FontLibrarySelection Name="FontAwesomeRegularIcon"><Blazicon Svg="FontAwesomeRegularIcon.FontAwesome" /> Font Awesome - Regular</FontLibrarySelection>
-                <FontLibrarySelection Name="FontAwesomeSolidIcon"><Blazicon Svg="FontAwesomeSolidIcon.FontAwesome" /> Font Awesome - Solid</FontLibrarySelection>
-                <FontLibrarySelection Name="BootstrapIcon"><Blazicon Svg="BootstrapIcon.BootstrapFill" /> Bootstrap</FontLibrarySelection>
-                <FontLibrarySelection Name="GoogleMaterialOutlinedIcon"><Blazicon Svg="GoogleMaterialOutlinedIcon.DesignServices" /> Google Material - Outlined</FontLibrarySelection>
-                <FontLibrarySelection Name="GoogleMaterialFilledIcon"><Blazicon Svg="GoogleMaterialFilledIcon.DesignServices" /> Google Material - Filled</FontLibrarySelection>
-                <FontLibrarySelection Name="GoogleMaterialRoundIcon"><Blazicon Svg="GoogleMaterialRoundIcon.DesignServices" /> Google Material - Round</FontLibrarySelection>
-                <FontLibrarySelection Name="GoogleMaterialSharpIcon"><Blazicon Svg="GoogleMaterialSharpIcon.DesignServices" /> Google Material - Sharp</FontLibrarySelection>
-                <FontLibrarySelection Name="GoogleMaterialTwoToneIcon"><Blazicon Svg="GoogleMaterialTwoToneIcon.DesignServices" /> Google Material - Two Tone</FontLibrarySelection>
-                <FontLibrarySelection Name="Ionicon"><Blazicon Svg="Ionicon.LogoIonic" /> Ionicons</FontLibrarySelection>
-                <FontLibrarySelection Name="FluentUiIcon"><Blazicon Svg="FluentUiIcon.Fluent" /> Fluent UI</FontLibrarySelection>
-                <FontLibrarySelection Name="FluentUiFilledIcon"><Blazicon Svg="FluentUiFilledIcon.Fluent" /> Fluent UI - Filled</FontLibrarySelection>
+       <CascadingValue Value="this">
+            <div class="@FilterAreaClass">
+                <div class="btn-group-vertical w-100 mb-2" role="group">
+                    <FontLibrarySelection><Blazicon Svg="MdiIcon.FilterOff" /> All Icon Libraries</FontLibrarySelection>
+                    <FontLibrarySelection Name="MdiIcon"><Blazicon Svg="MdiIcon.VectorSquare" /> Material Design Icons</FontLibrarySelection>
+                    <FontLibrarySelection Name="FontAwesomeRegularIcon"><Blazicon Svg="FontAwesomeRegularIcon.FontAwesome" /> Font Awesome - Regular</FontLibrarySelection>
+                    <FontLibrarySelection Name="FontAwesomeSolidIcon"><Blazicon Svg="FontAwesomeSolidIcon.FontAwesome" /> Font Awesome - Solid</FontLibrarySelection>
+                    <FontLibrarySelection Name="BootstrapIcon"><Blazicon Svg="BootstrapIcon.BootstrapFill" /> Bootstrap</FontLibrarySelection>
+                    <FontLibrarySelection Name="GoogleMaterialOutlinedIcon"><Blazicon Svg="GoogleMaterialOutlinedIcon.DesignServices" /> Google Material - Outlined</FontLibrarySelection>
+                    <FontLibrarySelection Name="GoogleMaterialFilledIcon"><Blazicon Svg="GoogleMaterialFilledIcon.DesignServices" /> Google Material - Filled</FontLibrarySelection>
+                    <FontLibrarySelection Name="GoogleMaterialRoundIcon"><Blazicon Svg="GoogleMaterialRoundIcon.DesignServices" /> Google Material - Round</FontLibrarySelection>
+                    <FontLibrarySelection Name="GoogleMaterialSharpIcon"><Blazicon Svg="GoogleMaterialSharpIcon.DesignServices" /> Google Material - Sharp</FontLibrarySelection>
+                    <FontLibrarySelection Name="GoogleMaterialTwoToneIcon"><Blazicon Svg="GoogleMaterialTwoToneIcon.DesignServices" /> Google Material - Two Tone</FontLibrarySelection>
+                    <FontLibrarySelection Name="Ionicon"><Blazicon Svg="Ionicon.LogoIonic" /> Ionicons</FontLibrarySelection>
+                    <FontLibrarySelection Name="FluentUiIcon"><Blazicon Svg="FluentUiIcon.Fluent" /> Fluent UI</FontLibrarySelection>
+                    <FontLibrarySelection Name="FluentUiFilledIcon"><Blazicon Svg="FluentUiFilledIcon.Fluent" /> Fluent UI - Filled</FontLibrarySelection>
+                </div>
             </div>
         </CascadingValue>
+        <div class="mt-4 d-none d-md-block">
+            <Footer></Footer>
+        </div>
+        </div>
     </div>
+    <div class="border-secondary border-start d-none d-md-block"></div>
+    <hr class="p-0 m-0 border-top border-secondary d-md-none" />
     <div class="flex-fill container-fluid text-light bg-dark" style="overflow-y: auto;">
         <div class="row icons-area pt-3">
             @if(!FilteredIcons.Any())
@@ -39,7 +51,7 @@
             }
 
             <Virtualize @ref="VirtualizedIcons" Items="FilteredIcons" Context="icon" OverscanCount="144">
-                <button class="icon-tile col-lg-1 col-md-2 col-sm-3 mb-3 text-center text-light" title="@icon.Code" @onclick="() => ShowIconDetails(icon)">
+                <button class="icon-tile col-xxl-1 col-xl-2 col-lg-3 col-md-4 col-sm-3 col-4 mb-3 text-center text-light" title="@icon.Code" @onclick="() => ShowIconDetails(icon)">
 
                     <div style="font-size: 300%; line-height: 1;"><Blazicon Svg="icon.Icon"></Blazicon></div>
                     <div class="small text-truncate icon-name">@icon.Name</div>
@@ -48,7 +60,6 @@
         </div>
     </div>
 </main>
-
 
 @if (IsShowingModal)
 {
@@ -76,7 +87,7 @@
 
                     <strong>Example</strong> <a href="@ActiveIconCopyExampleLink" title="Copy Example"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
                     <div>
-                        <code>@ActiveIconExample</code>
+                        <code class="text-nowrap">@ActiveIconExample</code>
                     </div>
                 </div>
                 <div class="modal-footer bg-dark rounded-0">
@@ -87,7 +98,3 @@
     </div>
     <a class="modal-backdrop fade show" style="display: block;"></a>
 }
-
-
-
-

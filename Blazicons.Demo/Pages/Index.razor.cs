@@ -2,6 +2,7 @@
 using Blazicons.Demo.Components;
 using Blazicons.Demo.Models;
 using CodeCasing;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace Blazicons.Demo.Pages;
@@ -11,8 +12,9 @@ public partial class Index : IDisposable
     private readonly List<IconEntry> filteredIcons = new();
     private string? activeQuery;
     private bool hasDisposed;
-    private string? libraryFilter;
+    private string libraryFilter = string.Empty;
     private IDisposable? queryChangedSubscription;
+    private RenderFragment? libraryFilterContent;
 
     public Index()
     {
@@ -58,22 +60,28 @@ public partial class Index : IDisposable
         }
     }
 
-    private void LoadFilteredIcons()
+    private bool areaFiltersExpanded;
+
+    public bool AreaFiltersExpanded
     {
-        var result = Icons.AsEnumerable();
-        if (!string.IsNullOrEmpty(ActiveQuery))
+        get
         {
-            result = Icons.Where(x => x.Name.Contains(ActiveQuery, StringComparison.OrdinalIgnoreCase));
+            return areaFiltersExpanded;
         }
 
-        if (!string.IsNullOrEmpty(LibraryFilter))
+        set
         {
-            result = result.Where(x => x.Library == LibraryFilter);
+            if (areaFiltersExpanded != value)
+            {
+                areaFiltersExpanded = value;
+                _ = InvokeAsync(StateHasChanged);
+            }
         }
-
-        filteredIcons.Clear();
-        filteredIcons.AddRange(result);
     }
+
+    public string FilterAreaTogglerClass => AreaFiltersExpanded ? "d-none" : "d-md-none";
+
+    public string FilterAreaClass => AreaFiltersExpanded ? "mt-1 mt-md-3" : "d-none d-md-block mt-1 mt-md-3";
 
     public IList<IconEntry> FilteredIcons
     {
@@ -83,8 +91,6 @@ public partial class Index : IDisposable
         }
     }
 
-    public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
-
     public IList<IconEntry> Icons { get; } = new List<IconEntry>();
 
     public string? IconsFilteredCount => filteredIcons.Count.ToString("N0");
@@ -93,7 +99,9 @@ public partial class Index : IDisposable
 
     public bool IsShowingModal { get; set; }
 
-    public string? LibraryFilter
+    public IList<FontLibrarySelection> Filters { get; } = new List<FontLibrarySelection>();
+
+    public string LibraryFilter
     {
         get
         {
@@ -105,13 +113,37 @@ public partial class Index : IDisposable
             if (libraryFilter != value)
             {
                 libraryFilter = value;
+                foreach (var filter in Filters)
+                {
+                    filter.ParentFilterChanged(value);
+                }
+
                 LoadFilteredIcons();
                 StateHasChanged();
             }
         }
     }
 
+    public RenderFragment? LibraryFilterContent
+    {
+        get
+        {
+            return libraryFilterContent;
+        }
+
+        set
+        {
+            if (libraryFilterContent != value)
+            {
+                libraryFilterContent = value;
+                _ = InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+
     public IconSearchModel Search { get; }
+
+    public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
 
     public void Dispose()
     {
@@ -180,6 +212,23 @@ public partial class Index : IDisposable
         IsShowingModal = false;
     }
 
+    private void LoadFilteredIcons()
+    {
+        var result = Icons.AsEnumerable();
+        if (!string.IsNullOrEmpty(ActiveQuery))
+        {
+            result = Icons.Where(x => x.Name.Contains(ActiveQuery, StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (!string.IsNullOrEmpty(LibraryFilter))
+        {
+            result = result.Where(x => x.Library == LibraryFilter);
+        }
+
+        filteredIcons.Clear();
+        filteredIcons.AddRange(result);
+    }
+
     private void ShowIconDetails(IconEntry entry)
     {
         ActiveIcon = entry;
@@ -199,5 +248,10 @@ public partial class Index : IDisposable
     private void UnsubsribeFromChanges()
     {
         queryChangedSubscription?.Dispose();
+    }
+
+    private void HandleFilterExpandToggle()
+    {
+        AreaFiltersExpanded = !AreaFiltersExpanded;
     }
 }
