@@ -60,20 +60,27 @@
 }
 a {
   color: #bd9de1;
+  text-decoration: none;
 }
 a:hover {
   color: #9c6cd2;
+  text-decoration: underline;
 }
 
 main {
-  min-height: calc(100vh - 3.3em);
-  max-height: calc(100vh - 3.3em);
   overflow-x: auto;
   overflow-y: hidden;
+  height: calc(100vh - 6.3em);
+}
+@media (min-width: 768px) {
+  main {
+    height: calc(100vh - 3.3em);
+  }
 }
 
 .tagline {
   vertical-align: 0.1em;
+  color: #bbb !important;
 }
 
 .navbar {
@@ -157,7 +164,10 @@ h1:focus {
   color: #333;
 }
 
-.btn-check:checked + .font-library-selection, .font-library-selection:hover {
+.font-library-selection label {
+  cursor: pointer;
+}
+.font-library-selection.filter-selected, .font-library-selection:hover {
   border-color: #5c2d91 !important;
   background-color: #bd9de1 !important;
   color: #000 !important;

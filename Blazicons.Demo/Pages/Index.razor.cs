@@ -1,6 +1,8 @@
 ﻿using System.Reactive.Linq;
+using Blazicons.Demo.Components;
 using Blazicons.Demo.Models;
 using CodeCasing;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace Blazicons.Demo.Pages;
@@ -9,8 +11,10 @@ public partial class Index : IDisposable
 {
     private readonly List<IconEntry> filteredIcons = new();
     private string? activeQuery;
+    private bool areaFiltersExpanded;
     private bool hasDisposed;
-    private string? libraryFilter;
+    private string libraryFilter = string.Empty;
+    private RenderFragment? libraryFilterContent;
     private IDisposable? queryChangedSubscription;
 
     public Index()
@@ -57,6 +61,27 @@ public partial class Index : IDisposable
         }
     }
 
+    public bool AreaFiltersExpanded
+    {
+        get
+        {
+            return areaFiltersExpanded;
+        }
+
+        set
+        {
+            if (areaFiltersExpanded != value)
+            {
+                areaFiltersExpanded = value;
+                _ = InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+
+    public string FilterAreaClass => AreaFiltersExpanded ? "mt-1 mt-md-3" : "d-none d-md-block mt-1 mt-md-3";
+
+    public string FilterAreaTogglerClass => AreaFiltersExpanded ? "d-none" : "d-md-none";
+
     public IList<IconEntry> FilteredIcons
     {
         get
@@ -64,6 +89,8 @@ public partial class Index : IDisposable
             return filteredIcons;
         }
     }
+
+    public IList<FontLibrarySelection> Filters { get; } = new List<FontLibrarySelection>();
 
     public IList<IconEntry> Icons { get; } = new List<IconEntry>();
 
@@ -73,7 +100,7 @@ public partial class Index : IDisposable
 
     public bool IsShowingModal { get; set; }
 
-    public string? LibraryFilter
+    public string LibraryFilter
     {
         get
         {
@@ -85,8 +112,30 @@ public partial class Index : IDisposable
             if (libraryFilter != value)
             {
                 libraryFilter = value;
+                foreach (var filter in Filters)
+                {
+                    filter.ParentFilterChanged(value);
+                }
+
                 LoadFilteredIcons();
                 StateHasChanged();
+            }
+        }
+    }
+
+    public RenderFragment? LibraryFilterContent
+    {
+        get
+        {
+            return libraryFilterContent;
+        }
+
+        set
+        {
+            if (libraryFilterContent != value)
+            {
+                libraryFilterContent = value;
+                _ = InvokeAsync(StateHasChanged);
             }
         }
     }
@@ -155,6 +204,11 @@ public partial class Index : IDisposable
                 });
             }
         }
+    }
+
+    private void HandleFilterExpandToggle()
+    {
+        AreaFiltersExpanded = !AreaFiltersExpanded;
     }
 
     private void HideModal()
