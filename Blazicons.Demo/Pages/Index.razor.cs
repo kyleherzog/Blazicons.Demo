@@ -11,10 +11,11 @@ public partial class Index : IDisposable
 {
     private readonly List<IconEntry> filteredIcons = new();
     private string? activeQuery;
+    private bool areaFiltersExpanded;
     private bool hasDisposed;
     private string libraryFilter = string.Empty;
-    private IDisposable? queryChangedSubscription;
     private RenderFragment? libraryFilterContent;
+    private IDisposable? queryChangedSubscription;
 
     public Index()
     {
@@ -60,8 +61,6 @@ public partial class Index : IDisposable
         }
     }
 
-    private bool areaFiltersExpanded;
-
     public bool AreaFiltersExpanded
     {
         get
@@ -79,9 +78,9 @@ public partial class Index : IDisposable
         }
     }
 
-    public string FilterAreaTogglerClass => AreaFiltersExpanded ? "d-none" : "d-md-none";
-
     public string FilterAreaClass => AreaFiltersExpanded ? "mt-1 mt-md-3" : "d-none d-md-block mt-1 mt-md-3";
+
+    public string FilterAreaTogglerClass => AreaFiltersExpanded ? "d-none" : "d-md-none";
 
     public IList<IconEntry> FilteredIcons
     {
@@ -91,6 +90,8 @@ public partial class Index : IDisposable
         }
     }
 
+    public IList<FontLibrarySelection> Filters { get; } = new List<FontLibrarySelection>();
+
     public IList<IconEntry> Icons { get; } = new List<IconEntry>();
 
     public string? IconsFilteredCount => filteredIcons.Count.ToString("N0");
@@ -98,8 +99,6 @@ public partial class Index : IDisposable
     public string IconsTotalCount => Icons.Count.ToString("N0");
 
     public bool IsShowingModal { get; set; }
-
-    public IList<FontLibrarySelection> Filters { get; } = new List<FontLibrarySelection>();
 
     public string LibraryFilter
     {
@@ -207,6 +206,11 @@ public partial class Index : IDisposable
         }
     }
 
+    private void HandleFilterExpandToggle()
+    {
+        AreaFiltersExpanded = !AreaFiltersExpanded;
+    }
+
     private void HideModal()
     {
         IsShowingModal = false;
@@ -248,10 +252,5 @@ public partial class Index : IDisposable
     private void UnsubsribeFromChanges()
     {
         queryChangedSubscription?.Dispose();
-    }
-
-    private void HandleFilterExpandToggle()
-    {
-        AreaFiltersExpanded = !AreaFiltersExpanded;
     }
 }
