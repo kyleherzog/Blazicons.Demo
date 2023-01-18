@@ -1,6 +1,7 @@
 ﻿using System.Reactive.Linq;
 using Blazicons.Demo.Components;
 using Blazicons.Demo.Models;
+using Blazor.Analytics;
 using CodeCasing;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -60,6 +61,9 @@ public partial class Index : IDisposable
             }
         }
     }
+
+    [Inject]
+    public IAnalytics? Analytics { get; set; }
 
     public bool AreaFiltersExpanded
     {
@@ -237,6 +241,11 @@ public partial class Index : IDisposable
     {
         ActiveIcon = entry;
         ShowModal();
+
+        if (Analytics is not null)
+        {
+            _ = Analytics.TrackEvent("select_content", new { content_type = "icon", item_id = entry.Code }).ConfigureAwait(true);
+        }
     }
 
     private void ShowModal()

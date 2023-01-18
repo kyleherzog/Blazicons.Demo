@@ -156,6 +156,7 @@
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="1.0.5" />
     <PackageReference Include="Blazicons.Ionicons" Version="1.0.3" />
     <PackageReference Include="Blazicons.MaterialDesignIcons" Version="1.0.3" />
+    <PackageReference Include="Blazor-Analytics" Version="3.11.0" />
     <PackageReference Include="CodeCasing" Version="2.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.1" PrivateAssets="all" />
