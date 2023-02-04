@@ -225,7 +225,8 @@ public partial class Index : IDisposable
         var result = Icons.AsEnumerable();
         if (!string.IsNullOrEmpty(ActiveQuery))
         {
-            result = Icons.Where(x => x.Name.Contains(ActiveQuery, StringComparison.OrdinalIgnoreCase));
+            var queryWords = ActiveQuery.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            result = Icons.Where(x => queryWords.All(w => x.Name.Contains(w, StringComparison.OrdinalIgnoreCase)));
         }
 
         if (!string.IsNullOrEmpty(LibraryFilter))
