@@ -2,7 +2,6 @@
 using Blazicons.Demo.Components;
 using Blazicons.Demo.Models;
 using Blazor.Analytics;
-using CodeCasing;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
@@ -31,18 +30,6 @@ public partial class Index : IDisposable
     }
 
     public IconEntry ActiveIcon { get; set; } = new IconEntry();
-
-    public string ActiveIconCopyExampleLink => $"javascript:navigator.clipboard.writeText('{ActiveIconExample}');";
-
-    public string ActiveIconCopyNameLink => $"javascript:navigator.clipboard.writeText('{ActiveIcon.Code}');";
-
-    public string ActiveIconCopyPackageLink => $"javascript:navigator.clipboard.writeText('{ActiveIcon.Assembly}');";
-
-    public string ActiveIconDisplayName => ActiveIcon?.Name.ExpandToTitleCase() ?? string.Empty;
-
-    public string ActiveIconExample => $"<Blazicon Svg=\"{ActiveIcon.Code}\" />";
-
-    public string ActiveIconNugetAddress => $"https://www.nuget.org/packages/{ActiveIcon.Assembly}";
 
     public string? ActiveQuery
     {
@@ -102,6 +89,8 @@ public partial class Index : IDisposable
 
     public string IconsTotalCount => Icons.Count.ToString("N0");
 
+    public bool IsAdminMode { get; set; }
+
     public bool IsShowingModal { get; set; }
 
     public string LibraryFilter
@@ -144,9 +133,15 @@ public partial class Index : IDisposable
         }
     }
 
+    [Inject]
+    public NavigationManager Navigation { get; set; } = default!;
+
     public IconSearchModel Search { get; }
 
     public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
+
+    [Inject]
+    private KeywordsManager KeywordsManager { get; set; } = default!;
 
     public void Dispose()
     {
@@ -170,6 +165,9 @@ public partial class Index : IDisposable
 
     protected override Task OnInitializedAsync()
     {
+        var uri = new Uri(Navigation.Uri);
+        IsAdminMode = uri.AbsolutePath.EndsWith("admin", StringComparison.OrdinalIgnoreCase);
+
         AddLibraryIcons(typeof(MdiIcon));
         AddLibraryIcons(typeof(FontAwesomeRegularIcon));
         AddLibraryIcons(typeof(FontAwesomeSolidIcon));
@@ -199,13 +197,21 @@ public partial class Index : IDisposable
             var icon = (SvgIcon?)property.GetValue(null);
             if (icon is not null)
             {
-                Icons.Add(new IconEntry
+                var entry = new IconEntry
                 {
                     Name = property.Name,
                     Icon = icon,
                     Library = type.Name,
                     Assembly = type.Assembly?.GetName().Name ?? string.Empty,
-                });
+                };
+
+                var key = entry.Code;
+                if (KeywordsManager.Keywords.ContainsKey(key))
+                {
+                    entry.Keywords = KeywordsManager.Keywords[key];
+                }
+
+                Icons.Add(entry);
             }
         }
     }
@@ -226,7 +232,7 @@ public partial class Index : IDisposable
         if (!string.IsNullOrEmpty(ActiveQuery))
         {
             var queryWords = ActiveQuery.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            result = Icons.Where(x => queryWords.All(w => x.Name.Contains(w, StringComparison.OrdinalIgnoreCase)));
+            result = Icons.Where(x => queryWords.All(w => x.SearchTerms.Contains(w, StringComparison.OrdinalIgnoreCase)));
         }
 
         if (!string.IsNullOrEmpty(LibraryFilter))

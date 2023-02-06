@@ -1,4 +1,5 @@
 ﻿@page "/"
+@page "/admin"
 
 <PageTitle>Blazicons</PageTitle>
 
@@ -67,28 +68,44 @@
         <div class="modal-dialog">
             <div class="modal-content ">
                 <div class="modal-header bg-primary text-white rounded-0">
-                    @ActiveIconDisplayName
+                    @ActiveIcon.DisplayName
                     <button type="button" class="btn-close btn-close-white" aria-label="Close" @onclick="HideModal"></button>
                 </div>
                 <div class="modal-body bg-dark text-light">
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <span style="line-height: 1; font-size: 300%;">
                             <Blazicon Svg='ActiveIcon.Icon'></Blazicon>
                         </span>
-                        @ActiveIcon.Code <a href="@ActiveIconCopyNameLink" title="Copy Blazicon Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
+                        @ActiveIcon.Code <a href="@ActiveIcon.CopyNameLink" title="Copy Blazicon Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
                     </div>
 
-                    <div class="mb-3">
-                        <strong>Package</strong> <a href="@ActiveIconCopyPackageLink" title="Copy Package Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
+
+                    <div class="mb-3 small">
+                        <strong>Keywords</strong>
                         <div>
-                            <a target="_blank" href="@ActiveIconNugetAddress"><img alt="@ActiveIcon.Assembly" title="@ActiveIcon.Assembly" src="@ActiveIcon.BadgeLink"></a>
+                                @if (string.IsNullOrEmpty(ActiveIcon.Keywords))
+                                {
+                                    <span>-None-</span>
+                                }
+                                else
+                                {
+                                    @ActiveIcon.Keywords
+                                }
                         </div>
                     </div>
 
-                    <strong>Example</strong> <a href="@ActiveIconCopyExampleLink" title="Copy Example"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
-                    <div>
-                        <code class="text-nowrap">@ActiveIconExample</code>
+                    <div class="mb-3">
+                        <strong>Package</strong> <a href="@ActiveIcon.CopyPackageLink" title="Copy Package Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
+                        <div>
+                            <a target="_blank" href="@ActiveIcon.NugetAddress"><img alt="@ActiveIcon.Assembly" title="@ActiveIcon.Assembly" src="@ActiveIcon.BadgeLink"></a>
+                        </div>
                     </div>
+
+                    <strong>Example</strong> <a href="@ActiveIcon.CopyExampleLink" title="Copy Example"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
+                    <div>
+                        <code class="text-nowrap">@ActiveIcon.Example</code>
+                    </div>
+
                 </div>
                 <div class="modal-footer bg-dark rounded-0">
                     <button type="button" class="btn btn-secondary" @onclick="HideModal">Close</button>
