@@ -6,6 +6,7 @@ public class IconEntry
 {
     private string keywords = string.Empty;
 
+    private string? keywordsPending;
     private string name = string.Empty;
 
     private string searchTerms = string.Empty;
@@ -28,6 +29,8 @@ public class IconEntry
 
     public SvgIcon Icon { get; set; } = SvgIcon.FromContent(string.Empty);
 
+    public bool IsSelected { get; set; }
+
     public string Keywords
     {
         get
@@ -42,6 +45,19 @@ public class IconEntry
                 keywords = value;
                 searchTerms = $"{Name} {keywords}";
             }
+        }
+    }
+
+    public string? KeywordsPending
+    {
+        get
+        {
+            return keywordsPending ?? Keywords;
+        }
+
+        set
+        {
+            keywordsPending = value;
         }
     }
 

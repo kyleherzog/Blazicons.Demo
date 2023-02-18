@@ -157,6 +157,7 @@
     <PackageReference Include="Blazicons.Ionicons" Version="1.1.5" />
     <PackageReference Include="Blazicons.MaterialDesignIcons" Version="1.1.5" />
     <PackageReference Include="Blazor-Analytics" Version="3.11.0" />
+    <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
     <PackageReference Include="CodeCasing" Version="2.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.2" PrivateAssets="all" />

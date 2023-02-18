@@ -1,7 +1,10 @@
 ﻿using System.Reactive.Linq;
+using System.Text;
+using System.Text.Json;
 using Blazicons.Demo.Components;
 using Blazicons.Demo.Models;
 using Blazor.Analytics;
+using BlazorDownloadFile;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
@@ -81,6 +84,8 @@ public partial class Index : IDisposable
         }
     }
 
+    public IEnumerable<IconEntry> SelectedIcons => Icons.Where(x => x.IsSelected);
+
     public IList<FontLibrarySelection> Filters { get; } = new List<FontLibrarySelection>();
 
     public IList<IconEntry> Icons { get; } = new List<IconEntry>();
@@ -90,6 +95,8 @@ public partial class Index : IDisposable
     public string IconsTotalCount => Icons.Count.ToString("N0");
 
     public bool IsAdminMode { get; set; }
+
+    public bool IsSelectingMultiples { get; set; }
 
     public bool IsShowingModal { get; set; }
 
@@ -223,6 +230,7 @@ public partial class Index : IDisposable
 
     private void HideModal()
     {
+        ActiveIcon.KeywordsPending = null;
         IsShowingModal = false;
     }
 
@@ -244,14 +252,21 @@ public partial class Index : IDisposable
         filteredIcons.AddRange(result);
     }
 
-    private void ShowIconDetails(IconEntry entry)
+    private void SelectIcon(IconEntry entry)
     {
-        ActiveIcon = entry;
-        ShowModal();
-
-        if (Analytics is not null)
+        if (IsSelectingMultiples)
         {
-            _ = Analytics.TrackEvent("select_content", new { content_type = "icon", item_id = entry.Code }).ConfigureAwait(true);
+            entry.IsSelected = !entry.IsSelected;
+        }
+        else
+        {
+            ActiveIcon = entry;
+            ShowModal();
+
+            if (Analytics is not null)
+            {
+                _ = Analytics.TrackEvent("select_content", new { content_type = "icon", item_id = entry.Code }).ConfigureAwait(true);
+            }
         }
     }
 
@@ -268,5 +283,89 @@ public partial class Index : IDisposable
     private void UnsubsribeFromChanges()
     {
         queryChangedSubscription?.Dispose();
+    }
+
+    [Inject]
+    private IBlazorDownloadFileService FileDownloader { get; set; } = default!;
+
+    private async Task HandleExportClick()
+    {
+        var serialized = JsonSerializer.Serialize(KeywordsManager.Keywords, new JsonSerializerOptions { WriteIndented = true });
+        await FileDownloader.DownloadFileFromText("SearchMeta.json", serialized, Encoding.Unicode, "text/json").ConfigureAwait(true);
+    }
+
+    private void HandleSubmit()
+    {
+        ActiveIcon.Keywords = ActiveIcon.KeywordsPending ?? string.Empty;
+        KeywordsManager.Keywords[ActiveIcon.Name] = ActiveIcon.Keywords.ToLowerInvariant();
+        HideModal();
+    }
+
+    public void HandleMultipleSelectClick()
+    {
+        IsSelectingMultiples = !IsSelectingMultiples;
+        if (!IsSelectingMultiples)
+        {
+            foreach (var item in SelectedIcons)
+            {
+                item.IsSelected = false;
+            }
+        }
+    }
+
+    public KeywordAddModel KeywordsToAdd { get; set; } = new();
+
+    public bool IsShowingAddKeywordModal { get; set; }
+
+    public void HideAddKeywordsModal()
+    {
+        IsShowingAddKeywordModal = false;
+    }
+
+    private void HandleAddKeywordsSubmit()
+    {
+        if (!string.IsNullOrEmpty(KeywordsToAdd.Keywords))
+        {
+            var lowered = KeywordsToAdd.Keywords.ToLowerInvariant();
+            var keywords = lowered.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var icon in SelectedIcons)
+            {
+                foreach (var keyword in keywords)
+                {
+                    KeywordsManager.AddKeyword(icon.Name, keyword);
+                }
+
+                icon.Keywords = KeywordsManager.Keywords[icon.Name];
+            }
+        }
+
+        HideAddKeywordsModal();
+
+        foreach (var item in SelectedIcons)
+        {
+            item.IsSelected = false;
+        }
+    }
+
+    public void HandleAddKeywordsClick()
+    {
+        KeywordsToAdd = new();
+        IsShowingAddKeywordModal = true;
+    }
+
+    public void HandleSelectAllClick()
+    {
+        foreach (var item in FilteredIcons)
+        {
+            item.IsSelected = true;
+        }
+    }
+
+    public void HandleDeselectAllClick()
+    {
+        foreach (var item in FilteredIcons)
+        {
+            item.IsSelected = false;
+        }
     }
 }

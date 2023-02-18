@@ -172,7 +172,9 @@ main {
             }
 
 
-            &:hover {
+            &:hover,
+            &[aria-selected]
+            {
                 border-color: #5c2d91;
                 background-color: #bd9de1;
                 color: #000;
@@ -194,6 +196,7 @@ main {
         }
 
         &.filter-selected,
+        &[aria-selected],
         &:hover {
             border-color: #5c2d91 !important;
             background-color: #bd9de1 !important;
