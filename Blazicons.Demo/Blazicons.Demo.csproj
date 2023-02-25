@@ -150,17 +150,17 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BindingBits" Version="1.5.390" />
-    <PackageReference Include="Blazicons.Bootstrap" Version="1.1.10" />
-    <PackageReference Include="Blazicons.FluentUI" Version="1.1.7" />
-    <PackageReference Include="Blazicons.FontAwesome" Version="1.1.5" />
-    <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="1.1.7" />
-    <PackageReference Include="Blazicons.Ionicons" Version="1.1.5" />
-    <PackageReference Include="Blazicons.MaterialDesignIcons" Version="1.1.5" />
+    <PackageReference Include="Blazicons.Bootstrap" Version="1.1.14" />
+    <PackageReference Include="Blazicons.FluentUI" Version="1.1.9" />
+    <PackageReference Include="Blazicons.FontAwesome" Version="1.2.9" />
+    <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="1.1.9" />
+    <PackageReference Include="Blazicons.Ionicons" Version="1.1.7" />
+    <PackageReference Include="Blazicons.MaterialDesignIcons" Version="1.1.7" />
     <PackageReference Include="Blazor-Analytics" Version="3.11.0" />
     <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
     <PackageReference Include="CodeCasing" Version="2.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
       <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.0">
@@ -171,7 +171,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.4.33">
+      <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.5.22">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
@@ -179,7 +179,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.51.0.59060">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.53.0.62665">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
