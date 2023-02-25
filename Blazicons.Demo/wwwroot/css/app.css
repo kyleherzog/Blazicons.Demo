@@ -152,22 +152,22 @@ h1:focus {
 .icons-area .icon-tile .icon-name {
   color: var(--bs-gray-500);
 }
-.icons-area .icon-tile:hover {
+.icons-area .icon-tile:hover, .icons-area .icon-tile[aria-selected] {
   border-color: #5c2d91;
   background-color: #bd9de1;
   color: #000;
 }
-.icons-area .icon-tile:hover svg {
+.icons-area .icon-tile:hover svg, .icons-area .icon-tile[aria-selected] svg {
   fill: #000;
 }
-.icons-area .icon-tile:hover .icon-name {
+.icons-area .icon-tile:hover .icon-name, .icons-area .icon-tile[aria-selected] .icon-name {
   color: #333;
 }
 
 .font-library-selection label {
   cursor: pointer;
 }
-.font-library-selection.filter-selected, .font-library-selection:hover {
+.font-library-selection.filter-selected, .font-library-selection[aria-selected], .font-library-selection:hover {
   border-color: #5c2d91 !important;
   background-color: #bd9de1 !important;
   color: #000 !important;

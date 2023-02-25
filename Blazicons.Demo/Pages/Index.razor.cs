@@ -1,8 +1,10 @@
 ﻿using System.Reactive.Linq;
+using System.Text;
+using System.Text.Json;
 using Blazicons.Demo.Components;
 using Blazicons.Demo.Models;
 using Blazor.Analytics;
-using CodeCasing;
+using BlazorDownloadFile;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
@@ -31,18 +33,6 @@ public partial class Index : IDisposable
     }
 
     public IconEntry ActiveIcon { get; set; } = new IconEntry();
-
-    public string ActiveIconCopyExampleLink => $"javascript:navigator.clipboard.writeText('{ActiveIconExample}');";
-
-    public string ActiveIconCopyNameLink => $"javascript:navigator.clipboard.writeText('{ActiveIcon.Code}');";
-
-    public string ActiveIconCopyPackageLink => $"javascript:navigator.clipboard.writeText('{ActiveIcon.Assembly}');";
-
-    public string ActiveIconDisplayName => ActiveIcon?.Name.ExpandToTitleCase() ?? string.Empty;
-
-    public string ActiveIconExample => $"<Blazicon Svg=\"{ActiveIcon.Code}\" />";
-
-    public string ActiveIconNugetAddress => $"https://www.nuget.org/packages/{ActiveIcon.Assembly}";
 
     public string? ActiveQuery
     {
@@ -102,7 +92,15 @@ public partial class Index : IDisposable
 
     public string IconsTotalCount => Icons.Count.ToString("N0");
 
+    public bool IsAdminMode { get; set; }
+
+    public bool IsSelectingMultiples { get; set; }
+
+    public bool IsShowingAddKeywordModal { get; set; }
+
     public bool IsShowingModal { get; set; }
+
+    public KeywordAddModel KeywordsToAdd { get; set; } = new();
 
     public string LibraryFilter
     {
@@ -144,15 +142,65 @@ public partial class Index : IDisposable
         }
     }
 
+    [Inject]
+    public NavigationManager Navigation { get; set; } = default!;
+
     public IconSearchModel Search { get; }
 
+    public IEnumerable<IconEntry> SelectedIcons => Icons.Where(x => x.IsSelected);
+
     public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
+
+    [Inject]
+    private IBlazorDownloadFileService FileDownloader { get; set; } = default!;
+
+    [Inject]
+    private KeywordsManager KeywordsManager { get; set; } = default!;
 
     public void Dispose()
     {
         // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
+    }
+
+    public void HandleAddKeywordsClick()
+    {
+        KeywordsToAdd = new();
+        IsShowingAddKeywordModal = true;
+    }
+
+    public void HandleDeselectAllClick()
+    {
+        foreach (var item in FilteredIcons)
+        {
+            item.IsSelected = false;
+        }
+    }
+
+    public void HandleMultipleSelectClick()
+    {
+        IsSelectingMultiples = !IsSelectingMultiples;
+        if (!IsSelectingMultiples)
+        {
+            foreach (var item in SelectedIcons)
+            {
+                item.IsSelected = false;
+            }
+        }
+    }
+
+    public void HandleSelectAllClick()
+    {
+        foreach (var item in FilteredIcons)
+        {
+            item.IsSelected = true;
+        }
+    }
+
+    public void HideAddKeywordsModal()
+    {
+        IsShowingAddKeywordModal = false;
     }
 
     protected virtual void Dispose(bool disposing)
@@ -170,6 +218,9 @@ public partial class Index : IDisposable
 
     protected override Task OnInitializedAsync()
     {
+        var uri = new Uri(Navigation.Uri);
+        IsAdminMode = uri.AbsolutePath.EndsWith("admin", StringComparison.OrdinalIgnoreCase);
+
         AddLibraryIcons(typeof(MdiIcon));
         AddLibraryIcons(typeof(FontAwesomeRegularIcon));
         AddLibraryIcons(typeof(FontAwesomeSolidIcon));
@@ -199,15 +250,54 @@ public partial class Index : IDisposable
             var icon = (SvgIcon?)property.GetValue(null);
             if (icon is not null)
             {
-                Icons.Add(new IconEntry
+                var entry = new IconEntry
                 {
                     Name = property.Name,
                     Icon = icon,
                     Library = type.Name,
                     Assembly = type.Assembly?.GetName().Name ?? string.Empty,
-                });
+                };
+
+                var key = entry.Code;
+                if (KeywordsManager.Keywords.ContainsKey(key))
+                {
+                    entry.Keywords = KeywordsManager.Keywords[key];
+                }
+
+                Icons.Add(entry);
             }
         }
+    }
+
+    private void HandleAddKeywordsSubmit()
+    {
+        if (!string.IsNullOrEmpty(KeywordsToAdd.Keywords))
+        {
+            var lowered = KeywordsToAdd.Keywords.ToLowerInvariant();
+            var keywords = lowered.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var icon in SelectedIcons)
+            {
+                foreach (var keyword in keywords)
+                {
+                    KeywordsManager.AddKeyword(icon.Code, keyword);
+                }
+
+                icon.Keywords = KeywordsManager.Keywords[icon.Code];
+            }
+        }
+
+        HideAddKeywordsModal();
+
+        foreach (var item in SelectedIcons)
+        {
+            item.IsSelected = false;
+        }
+    }
+
+    private async Task HandleExportClick()
+    {
+        var serialized = JsonSerializer.Serialize(KeywordsManager.Keywords, new JsonSerializerOptions { WriteIndented = true });
+        await FileDownloader.DownloadFileFromText("SearchMeta.json", serialized, Encoding.Unicode, "text/json", true).ConfigureAwait(true);
     }
 
     private void HandleFilterExpandToggle()
@@ -215,8 +305,16 @@ public partial class Index : IDisposable
         AreaFiltersExpanded = !AreaFiltersExpanded;
     }
 
+    private void HandleSubmit()
+    {
+        ActiveIcon.Keywords = ActiveIcon.KeywordsPending ?? string.Empty;
+        KeywordsManager.Keywords[ActiveIcon.Code] = ActiveIcon.Keywords.ToLowerInvariant();
+        HideModal();
+    }
+
     private void HideModal()
     {
+        ActiveIcon.KeywordsPending = null;
         IsShowingModal = false;
     }
 
@@ -226,7 +324,7 @@ public partial class Index : IDisposable
         if (!string.IsNullOrEmpty(ActiveQuery))
         {
             var queryWords = ActiveQuery.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            result = Icons.Where(x => queryWords.All(w => x.Name.Contains(w, StringComparison.OrdinalIgnoreCase)));
+            result = Icons.Where(x => queryWords.All(w => x.SearchTerms.Contains(w, StringComparison.OrdinalIgnoreCase)));
         }
 
         if (!string.IsNullOrEmpty(LibraryFilter))
@@ -238,14 +336,21 @@ public partial class Index : IDisposable
         filteredIcons.AddRange(result);
     }
 
-    private void ShowIconDetails(IconEntry entry)
+    private void SelectIcon(IconEntry entry)
     {
-        ActiveIcon = entry;
-        ShowModal();
-
-        if (Analytics is not null)
+        if (IsSelectingMultiples)
         {
-            _ = Analytics.TrackEvent("select_content", new { content_type = "icon", item_id = entry.Code }).ConfigureAwait(true);
+            entry.IsSelected = !entry.IsSelected;
+        }
+        else
+        {
+            ActiveIcon = entry;
+            ShowModal();
+
+            if (Analytics is not null)
+            {
+                _ = Analytics.TrackEvent("select_content", new { content_type = "icon", item_id = entry.Code }).ConfigureAwait(true);
+            }
         }
     }
 

@@ -1,41 +1,66 @@
 ﻿@page "/"
+@page "/admin"
 
 <PageTitle>Blazicons</PageTitle>
 
 <main class="d-flex flex-column flex-md-row flex-nowrap align-items-stretch">
     <div class="p-3 pb-md-3 pb-0 flex-shrink-0" style="overflow-y: auto;">
         <div class="text-light">
-        <EditForm Model="Search">
-            <div>
-                <input type="search" placeholder="Search..." id="SearchQuery" class="form-control" @bind-value="@Search.Query" @bind-value:event="oninput" />
-            </div>
-        </EditForm>
-        <div class="text-muted text-center">
-            <IconCount IconsFilteredCount="@IconsFilteredCount" IconsTotalCount="@IconsTotalCount"></IconCount>
-            <div class="@FilterAreaTogglerClass">
-                <a href="javascript:void()" @onclick="HandleFilterExpandToggle"><FilterDisplay ChildContent="LibraryFilterContent"></FilterDisplay></a>
-            </div>
-        </div>
-
-       <CascadingValue Value="this">
-            <div class="@FilterAreaClass">
-                <div class="btn-group-vertical w-100 mb-2" role="group">
-                    <FontLibrarySelection><Blazicon Svg="MdiIcon.FilterOff" /> All Icon Libraries</FontLibrarySelection>
-                    <FontLibrarySelection Name="MdiIcon"><Blazicon Svg="MdiIcon.VectorSquare" /> Material Design Icons</FontLibrarySelection>
-                    <FontLibrarySelection Name="FontAwesomeRegularIcon"><Blazicon Svg="FontAwesomeRegularIcon.FontAwesome" /> Font Awesome - Regular</FontLibrarySelection>
-                    <FontLibrarySelection Name="FontAwesomeSolidIcon"><Blazicon Svg="FontAwesomeSolidIcon.FontAwesome" /> Font Awesome - Solid</FontLibrarySelection>
-                    <FontLibrarySelection Name="BootstrapIcon"><Blazicon Svg="BootstrapIcon.BootstrapFill" /> Bootstrap</FontLibrarySelection>
-                    <FontLibrarySelection Name="GoogleMaterialOutlinedIcon"><Blazicon Svg="GoogleMaterialOutlinedIcon.DesignServices" /> Google Material - Outlined</FontLibrarySelection>
-                    <FontLibrarySelection Name="GoogleMaterialFilledIcon"><Blazicon Svg="GoogleMaterialFilledIcon.DesignServices" /> Google Material - Filled</FontLibrarySelection>
-                    <FontLibrarySelection Name="GoogleMaterialRoundIcon"><Blazicon Svg="GoogleMaterialRoundIcon.DesignServices" /> Google Material - Round</FontLibrarySelection>
-                    <FontLibrarySelection Name="GoogleMaterialSharpIcon"><Blazicon Svg="GoogleMaterialSharpIcon.DesignServices" /> Google Material - Sharp</FontLibrarySelection>
-                    <FontLibrarySelection Name="GoogleMaterialTwoToneIcon"><Blazicon Svg="GoogleMaterialTwoToneIcon.DesignServices" /> Google Material - Two Tone</FontLibrarySelection>
-                    <FontLibrarySelection Name="Ionicon"><Blazicon Svg="Ionicon.LogoIonic" /> Ionicons</FontLibrarySelection>
-                    <FontLibrarySelection Name="FluentUiIcon"><Blazicon Svg="FluentUiIcon.Fluent" /> Fluent UI</FontLibrarySelection>
-                    <FontLibrarySelection Name="FluentUiFilledIcon"><Blazicon Svg="FluentUiFilledIcon.Fluent" /> Fluent UI - Filled</FontLibrarySelection>
+            <EditForm Model="Search">
+                <div>
+                    <input type="search" placeholder="Search..." id="SearchQuery" class="form-control" @bind-value="@Search.Query" @bind-value:event="oninput" />
+                </div>
+            </EditForm>
+            <div class="text-muted text-center">
+                <IconCount IconsFilteredCount="@IconsFilteredCount" IconsTotalCount="@IconsTotalCount"></IconCount>
+                <div class="@FilterAreaTogglerClass">
+                    <a href="javascript:void()" @onclick="HandleFilterExpandToggle"><FilterDisplay ChildContent="LibraryFilterContent"></FilterDisplay></a>
                 </div>
             </div>
-        </CascadingValue>
+
+           <CascadingValue Value="this">
+                <div class="@FilterAreaClass">
+                    <div class="btn-group-vertical w-100 mb-2" role="group">
+                        <FontLibrarySelection><Blazicon Svg="MdiIcon.FilterOff" /> All Icon Libraries</FontLibrarySelection>
+                        <FontLibrarySelection Name="MdiIcon"><Blazicon Svg="MdiIcon.VectorSquare" /> Material Design Icons</FontLibrarySelection>
+                        <FontLibrarySelection Name="FontAwesomeRegularIcon"><Blazicon Svg="FontAwesomeRegularIcon.FontAwesome" /> Font Awesome - Regular</FontLibrarySelection>
+                        <FontLibrarySelection Name="FontAwesomeSolidIcon"><Blazicon Svg="FontAwesomeSolidIcon.FontAwesome" /> Font Awesome - Solid</FontLibrarySelection>
+                        <FontLibrarySelection Name="BootstrapIcon"><Blazicon Svg="BootstrapIcon.BootstrapFill" /> Bootstrap</FontLibrarySelection>
+                        <FontLibrarySelection Name="GoogleMaterialOutlinedIcon"><Blazicon Svg="GoogleMaterialOutlinedIcon.DesignServices" /> Google Material - Outlined</FontLibrarySelection>
+                        <FontLibrarySelection Name="GoogleMaterialFilledIcon"><Blazicon Svg="GoogleMaterialFilledIcon.DesignServices" /> Google Material - Filled</FontLibrarySelection>
+                        <FontLibrarySelection Name="GoogleMaterialRoundIcon"><Blazicon Svg="GoogleMaterialRoundIcon.DesignServices" /> Google Material - Round</FontLibrarySelection>
+                        <FontLibrarySelection Name="GoogleMaterialSharpIcon"><Blazicon Svg="GoogleMaterialSharpIcon.DesignServices" /> Google Material - Sharp</FontLibrarySelection>
+                        <FontLibrarySelection Name="GoogleMaterialTwoToneIcon"><Blazicon Svg="GoogleMaterialTwoToneIcon.DesignServices" /> Google Material - Two Tone</FontLibrarySelection>
+                        <FontLibrarySelection Name="Ionicon"><Blazicon Svg="Ionicon.LogoIonic" /> Ionicons</FontLibrarySelection>
+                        <FontLibrarySelection Name="FluentUiIcon"><Blazicon Svg="FluentUiIcon.Fluent" /> Fluent UI</FontLibrarySelection>
+                        <FontLibrarySelection Name="FluentUiFilledIcon"><Blazicon Svg="FluentUiFilledIcon.Fluent" /> Fluent UI - Filled</FontLibrarySelection>
+                    </div>
+                </div>
+            </CascadingValue>
+
+            @if (IsAdminMode)
+            {
+                <div class="text-center">Administration</div>
+                <div class="btn-group-vertical w-100 mb-2" role="group">
+                    <button type="button" @onclick="HandleExportClick" class="btn btn-outline-light btn-sm text-start border-secondary w-100 font-library-selection">
+                        <Blazicon Svg="MdiIcon.FileExport" /> Export Meta Data
+                    </button>
+                </div>
+                <div class="btn-group-vertical w-100 mb-2" role="group">
+                    <button type="button" @onclick="HandleMultipleSelectClick" aria-selected="@IsSelectingMultiples" class="btn btn-outline-light btn-sm text-start border-secondary w-100 font-library-selection">
+                        <Blazicon Svg="MdiIcon.CheckboxMultipleMarkedOutline" /> Select Multiples
+                    </button>
+                    <button type="button" @onclick="HandleSelectAllClick" disabled="@(!IsSelectingMultiples)" class="btn btn-outline-light btn-sm text-start border-secondary w-100 font-library-selection">
+                        <Blazicon Svg="MdiIcon.CheckAll" /> Select All
+                    </button>
+                    <button type="button" @onclick="HandleDeselectAllClick" disabled="@(!IsSelectingMultiples)" class="btn btn-outline-light btn-sm text-start border-secondary w-100 font-library-selection">
+                        <Blazicon Svg="MdiIcon.CheckboxMultipleBlankOutline" /> Deselect All
+                    </button>
+                    <button type="button" @onclick="HandleAddKeywordsClick" disabled="@(!IsSelectingMultiples)" class="btn btn-outline-light btn-sm text-start border-secondary w-100 font-library-selection">
+                        <Blazicon Svg="MdiIcon.TagPlus" /> Add Keywords
+                    </button>
+                </div>
+            }
         <div class="mt-4 d-none d-md-block">
             <Footer></Footer>
         </div>
@@ -51,7 +76,7 @@
             }
 
             <Virtualize @ref="VirtualizedIcons" Items="FilteredIcons" Context="icon" OverscanCount="144">
-                <button class="icon-tile col-xxl-1 col-xl-2 col-lg-3 col-md-4 col-sm-3 col-4 mb-3 text-center text-light" title="@icon.Code" @onclick="() => ShowIconDetails(icon)">
+                <button class="icon-tile col-xxl-1 col-xl-2 col-lg-3 col-md-4 col-sm-3 col-4 mb-3 text-center text-light" title="@icon.Code" aria-selected="@icon.IsSelected" @onclick="() => SelectIcon(icon)">
 
                     <div style="font-size: 300%; line-height: 1;"><Blazicon Svg="icon.Icon"></Blazicon></div>
                     <div class="small text-truncate icon-name">@icon.Name</div>
@@ -61,38 +86,97 @@
     </div>
 </main>
 
+@if (IsShowingAddKeywordModal)
+{
+    <div id="active-icon-modal" class="modal fade show" style="display: block;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content ">
+                <EditForm Model="KeywordsToAdd" OnSubmit="HandleAddKeywordsSubmit">
+                    <div class="modal-header bg-primary text-white rounded-0">
+                        Add Keywords
+                        <button type="button" class="btn-close btn-close-white" aria-label="Close" @onclick="HideAddKeywordsModal"></button>
+                    </div>
+                    <div class="modal-body bg-dark text-light">
+                        <div>
+                            <label class="form-label">Selected Icons</label>
+                            <div class="mb-3 d-flex gap-1 flex-wrap" style="font-size: 150%; max-height: 60vh; overflow-y: auto;">
+                                @foreach (var item in SelectedIcons)
+                                {
+                                    <div>
+                                        <Blazicon Svg="item.Icon"></Blazicon>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <label class="form-label">Keywords</label>
+                        <InputText class="form-control" @bind-Value="KeywordsToAdd.Keywords"></InputText>
+                    </div>
+                    <div class="modal-footer bg-dark rounded-0">
+                        <button type="submit" class="btn btn-secondary">OK</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+}
+
 @if (IsShowingModal)
 {
     <div id="active-icon-modal" class="modal fade show" style="display: block;" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content ">
-                <div class="modal-header bg-primary text-white rounded-0">
-                    @ActiveIconDisplayName
-                    <button type="button" class="btn-close btn-close-white" aria-label="Close" @onclick="HideModal"></button>
-                </div>
-                <div class="modal-body bg-dark text-light">
-                    <div class="mb-3">
-                        <span style="line-height: 1; font-size: 300%;">
-                            <Blazicon Svg='ActiveIcon.Icon'></Blazicon>
-                        </span>
-                        @ActiveIcon.Code <a href="@ActiveIconCopyNameLink" title="Copy Blazicon Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
+                <EditForm Model="ActiveIcon" OnSubmit="HandleSubmit">
+                    <div class="modal-header bg-primary text-white rounded-0">
+                        @ActiveIcon.DisplayName
+                        <button type="button" class="btn-close btn-close-white" aria-label="Close" @onclick="HideModal"></button>
                     </div>
-
-                    <div class="mb-3">
-                        <strong>Package</strong> <a href="@ActiveIconCopyPackageLink" title="Copy Package Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
-                        <div>
-                            <a target="_blank" href="@ActiveIconNugetAddress"><img alt="@ActiveIcon.Assembly" title="@ActiveIcon.Assembly" src="@ActiveIcon.BadgeLink"></a>
+                    <div class="modal-body bg-dark text-light">
+                        <div class="mb-2">
+                            <span style="line-height: 1; font-size: 300%;">
+                                <Blazicon Svg='ActiveIcon.Icon'></Blazicon>
+                            </span>
+                            @ActiveIcon.Code <a href="@ActiveIcon.CopyNameLink" title="Copy Blazicon Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
                         </div>
-                    </div>
 
-                    <strong>Example</strong> <a href="@ActiveIconCopyExampleLink" title="Copy Example"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
-                    <div>
-                        <code class="text-nowrap">@ActiveIconExample</code>
+
+                        <div class="mb-3 small">
+                            <label class="form-label">Keywords</label>
+                            @if (IsAdminMode)
+                            {
+                                <InputText class="form-control" @bind-Value="ActiveIcon.KeywordsPending"></InputText>
+                            }
+                            else
+                            {
+                                <div>
+                                    @if (string.IsNullOrEmpty(ActiveIcon.Keywords))
+                                    {
+                                        <span>-None-</span>
+                                    }
+                                    else
+                                    {
+                                        @ActiveIcon.Keywords
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <strong>Package</strong> <a href="@ActiveIcon.CopyPackageLink" title="Copy Package Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
+                            <div>
+                                <a target="_blank" href="@ActiveIcon.NugetAddress"><img alt="@ActiveIcon.Assembly" title="@ActiveIcon.Assembly" src="@ActiveIcon.BadgeLink"></a>
+                            </div>
+                        </div>
+
+                        <strong>Example</strong> <a href="@ActiveIcon.CopyExampleLink" title="Copy Example"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
+                        <div>
+                            <code class="text-nowrap">@ActiveIcon.Example</code>
+                        </div>
+
                     </div>
-                </div>
-                <div class="modal-footer bg-dark rounded-0">
-                    <button type="button" class="btn btn-secondary" @onclick="HideModal">Close</button>
-                </div>
+                    <div class="modal-footer bg-dark rounded-0">
+                        <button type="submit" class="btn btn-secondary">OK</button>
+                    </div>
+                </EditForm>
             </div>
         </div>
     </div>
