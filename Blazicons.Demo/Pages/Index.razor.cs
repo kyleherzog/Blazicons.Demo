@@ -84,8 +84,6 @@ public partial class Index : IDisposable
         }
     }
 
-    public IEnumerable<IconEntry> SelectedIcons => Icons.Where(x => x.IsSelected);
-
     public IList<FontLibrarySelection> Filters { get; } = new List<FontLibrarySelection>();
 
     public IList<IconEntry> Icons { get; } = new List<IconEntry>();
@@ -98,7 +96,11 @@ public partial class Index : IDisposable
 
     public bool IsSelectingMultiples { get; set; }
 
+    public bool IsShowingAddKeywordModal { get; set; }
+
     public bool IsShowingModal { get; set; }
+
+    public KeywordAddModel KeywordsToAdd { get; set; } = new();
 
     public string LibraryFilter
     {
@@ -145,7 +147,12 @@ public partial class Index : IDisposable
 
     public IconSearchModel Search { get; }
 
+    public IEnumerable<IconEntry> SelectedIcons => Icons.Where(x => x.IsSelected);
+
     public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
+
+    [Inject]
+    private IBlazorDownloadFileService FileDownloader { get; set; } = default!;
 
     [Inject]
     private KeywordsManager KeywordsManager { get; set; } = default!;
@@ -155,6 +162,45 @@ public partial class Index : IDisposable
         // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
+    }
+
+    public void HandleAddKeywordsClick()
+    {
+        KeywordsToAdd = new();
+        IsShowingAddKeywordModal = true;
+    }
+
+    public void HandleDeselectAllClick()
+    {
+        foreach (var item in FilteredIcons)
+        {
+            item.IsSelected = false;
+        }
+    }
+
+    public void HandleMultipleSelectClick()
+    {
+        IsSelectingMultiples = !IsSelectingMultiples;
+        if (!IsSelectingMultiples)
+        {
+            foreach (var item in SelectedIcons)
+            {
+                item.IsSelected = false;
+            }
+        }
+    }
+
+    public void HandleSelectAllClick()
+    {
+        foreach (var item in FilteredIcons)
+        {
+            item.IsSelected = true;
+        }
+    }
+
+    public void HideAddKeywordsModal()
+    {
+        IsShowingAddKeywordModal = false;
     }
 
     protected virtual void Dispose(bool disposing)
@@ -223,9 +269,47 @@ public partial class Index : IDisposable
         }
     }
 
+    private void HandleAddKeywordsSubmit()
+    {
+        if (!string.IsNullOrEmpty(KeywordsToAdd.Keywords))
+        {
+            var lowered = KeywordsToAdd.Keywords.ToLowerInvariant();
+            var keywords = lowered.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var icon in SelectedIcons)
+            {
+                foreach (var keyword in keywords)
+                {
+                    KeywordsManager.AddKeyword(icon.Code, keyword);
+                }
+
+                icon.Keywords = KeywordsManager.Keywords[icon.Code];
+            }
+        }
+
+        HideAddKeywordsModal();
+
+        foreach (var item in SelectedIcons)
+        {
+            item.IsSelected = false;
+        }
+    }
+
+    private async Task HandleExportClick()
+    {
+        var serialized = JsonSerializer.Serialize(KeywordsManager.Keywords, new JsonSerializerOptions { WriteIndented = true });
+        await FileDownloader.DownloadFileFromText("SearchMeta.json", serialized, Encoding.Unicode, "text/json", true).ConfigureAwait(true);
+    }
+
     private void HandleFilterExpandToggle()
     {
         AreaFiltersExpanded = !AreaFiltersExpanded;
+    }
+
+    private void HandleSubmit()
+    {
+        ActiveIcon.Keywords = ActiveIcon.KeywordsPending ?? string.Empty;
+        KeywordsManager.Keywords[ActiveIcon.Code] = ActiveIcon.Keywords.ToLowerInvariant();
+        HideModal();
     }
 
     private void HideModal()
@@ -283,89 +367,5 @@ public partial class Index : IDisposable
     private void UnsubsribeFromChanges()
     {
         queryChangedSubscription?.Dispose();
-    }
-
-    [Inject]
-    private IBlazorDownloadFileService FileDownloader { get; set; } = default!;
-
-    private async Task HandleExportClick()
-    {
-        var serialized = JsonSerializer.Serialize(KeywordsManager.Keywords, new JsonSerializerOptions { WriteIndented = true });
-        await FileDownloader.DownloadFileFromText("SearchMeta.json", serialized, Encoding.Unicode, "text/json").ConfigureAwait(true);
-    }
-
-    private void HandleSubmit()
-    {
-        ActiveIcon.Keywords = ActiveIcon.KeywordsPending ?? string.Empty;
-        KeywordsManager.Keywords[ActiveIcon.Name] = ActiveIcon.Keywords.ToLowerInvariant();
-        HideModal();
-    }
-
-    public void HandleMultipleSelectClick()
-    {
-        IsSelectingMultiples = !IsSelectingMultiples;
-        if (!IsSelectingMultiples)
-        {
-            foreach (var item in SelectedIcons)
-            {
-                item.IsSelected = false;
-            }
-        }
-    }
-
-    public KeywordAddModel KeywordsToAdd { get; set; } = new();
-
-    public bool IsShowingAddKeywordModal { get; set; }
-
-    public void HideAddKeywordsModal()
-    {
-        IsShowingAddKeywordModal = false;
-    }
-
-    private void HandleAddKeywordsSubmit()
-    {
-        if (!string.IsNullOrEmpty(KeywordsToAdd.Keywords))
-        {
-            var lowered = KeywordsToAdd.Keywords.ToLowerInvariant();
-            var keywords = lowered.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            foreach (var icon in SelectedIcons)
-            {
-                foreach (var keyword in keywords)
-                {
-                    KeywordsManager.AddKeyword(icon.Name, keyword);
-                }
-
-                icon.Keywords = KeywordsManager.Keywords[icon.Name];
-            }
-        }
-
-        HideAddKeywordsModal();
-
-        foreach (var item in SelectedIcons)
-        {
-            item.IsSelected = false;
-        }
-    }
-
-    public void HandleAddKeywordsClick()
-    {
-        KeywordsToAdd = new();
-        IsShowingAddKeywordModal = true;
-    }
-
-    public void HandleSelectAllClick()
-    {
-        foreach (var item in FilteredIcons)
-        {
-            item.IsSelected = true;
-        }
-    }
-
-    public void HandleDeselectAllClick()
-    {
-        foreach (var item in FilteredIcons)
-        {
-            item.IsSelected = false;
-        }
     }
 }

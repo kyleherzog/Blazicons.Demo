@@ -5,9 +5,9 @@ namespace Blazicons.Demo.Models;
 
 public class KeywordsManager
 {
-    private Dictionary<string, string>? keywords;
+    private SortedDictionary<string, string>? keywords;
 
-    public Dictionary<string, string> Keywords
+    public IDictionary<string, string> Keywords
     {
         get
         {
@@ -22,7 +22,7 @@ public class KeywordsManager
 
     public void Reload()
     {
-        keywords = JsonSerializer.Deserialize<Dictionary<string, string>>(Properties.Resources.SearchMeta);
+        keywords = JsonSerializer.Deserialize<SortedDictionary<string, string>>(Properties.Resources.SearchMeta);
     }
 
     public void AddKeyword(string key, string value)
