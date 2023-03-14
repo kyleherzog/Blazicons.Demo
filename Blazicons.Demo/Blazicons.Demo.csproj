@@ -151,7 +151,7 @@
   <ItemGroup>
     <PackageReference Include="BindingBits" Version="1.5.390" />
     <PackageReference Include="Blazicons.Bootstrap" Version="1.1.14" />
-    <PackageReference Include="Blazicons.FluentUI" Version="1.1.9" />
+    <PackageReference Include="Blazicons.FluentUI" Version="1.2.12-beta" />
     <PackageReference Include="Blazicons.FontAwesome" Version="1.2.9" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="1.1.9" />
     <PackageReference Include="Blazicons.Ionicons" Version="1.1.7" />
@@ -163,7 +163,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
-      <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.0">
+      <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.1">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
@@ -179,7 +179,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.53.0.62665">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="8.54.0.64047">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
