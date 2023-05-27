@@ -323,8 +323,8 @@ public partial class Index : IDisposable
         var result = Icons.AsEnumerable();
         if (!string.IsNullOrEmpty(ActiveQuery))
         {
-            var queryWords = ActiveQuery.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            result = Icons.Where(x => queryWords.All(w => x.SearchTerms.Contains(w, StringComparison.OrdinalIgnoreCase)));
+            var queryWords = ActiveQuery.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList();
+            result = Icons.Where(x => queryWords.TrueForAll(w => x.SearchTerms.Contains(w, StringComparison.OrdinalIgnoreCase)));
         }
 
         if (!string.IsNullOrEmpty(LibraryFilter))
