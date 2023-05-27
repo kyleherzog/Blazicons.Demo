@@ -34,7 +34,7 @@ public class KeywordsManager
         }
 
         var words = currentValue.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList();
-        if (words.Any(x => x.Equals(value, StringComparison.OrdinalIgnoreCase)))
+        if (words.Exists(x => x.Equals(value, StringComparison.OrdinalIgnoreCase)))
         {
             return;
         }
