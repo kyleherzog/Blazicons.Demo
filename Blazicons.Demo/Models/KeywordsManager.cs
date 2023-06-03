@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Text.Json;
+﻿using Newtonsoft.Json;
 
 namespace Blazicons.Demo.Models;
 
@@ -22,7 +21,7 @@ public class KeywordsManager
 
     public void Reload()
     {
-        keywords = JsonSerializer.Deserialize<SortedDictionary<string, string>>(Properties.Resources.SearchMeta);
+        keywords = JsonConvert.DeserializeObject<SortedDictionary<string, string>>(Properties.Resources.SearchMeta);
     }
 
     public void AddKeyword(string key, string value)
