@@ -21,7 +21,15 @@ public class KeywordsManager
 
     public void Reload()
     {
-        keywords = JsonConvert.DeserializeObject<SortedDictionary<string, string>>(Properties.Resources.SearchMeta);
+        var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties.Resources.SearchMeta);
+        if (values is null)
+        {
+            keywords = new SortedDictionary<string, string>();
+        }
+        else
+        {
+            keywords = new SortedDictionary<string, string>(values);
+        }
     }
 
     public void AddKeyword(string key, string value)
