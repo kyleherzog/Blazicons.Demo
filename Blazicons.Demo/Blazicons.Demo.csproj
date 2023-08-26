@@ -151,7 +151,7 @@
   <ItemGroup>
     <PackageReference Include="BindingBits" Version="1.5.390" />
     <PackageReference Include="Blazicons.Bootstrap" Version="1.2.16" />
-    <PackageReference Include="Blazicons.FluentUI" Version="1.12.34" />
+    <PackageReference Include="Blazicons.FluentUI" Version="1.13.36" />
     <PackageReference Include="Blazicons.FontAwesome" Version="1.4.13" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="1.1.9" />
     <PackageReference Include="Blazicons.Ionicons" Version="1.2.9" />
@@ -180,7 +180,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.7.0.75501">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.8.0.76515">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
