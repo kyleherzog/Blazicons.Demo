@@ -151,7 +151,7 @@
   <ItemGroup>
     <PackageReference Include="BindingBits" Version="1.5.390" />
     <PackageReference Include="Blazicons.Bootstrap" Version="1.4.20" />
-    <PackageReference Include="Blazicons.FluentUI" Version="1.16.44" />
+    <PackageReference Include="Blazicons.FluentUI" Version="1.17.46" />
     <PackageReference Include="Blazicons.FontAwesome" Version="1.4.13" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="1.1.9" />
     <PackageReference Include="Blazicons.Ionicons" Version="1.2.9" />
