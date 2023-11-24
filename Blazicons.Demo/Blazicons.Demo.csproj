@@ -150,7 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BindingBits" Version="1.5.390" />
-    <PackageReference Include="Blazicons.Bootstrap" Version="1.5.22" />
+    <PackageReference Include="Blazicons.Bootstrap" Version="1.6.25" />
     <PackageReference Include="Blazicons.FluentUI" Version="1.19.51" />
     <PackageReference Include="Blazicons.FontAwesome" Version="1.5.15" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="1.2.11" />
