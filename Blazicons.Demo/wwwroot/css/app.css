@@ -101,6 +101,10 @@ main {
 
 .navbar-brand {
   font-size: 225%;
+  font-family: "Audiowide", sans-serif;
+}
+.navbar-brand:hover {
+  text-decoration: none;
 }
 
 h1:focus {
