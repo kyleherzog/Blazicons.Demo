@@ -1,6 +1,18 @@
 ﻿html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 16px;
     min-height: 100vh;
+}
+
+b, strong {
+    font-weight: 700;
+}
+
+.library-filters {
+    button, label {
+        font-size: 110%;
+    }
 }
 
 #app {
@@ -45,13 +57,23 @@
         fill: currentColor;
         height: 1em;
         width: 1em;
-        vertical-align: -.125em;
+        display: block;
+        margin: 0 auto -.6ex;
+        transform: translateX(-.4ex);
 
         .flame {
             animation-name: flaming;
             animation-duration: 3s;
             animation-iteration-count: infinite;
         }
+    }
+
+    img {
+        height: 3ex;
+    }
+
+    div {
+        padding-right: 1em;
     }
 }
 
@@ -89,10 +111,16 @@ main {
     }
 }
 
+.tagline {
+    color: #bbb !important;
+    font-family: 'Saira Extra Condensed', sans-serif;
+}
+
+header {
     .tagline {
-        vertical-align: .1em;
-        color: #bbb !important;
+        font-size: 115%;
     }
+}
 
     .navbar {
         line-height: 1;
@@ -208,3 +236,15 @@ main {
             color: #000 !important;
         }
     }
+
+    .modal-header {
+        font-size: 125%;
+        line-height: 1;
+        font-weight: 700;
+    }
+
+.modal-body {
+    .form-label, strong {
+        font-size: 1.2rem;
+    }
+}
