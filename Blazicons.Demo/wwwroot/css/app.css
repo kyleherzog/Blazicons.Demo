@@ -1,6 +1,16 @@
 ﻿html, body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+  font-family: "Saira Extra Condensed", sans-serif;
+  font-size: 16px;
   min-height: 100vh;
+}
+
+b, strong {
+  font-weight: 700;
+}
+
+.library-filters button, .library-filters label {
+  font-size: 110%;
 }
 
 #app {
@@ -39,12 +49,20 @@
   fill: currentColor;
   height: 1em;
   width: 1em;
-  vertical-align: -0.125em;
+  display: block;
+  margin: 0 auto -0.6ex;
+  transform: translateX(-0.4ex);
 }
 .app-loader svg .flame {
   animation-name: flaming;
   animation-duration: 3s;
   animation-iteration-count: infinite;
+}
+.app-loader img {
+  height: 3ex;
+}
+.app-loader div {
+  padding-right: 1em;
 }
 
 @keyframes flaming {
@@ -79,8 +97,12 @@ main {
 }
 
 .tagline {
-  vertical-align: 0.1em;
   color: #bbb !important;
+  font-family: "Saira Extra Condensed", sans-serif;
+}
+
+header .tagline {
+  font-size: 115%;
 }
 
 .navbar {
@@ -175,4 +197,14 @@ h1:focus {
   border-color: #5c2d91 !important;
   background-color: #bd9de1 !important;
   color: #000 !important;
+}
+
+.modal-header {
+  font-size: 125%;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.modal-body .form-label, .modal-body strong {
+  font-size: 1.2rem;
 }

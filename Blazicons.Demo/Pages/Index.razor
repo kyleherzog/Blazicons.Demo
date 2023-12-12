@@ -20,7 +20,7 @@
 
            <CascadingValue Value="this">
                 <div class="@FilterAreaClass">
-                    <div class="btn-group-vertical w-100 mb-2" role="group">
+                    <div class="btn-group-vertical w-100 mb-2 library-filters" role="group">
                         <FontLibrarySelection><Blazicon Svg="MdiIcon.FilterOff" /> All Icon Libraries</FontLibrarySelection>
                         <FontLibrarySelection Name="MdiIcon"><Blazicon Svg="MdiIcon.VectorSquare" /> Material Design Icons</FontLibrarySelection>
                         <FontLibrarySelection Name="FontAwesomeRegularIcon"><Blazicon Svg="FontAwesomeRegularIcon.FontAwesome" /> Font Awesome - Regular</FontLibrarySelection>
@@ -79,7 +79,7 @@
                 <button class="icon-tile col-xxl-1 col-xl-2 col-lg-3 col-md-4 col-sm-3 col-4 mb-3 text-center text-light" title="@icon.Code" aria-selected="@icon.IsSelected" @onclick="() => SelectIcon(icon)">
 
                     <div style="font-size: 300%; line-height: 1;"><Blazicon Svg="icon.Icon"></Blazicon></div>
-                    <div class="small text-truncate icon-name">@icon.Name</div>
+                    <div class="text-truncate icon-name">@icon.Name</div>
                 </button>
             </Virtualize>
         </div>
@@ -139,15 +139,15 @@
                         </div>
 
 
-                        <div class="mb-3 small">
-                            <label class="form-label">Keywords</label>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Keywords</strong></label>
                             @if (IsAdminMode)
                             {
                                 <InputText class="form-control" @bind-Value="ActiveIcon.KeywordsPending"></InputText>
                             }
                             else
                             {
-                                <div>
+                                <div class="small">
                                     @if (string.IsNullOrEmpty(ActiveIcon.Keywords))
                                     {
                                         <span>-None-</span>
