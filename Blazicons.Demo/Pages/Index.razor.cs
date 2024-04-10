@@ -233,6 +233,7 @@ public partial class Index : IDisposable
         AddLibraryIcons(typeof(Ionicon));
         AddLibraryIcons(typeof(FluentUiIcon));
         AddLibraryIcons(typeof(FluentUiFilledIcon));
+        AddLibraryIcons(typeof(Devicon));
 
         LoadFilteredIcons();
 
