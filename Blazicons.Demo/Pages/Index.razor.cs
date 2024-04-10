@@ -12,7 +12,7 @@ namespace Blazicons.Demo.Pages;
 
 public partial class Index : IDisposable
 {
-    private readonly List<IconEntry> filteredIcons = new();
+    private readonly List<IconEntry> filteredIcons = [];
     private string? activeQuery;
     private bool areaFiltersExpanded;
     private bool hasDisposed;
