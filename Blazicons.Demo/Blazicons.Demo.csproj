@@ -151,8 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BindingBits" Version="1.5.390" />
-    <PackageReference Include="Blazicons.Bootstrap" Version="1.7.28" />
-    <PackageReference Include="Blazicons.FluentUI" Version="1.27.68" />
+    <PackageReference Include="Blazicons" Version="2.0.24-alpha" />
     <PackageReference Include="Blazicons.FontAwesome" Version="1.7.19" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="1.2.11" />
     <PackageReference Include="Blazicons.Ionicons" Version="1.4.13" />
@@ -189,6 +188,14 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Blazicons.Bootstrap">
+      <HintPath>..\..\Blazicons.Bootstrap\Blazicons.Bootstrap\bin\Debug\net6.0\Blazicons.Bootstrap.dll</HintPath>
+    </Reference>
+    <Reference Include="Blazicons.FluentUI">
+      <HintPath>..\..\Blazicons.FluentUI\Blazicons.FluentUI\bin\Debug\net6.0\Blazicons.FluentUI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="wwwroot\images\Blazicons-text.png" />
