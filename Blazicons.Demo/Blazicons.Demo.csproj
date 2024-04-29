@@ -7,10 +7,12 @@
   </PropertyGroup>
   <ItemGroup>
     <TrimmerRootAssembly Include="Blazicons.Bootstrap" />
+    <TrimmerRootAssembly Include="Blazicons.Devicon" />
     <TrimmerRootAssembly Include="Blazicons.FluentUI" />
     <TrimmerRootAssembly Include="Blazicons.FontAwesome" />
     <TrimmerRootAssembly Include="Blazicons.GoogleMaterialDesign" />
     <TrimmerRootAssembly Include="Blazicons.Ionicons" />
+    <TrimmerRootAssembly Include="Blazicons.Lucide" />
     <TrimmerRootAssembly Include="Blazicons.MaterialDesignIcons" />
   </ItemGroup>
   <ItemGroup>
@@ -150,16 +152,18 @@
     <None Include="wwwroot\lib\twitter-bootstrap\scss\_variables.scss" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BindingBits" Version="1.5.390" />
-    <PackageReference Include="Blazicons.Bootstrap" Version="1.7.28" />
-    <PackageReference Include="Blazicons.FluentUI" Version="1.28.71" />
-    <PackageReference Include="Blazicons.FontAwesome" Version="1.7.19" />
-    <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="1.2.11" />
-    <PackageReference Include="Blazicons.Ionicons" Version="1.4.13" />
-    <PackageReference Include="Blazicons.MaterialDesignIcons" Version="1.4.14" />
+    <PackageReference Include="BindingBits" Version="2.0.862" />
+    <PackageReference Include="Blazicons.Bootstrap" Version="2.0.30" />
+    <PackageReference Include="Blazicons.Devicon" Version="1.0.3" />
+    <PackageReference Include="Blazicons.FluentUI" Version="2.0.73" />
+    <PackageReference Include="Blazicons.FontAwesome" Version="2.0.21" />
+    <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="2.0.13" />
+    <PackageReference Include="Blazicons.Ionicons" Version="2.0.15" />
+    <PackageReference Include="Blazicons.Lucide" Version="1.0.4" />
+    <PackageReference Include="Blazicons.MaterialDesignIcons" Version="2.0.19" />
     <PackageReference Include="Blazor-Analytics" Version="3.12.0" />
     <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
-    <PackageReference Include="CodeCasing" Version="2.0.6" />
+    <PackageReference Include="CodeCasing" Version="3.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.4" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
@@ -181,7 +185,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.23.2.88755">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.24.0.89429">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
