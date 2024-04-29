@@ -12,6 +12,7 @@ namespace Blazicons.Demo.Pages;
 
 public partial class Index : IDisposable
 {
+    private static readonly JsonSerializerOptions defaultExportOptions = new() { WriteIndented = true };
     private readonly List<IconEntry> filteredIcons = [];
     private string? activeQuery;
     private bool areaFiltersExpanded;
@@ -221,18 +222,22 @@ public partial class Index : IDisposable
         var uri = new Uri(Navigation.Uri);
         IsAdminMode = uri.AbsolutePath.EndsWith("admin", StringComparison.OrdinalIgnoreCase);
 
-        AddLibraryIcons(typeof(MdiIcon));
+        AddLibraryIcons(typeof(BootstrapIcon));
+        AddLibraryIcons(typeof(DeviconLine));
+        AddLibraryIcons(typeof(DeviconOriginal));
+        AddLibraryIcons(typeof(DeviconPlain));
+        AddLibraryIcons(typeof(FluentUiIcon));
+        AddLibraryIcons(typeof(FluentUiFilledIcon));
         AddLibraryIcons(typeof(FontAwesomeRegularIcon));
         AddLibraryIcons(typeof(FontAwesomeSolidIcon));
-        AddLibraryIcons(typeof(BootstrapIcon));
-        AddLibraryIcons(typeof(GoogleMaterialOutlinedIcon));
         AddLibraryIcons(typeof(GoogleMaterialFilledIcon));
+        AddLibraryIcons(typeof(GoogleMaterialOutlinedIcon));
         AddLibraryIcons(typeof(GoogleMaterialRoundIcon));
         AddLibraryIcons(typeof(GoogleMaterialSharpIcon));
         AddLibraryIcons(typeof(GoogleMaterialTwoToneIcon));
         AddLibraryIcons(typeof(Ionicon));
-        AddLibraryIcons(typeof(FluentUiIcon));
-        AddLibraryIcons(typeof(FluentUiFilledIcon));
+        AddLibraryIcons(typeof(Lucide));
+        AddLibraryIcons(typeof(MdiIcon));
 
         LoadFilteredIcons();
 
@@ -259,9 +264,9 @@ public partial class Index : IDisposable
                 };
 
                 var key = entry.Code;
-                if (KeywordsManager.Keywords.ContainsKey(key))
+                if (KeywordsManager.Keywords.TryGetValue(key, out var value))
                 {
-                    entry.Keywords = KeywordsManager.Keywords[key];
+                    entry.Keywords = value;
                 }
 
                 Icons.Add(entry);
@@ -296,7 +301,7 @@ public partial class Index : IDisposable
 
     private async Task HandleExportClick()
     {
-        var serialized = JsonSerializer.Serialize(KeywordsManager.Keywords, new JsonSerializerOptions { WriteIndented = true });
+        var serialized = JsonSerializer.Serialize(KeywordsManager.Keywords, defaultExportOptions);
         await FileDownloader.DownloadFileFromText("SearchMeta.json", serialized, Encoding.Unicode, "text/json", true).ConfigureAwait(true);
     }
 
