@@ -158,7 +158,7 @@
     <PackageReference Include="Blazicons.FluentUI" Version="2.0.73" />
     <PackageReference Include="Blazicons.FontAwesome" Version="2.0.21" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="2.0.13" />
-    <PackageReference Include="Blazicons.Ionicons" Version="2.0.15" />
+    <PackageReference Include="Blazicons.Ionicons" Version="2.1.17" />
     <PackageReference Include="Blazicons.Lucide" Version="1.0.4" />
     <PackageReference Include="Blazicons.MaterialDesignIcons" Version="2.0.19" />
     <PackageReference Include="Blazor-Analytics" Version="3.12.0" />
@@ -177,7 +177,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.9.28">
+      <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.10.48">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
@@ -185,7 +185,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.24.0.89429">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.25.0.90414">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
