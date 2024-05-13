@@ -155,7 +155,7 @@
     <PackageReference Include="BindingBits" Version="2.0.862" />
     <PackageReference Include="Blazicons.Bootstrap" Version="2.0.30" />
     <PackageReference Include="Blazicons.Devicon" Version="1.0.3" />
-    <PackageReference Include="Blazicons.FluentUI" Version="2.0.73" />
+    <PackageReference Include="Blazicons.FluentUI" Version="2.1.75" />
     <PackageReference Include="Blazicons.FontAwesome" Version="2.0.21" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="2.0.13" />
     <PackageReference Include="Blazicons.Ionicons" Version="2.1.17" />
