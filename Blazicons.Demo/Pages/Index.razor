@@ -26,6 +26,8 @@
                         <FontLibrarySelection Name="DeviconLine"><Blazicon Svg="DeviconPlain.Devicon" /> Devicon - Line</FontLibrarySelection>
                         <FontLibrarySelection Name="DeviconOriginal"><Blazicon Svg="DeviconPlain.Devicon" /> Devicon - Original</FontLibrarySelection>
                         <FontLibrarySelection Name="DeviconPlain"><Blazicon Svg="DeviconPlain.Devicon" /> Devicon - Plain</FontLibrarySelection>
+                        <FontLibrarySelection Name="FlagIcon4x3"><Blazicon Svg="MdiIcon.Flag" /> Flag Icons - 4x3</FontLibrarySelection>
+                        <FontLibrarySelection Name="FlagIcon1x1"><Blazicon Svg="MdiIcon.Flag" /> Flag Icons - 1x1</FontLibrarySelection>
                         <FontLibrarySelection Name="FluentUiIcon"><Blazicon Svg="FluentUiIcon.Fluent" /> Fluent UI</FontLibrarySelection>
                         <FontLibrarySelection Name="FluentUiFilledIcon"><Blazicon Svg="FluentUiFilledIcon.Fluent" /> Fluent UI - Filled</FontLibrarySelection>
                         <FontLibrarySelection Name="FontAwesomeRegularIcon"><Blazicon Svg="FontAwesomeRegularIcon.FontAwesome" /> Font Awesome - Regular</FontLibrarySelection>
@@ -84,6 +86,10 @@
 
                     <div style="font-size: 300%; line-height: 1;"><Blazicon Svg="icon.Icon"></Blazicon></div>
                     <div class="text-truncate icon-name">@icon.Name</div>
+                    @if (IsAdminMode)
+                    {
+                        <div class="icon-name">@icon.KeywordsPendingCount<Blazicon Svg="MdiIcon.Tag" /></div>
+                    }
                 </button>
             </Virtualize>
         </div>

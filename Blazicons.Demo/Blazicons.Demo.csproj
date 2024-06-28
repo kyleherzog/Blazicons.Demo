@@ -8,6 +8,7 @@
   <ItemGroup>
     <TrimmerRootAssembly Include="Blazicons.Bootstrap" />
     <TrimmerRootAssembly Include="Blazicons.Devicon" />
+    <TrimmerRootAssembly Include="Blazicons.FlagIcons" />
     <TrimmerRootAssembly Include="Blazicons.FluentUI" />
     <TrimmerRootAssembly Include="Blazicons.FontAwesome" />
     <TrimmerRootAssembly Include="Blazicons.GoogleMaterialDesign" />
@@ -155,6 +156,7 @@
     <PackageReference Include="BindingBits" Version="2.0.862" />
     <PackageReference Include="Blazicons.Bootstrap" Version="2.0.30" />
     <PackageReference Include="Blazicons.Devicon" Version="1.0.3" />
+    <PackageReference Include="Blazicons.FlagIcons" Version="1.0.4" />
     <PackageReference Include="Blazicons.FluentUI" Version="2.3.79" />
     <PackageReference Include="Blazicons.FontAwesome" Version="2.0.21" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="2.0.13" />
