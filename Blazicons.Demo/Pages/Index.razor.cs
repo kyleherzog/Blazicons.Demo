@@ -226,6 +226,8 @@ public partial class Index : IDisposable
         AddLibraryIcons(typeof(DeviconLine));
         AddLibraryIcons(typeof(DeviconOriginal));
         AddLibraryIcons(typeof(DeviconPlain));
+        AddLibraryIcons(typeof(FlagIcon4x3));
+        AddLibraryIcons(typeof(FlagIcon1x1));
         AddLibraryIcons(typeof(FluentUiIcon));
         AddLibraryIcons(typeof(FluentUiFilledIcon));
         AddLibraryIcons(typeof(FontAwesomeRegularIcon));

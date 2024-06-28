@@ -61,6 +61,20 @@ public class IconEntry
         }
     }
 
+    public int KeywordsPendingCount
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(KeywordsPending))
+            {
+                return 0;
+            }
+
+            var words = KeywordsPending.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            return words.Length;
+        }
+    }
+
     public string Library { get; set; } = string.Empty;
 
     public string Name
