@@ -157,7 +157,7 @@
     <PackageReference Include="Blazicons.Bootstrap" Version="2.0.30" />
     <PackageReference Include="Blazicons.Devicon" Version="1.0.3" />
     <PackageReference Include="Blazicons.FlagIcons" Version="1.0.4" />
-    <PackageReference Include="Blazicons.FluentUI" Version="2.3.79" />
+    <PackageReference Include="Blazicons.FluentUI" Version="2.4.81" />
     <PackageReference Include="Blazicons.FontAwesome" Version="2.0.21" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="2.0.13" />
     <PackageReference Include="Blazicons.Ionicons" Version="2.1.17" />
@@ -187,7 +187,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.28.0.94264">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.29.0.95321">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
