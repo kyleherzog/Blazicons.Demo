@@ -157,7 +157,7 @@
     <PackageReference Include="Blazicons.Bootstrap" Version="2.0.30" />
     <PackageReference Include="Blazicons.Devicon" Version="1.0.3" />
     <PackageReference Include="Blazicons.FlagIcons" Version="1.0.4" />
-    <PackageReference Include="Blazicons.FluentUI" Version="2.9.93" />
+    <PackageReference Include="Blazicons.FluentUI" Version="2.10.95" />
     <PackageReference Include="Blazicons.FontAwesome" Version="2.1.23" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="2.0.13" />
     <PackageReference Include="Blazicons.Ionicons" Version="2.1.17" />
