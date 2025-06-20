@@ -157,11 +157,11 @@
     <PackageReference Include="Blazicons.Bootstrap" Version="2.2.38" />
     <PackageReference Include="Blazicons.Devicon" Version="1.1.9" />
     <PackageReference Include="Blazicons.FlagIcons" Version="1.1.7" />
-    <PackageReference Include="Blazicons.FluentUI" Version="2.16.109" />
+    <PackageReference Include="Blazicons.FluentUI" Version="2.17.111" />
     <PackageReference Include="Blazicons.FontAwesome" Version="2.3.29" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="2.1.15" />
     <PackageReference Include="Blazicons.Ionicons" Version="3.0.20" />
-    <PackageReference Include="Blazicons.Lucide" Version="1.8.24" />
+    <PackageReference Include="Blazicons.Lucide" Version="1.9.26" />
     <PackageReference Include="Blazicons.MaterialDesignIcons" Version="2.1.23" />
     <PackageReference Include="Blazor-Analytics" Version="3.12.0" />
     <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
@@ -188,7 +188,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="10.10.0.116381">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="10.12.0.118525">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
