@@ -161,13 +161,13 @@
     <PackageReference Include="Blazicons.FontAwesome" Version="2.4.31" />
     <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="2.2.17" />
     <PackageReference Include="Blazicons.Ionicons" Version="3.1.22" />
-    <PackageReference Include="Blazicons.Lucide" Version="1.11.31" />
+    <PackageReference Include="Blazicons.Lucide" Version="1.12.33-beta" />
     <PackageReference Include="Blazicons.MaterialDesignIcons" Version="2.2.26" />
     <PackageReference Include="Blazor-Analytics" Version="3.12.0" />
     <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
     <PackageReference Include="CodeCasing" Version="4.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.14" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.7" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.8" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
