@@ -170,7 +170,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="System.Private.Uri" Version="4.3.2" />
     <PackageReference Include="System.Reactive" Version="6.1.0" />
       <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.102">
           <PrivateAssets>all</PrivateAssets>
