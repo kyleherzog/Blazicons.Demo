@@ -155,15 +155,15 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BindingBits" Version="2.0.862" />
-    <PackageReference Include="Blazicons.Bootstrap" Version="3.0.1-beta" />
-    <PackageReference Include="Blazicons.Devicon" Version="2.0.7-beta" />
-    <PackageReference Include="Blazicons.FlagIcons" Version="2.0.5-beta" />
-    <PackageReference Include="Blazicons.FluentUI" Version="3.0.8-beta" />
-    <PackageReference Include="Blazicons.FontAwesome" Version="3.0.3-beta" />
-    <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="3.0.4-beta" />
-    <PackageReference Include="Blazicons.Ionicons" Version="4.0.2-beta" />
-    <PackageReference Include="Blazicons.Lucide" Version="2.0.1-beta" />
-    <PackageReference Include="Blazicons.MaterialDesignIcons" Version="3.0.1-beta" />
+    <PackageReference Include="Blazicons.Bootstrap" Version="3.0.1" />
+    <PackageReference Include="Blazicons.Devicon" Version="2.0.7" />
+    <PackageReference Include="Blazicons.FlagIcons" Version="2.0.5" />
+    <PackageReference Include="Blazicons.FluentUI" Version="3.0.8" />
+    <PackageReference Include="Blazicons.FontAwesome" Version="3.0.3" />
+    <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="3.0.4" />
+    <PackageReference Include="Blazicons.Ionicons" Version="4.0.2" />
+    <PackageReference Include="Blazicons.Lucide" Version="2.0.1" />
+    <PackageReference Include="Blazicons.MaterialDesignIcons" Version="3.0.1" />
     <PackageReference Include="Blazor-Analytics" Version="4.0.0" />
     <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
     <PackageReference Include="CodeCasing" Version="4.0.5" />
