@@ -24,7 +24,7 @@ public class KeywordsManager
         var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties.Resources.SearchMeta);
         if (values is null)
         {
-            keywords = new SortedDictionary<string, string>();
+            keywords = [];
         }
         else
         {
@@ -35,9 +35,9 @@ public class KeywordsManager
     public void AddKeyword(string key, string value)
     {
         var currentValue = string.Empty;
-        if (Keywords.ContainsKey(key))
+        if (Keywords.TryGetValue(key, out var storedValue))
         {
-            currentValue = Keywords[key];
+            currentValue = storedValue;
         }
 
         var words = currentValue.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList();

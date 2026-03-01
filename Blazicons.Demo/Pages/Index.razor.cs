@@ -75,7 +75,7 @@ public partial class Index : IDisposable
 
     public string FilterAreaClass => AreaFiltersExpanded ? "mt-1 mt-md-3" : "d-none d-md-block mt-1 mt-md-3";
 
-    public string FilterAreaTogglerClass => AreaFiltersExpanded ? "d-none" : "d-md-none";
+    public string FilterAreaToggleClass => AreaFiltersExpanded ? "d-none" : "d-md-none";
 
     public IList<IconEntry> FilteredIcons
     {
@@ -85,9 +85,9 @@ public partial class Index : IDisposable
         }
     }
 
-    public IList<FontLibrarySelection> Filters { get; } = new List<FontLibrarySelection>();
+    public IList<FontLibrarySelection> Filters { get; } = [];
 
-    public IList<IconEntry> Icons { get; } = new List<IconEntry>();
+    public IList<IconEntry> Icons { get; } = [];
 
     public string? IconsFilteredCount => filteredIcons.Count.ToString("N0");
 

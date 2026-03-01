@@ -94,7 +94,7 @@ public class IconEntry
         }
     }
 
-    public string NugetAddress => $"https://www.nuget.org/packages/{Assembly}";
+    public string NuGetAddress => $"https://www.nuget.org/packages/{Assembly}";
 
     public string SearchTerms => searchTerms;
 }
