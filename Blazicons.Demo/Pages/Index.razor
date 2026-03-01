@@ -13,7 +13,7 @@
             </EditForm>
             <div class="text-muted text-center">
                 <IconCount IconsFilteredCount="@IconsFilteredCount" IconsTotalCount="@IconsTotalCount"></IconCount>
-                <div class="@FilterAreaTogglerClass">
+                <div class="@FilterAreaToggleClass">
                     <a href="javascript:void()" @onclick="HandleFilterExpandToggle"><FilterDisplay ChildContent="LibraryFilterContent"></FilterDisplay></a>
                 </div>
             </div>
@@ -173,7 +173,7 @@
                         <div class="mb-3">
                             <strong>Package</strong> <a href="@ActiveIcon.CopyPackageLink" title="Copy Package Name"><Blazicon Svg="MdiIcon.ContentCopy"></Blazicon></a>
                             <div>
-                                <a target="_blank" href="@ActiveIcon.NugetAddress"><img alt="@ActiveIcon.Assembly" title="@ActiveIcon.Assembly" src="@ActiveIcon.BadgeLink"></a>
+                                <a target="_blank" href="@ActiveIcon.NuGetAddress"><img alt="@ActiveIcon.Assembly" title="@ActiveIcon.Assembly" src="@ActiveIcon.BadgeLink"></a>
                             </div>
                         </div>
 

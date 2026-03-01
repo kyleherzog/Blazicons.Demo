@@ -1,0 +1,118 @@
+parameters:
+- name: BuildConfiguration
+  displayName: Build Configuration
+  type: string
+  default: Release
+
+variables:
+  BuildConfiguration: ${{ parameters.BuildConfiguration }}
+  BuildTarget: '**/*.csproj'
+  PublishTarget: "**/Blazicons.Demo.csproj"
+
+trigger:
+  branches:
+    include:
+    - refs/heads/main
+  batch: True
+
+name: $(date:yyyyMMdd)$(rev:.r)
+
+jobs:
+- job: Build_Phase
+  displayName: Build Phase
+  cancelTimeoutInMinutes: 1
+  pool:
+    vmImage: windows-latest
+  steps:
+  - checkout: self
+    clean: true
+    fetchDepth: 1
+
+  - task: PowerShell@2
+    inputs:
+      targetType: inline
+      script: |
+        Write-Host "Branch: $env:BUILD_SOURCEBRANCHNAME"
+
+        if ($env:BUILD_SOURCEBRANCHNAME -eq "develop") {
+            Write-Output ("##vso[build.updatebuildnumber]" + $env:BUILD_BUILDNUMBER + "-beta")
+            Write-Host "Setting version as -beta"
+        }
+        elseif ($env:BUILD_SOURCEBRANCHNAME -ne "master" -and $env:BUILD_SOURCEBRANCHNAME -ne "main") {
+            Write-Output ("##vso[build.updatebuildnumber]" + $env:BUILD_BUILDNUMBER + "-alpha")
+            Write-Host "Setting version as -alpha"
+        }
+      pwsh: true
+    displayName: 'Set Quality Control Naming'
+
+  - task: NuGetToolInstaller@1
+    displayName: Use NuGet 7.x
+    inputs:
+      versionSpec: 7.x
+
+  - task: NuGetCommand@2
+    displayName: NuGet Restore
+    inputs:
+      command: restore
+      restoreSolution: $(BuildTarget)
+      feedsToUse: config
+
+  - task: DotNetCoreCLI@2
+    displayName: Build Projects
+    inputs:
+      command: build
+      projects: $(BuildTarget)
+      arguments: >
+        --configuration ${{ parameters.BuildConfiguration }}
+        --no-restore
+
+  - task: mspremier.BuildQualityChecks.QualityChecks-task.BuildQualityChecks@10
+    displayName: Check build quality
+    inputs:
+      checkWarnings: true
+      warningFailOption: fixed
+      warningTaskFilters: '/^Build Projects/i'
+      showStatistics: true
+      includePartiallySucceeded: false
+
+  - task: DotNetCoreCLI@2
+    displayName: Run Tests
+    inputs:
+      command: 'test'
+      projects: |
+        !**/obj/**
+        **/*UnitTests.dll
+      arguments: '--configuration $(BuildConfiguration) --no-build --logger trx'
+      publishTestResults: true
+
+  - task: DotNetCoreCLI@2
+    displayName: dotnet publish
+    inputs:
+      command: publish
+      publishWebProjects: false
+      projects: $(PublishTarget)
+      arguments: >
+        --configuration ${{ parameters.BuildConfiguration }}
+        --output $(Build.ArtifactStagingDirectory)
+        --no-restore
+      zipAfterPublish: false
+      modifyOutputPath: false
+
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)/docs'
+    inputs:
+      SourceFolder: '$(Build.ArtifactStagingDirectory)/wwwroot'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/docs'
+
+  - task: DeleteFiles@1
+    displayName: 'Delete files from $(Build.ArtifactStagingDirectory)/wwwroot'
+    inputs:
+      SourceFolder: '$(Build.ArtifactStagingDirectory)/wwwroot'
+      Contents: '**'
+      RemoveSourceFolder: true
+      RemoveDotFiles: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    inputs:
+      PathtoPublish: $(build.artifactstagingdirectory)
