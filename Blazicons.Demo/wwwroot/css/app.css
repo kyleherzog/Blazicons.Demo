@@ -183,9 +183,6 @@ h1:focus {
   background-color: #bd9de1;
   color: #000 !important;
 }
-.icons-area .icon-tile:hover svg, .icons-area .icon-tile[aria-selected] svg {
-  fill: #000;
-}
 .icons-area .icon-tile:hover .icon-name, .icons-area .icon-tile[aria-selected] .icon-name {
   color: #333;
 }
