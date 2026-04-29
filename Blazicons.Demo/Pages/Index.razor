@@ -183,7 +183,19 @@
                         </div>
 
                     </div>
-                    <div class="modal-footer bg-dark rounded-0">
+                    <div class="modal-footer bg-dark rounded-0 justify-content-between">
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-outline-secondary" @onclick="HandleDownloadSvgClick"><Blazicon Svg="MdiIcon.Download" /> SVG</button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-secondary" @onclick="HandleDownloadPngClick"><Blazicon Svg="MdiIcon.Download" /> PNG</button>
+                                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="visually-hidden">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="javascript:void(0)" @onclick="ShowAdvancedDownloadModal">Advanced...</a></li>
+                                </ul>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-secondary">OK</button>
                     </div>
                 </EditForm>
@@ -191,4 +203,78 @@
         </div>
     </div>
     <a class="modal-backdrop fade show" style="display: block;"></a>
+}
+
+@if (IsShowingAdvancedDownloadModal)
+{
+    <div class="modal fade show" style="display: block; z-index: 1065;" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <EditForm Model="DownloadOptions" OnSubmit="HandleAdvancedDownloadSubmit">
+                    <div class="modal-header bg-primary text-white rounded-0">
+                        Advanced PNG Download
+                        <button type="button" class="btn-close btn-close-white" aria-label="Close" @onclick="HideAdvancedDownloadModal"></button>
+                    </div>
+                    <div class="modal-body bg-dark text-light">
+                        <div class="mb-3 text-center">
+                            <label class="form-label d-block"><strong>Preview</strong></label>
+                            <div style="@AdvancedPreviewStyle">
+                                @if (!DownloadOptions.TransparentBackground)
+                                {
+                                    <div style="@AdvancedPreviewBgStyle"></div>
+                                }
+                                <div style="position: absolute; top: 0; left: 0; width: 128px; height: 128px; z-index: 1;">
+                                    @((MarkupString)PreviewSvgContent)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Foreground Color</strong></label>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="color" class="form-control form-control-color" @bind="DownloadOptions.ForegroundColor" @bind:event="oninput" />
+                                <span class="small font-monospace">@DownloadOptions.ForegroundColor</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Background Color</strong></label>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="transparentBg" @bind="DownloadOptions.TransparentBackground" />
+                                <label class="form-check-label" for="transparentBg">Transparent</label>
+                            </div>
+                            @if (!DownloadOptions.TransparentBackground)
+                            {
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="color" class="form-control form-control-color" @bind="DownloadOptions.BackgroundColor" @bind:event="oninput" />
+                                    <span class="small font-monospace">@DownloadOptions.BackgroundColor</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Corner Radius</strong></label>
+                            @if (DownloadOptions.TransparentBackground)
+                            {
+                                <div class="text-muted small">Not applicable with a transparent background.</div>
+                            }
+                            else
+                            {
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="range" class="form-range flex-fill" min="0" max="128" @bind="DownloadOptions.CornerRadius" @bind:event="oninput" />
+                                    <input type="number" class="form-control" style="width: 75px;" min="0" max="512" @bind="DownloadOptions.CornerRadius" />
+                                </div>
+                            }
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Size (px)</strong></label>
+                            <input type="number" class="form-control" @bind="DownloadOptions.Size" min="16" max="2048" />
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-dark rounded-0">
+                        <button type="submit" class="btn btn-primary">Download</button>
+                        <button type="button" class="btn btn-secondary" @onclick="HideAdvancedDownloadModal">Cancel</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <a class="modal-backdrop fade show" style="display: block; z-index: 1060;"></a>
 }

@@ -7,11 +7,15 @@ using Blazor.Analytics;
 using BlazorDownloadFile;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.JSInterop;
 
 namespace Blazicons.Demo.Pages;
 
 public partial class Index : IDisposable
 {
+    private const string CheckeredStyle =
+        "background-color: #ffffff; background-image: linear-gradient(45deg, #cccccc 25%, transparent 25%), linear-gradient(-45deg, #cccccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #cccccc 75%), linear-gradient(-45deg, transparent 75%, #cccccc 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px;";
+
     private static readonly JsonSerializerOptions defaultExportOptions = new() { WriteIndented = true };
     private readonly List<IconEntry> filteredIcons = [];
     private string? activeQuery;
@@ -73,6 +77,8 @@ public partial class Index : IDisposable
         }
     }
 
+    public SvgDownloadOptionsModel DownloadOptions { get; set; } = new();
+
     public string FilterAreaClass => AreaFiltersExpanded ? "mt-1 mt-md-3" : "d-none d-md-block mt-1 mt-md-3";
 
     public string FilterAreaToggleClass => AreaFiltersExpanded ? "d-none" : "d-md-none";
@@ -98,6 +104,8 @@ public partial class Index : IDisposable
     public bool IsSelectingMultiples { get; set; }
 
     public bool IsShowingAddKeywordModal { get; set; }
+
+    public bool IsShowingAdvancedDownloadModal { get; set; }
 
     public bool IsShowingModal { get; set; }
 
@@ -152,11 +160,34 @@ public partial class Index : IDisposable
 
     public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
 
+    private string AdvancedPreviewBgStyle
+    {
+        get
+        {
+            if (DownloadOptions.TransparentBackground)
+                return string.Empty;
+            var radius = DownloadOptions.CornerRadius > 0
+                ? $"border-radius: {DownloadOptions.CornerRadius}px;"
+                : string.Empty;
+            return $"position: absolute; inset: 0; background-color: {DownloadOptions.BackgroundColor}; {radius}";
+        }
+    }
+
+    private string AdvancedPreviewStyle =>
+        $"width: 128px; height: 128px; position: relative; display: inline-block; {CheckeredStyle}";
+
     [Inject]
     private IBlazorDownloadFileService FileDownloader { get; set; } = default!;
 
     [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
     private KeywordsManager KeywordsManager { get; set; } = default!;
+
+    private string PreviewSvgContent => ActiveIcon.Icon.Markup
+        .Replace("currentColor", DownloadOptions.ForegroundColor, StringComparison.OrdinalIgnoreCase)
+        .Replace("<svg viewBox", "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"width: 128px; height: 128px; display: block;\" viewBox", StringComparison.OrdinalIgnoreCase);
 
     public void Dispose()
     {
@@ -202,6 +233,17 @@ public partial class Index : IDisposable
     public void HideAddKeywordsModal()
     {
         IsShowingAddKeywordModal = false;
+    }
+
+    public void HideAdvancedDownloadModal()
+    {
+        IsShowingAdvancedDownloadModal = false;
+    }
+
+    public void ShowAdvancedDownloadModal()
+    {
+        DownloadOptions = new SvgDownloadOptionsModel();
+        IsShowingAdvancedDownloadModal = true;
     }
 
     protected virtual void Dispose(bool disposing)
@@ -299,6 +341,37 @@ public partial class Index : IDisposable
         {
             item.IsSelected = false;
         }
+    }
+
+    private async Task HandleAdvancedDownloadSubmit()
+    {
+        var foregroundColor = DownloadOptions.ForegroundColor;
+        var backgroundColor = DownloadOptions.TransparentBackground ? string.Empty : DownloadOptions.BackgroundColor;
+        var cornerRadius = DownloadOptions.TransparentBackground ? 0 : DownloadOptions.CornerRadius;
+        var svgContent = ActiveIcon.Icon.Markup
+            .Replace("currentColor", foregroundColor, StringComparison.OrdinalIgnoreCase)
+            .Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.OrdinalIgnoreCase);
+        var fileName = $"{ActiveIcon.Name}.png";
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, DownloadOptions.Size, backgroundColor, cornerRadius).ConfigureAwait(true);
+        HideAdvancedDownloadModal();
+    }
+
+    private async Task HandleDownloadPngClick()
+    {
+        var svgContent = ActiveIcon.Icon.Markup
+            .Replace("currentColor", "#000000", StringComparison.OrdinalIgnoreCase)
+            .Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.OrdinalIgnoreCase);
+        var fileName = $"{ActiveIcon.Name}.png";
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, 256, string.Empty, 0).ConfigureAwait(true);
+    }
+
+    private async Task HandleDownloadSvgClick()
+    {
+        var svgContent = ActiveIcon.Icon.Markup
+            .Replace("currentColor", "#000000", StringComparison.OrdinalIgnoreCase)
+            .Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.OrdinalIgnoreCase);
+        var fileName = $"{ActiveIcon.Name}.svg";
+        await FileDownloader.DownloadFileFromText(fileName, svgContent, Encoding.UTF8, "image/svg+xml", true).ConfigureAwait(true);
     }
 
     private async Task HandleExportClick()
