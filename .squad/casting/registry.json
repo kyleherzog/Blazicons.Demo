@@ -1,0 +1,52 @@
+{
+  "agents": {
+    "buddy": {
+      "persistent_name": "Buddy",
+      "universe": "Classic Pet Names",
+      "role": "Lead",
+      "created_at": "2026-04-24T22:25:46Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "bella": {
+      "persistent_name": "Bella",
+      "universe": "Classic Pet Names",
+      "role": "Frontend Dev",
+      "created_at": "2026-04-24T22:25:46Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "rex": {
+      "persistent_name": "Rex",
+      "universe": "Classic Pet Names",
+      "role": "Backend Dev",
+      "created_at": "2026-04-24T22:25:46Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "daisy": {
+      "persistent_name": "Daisy",
+      "universe": "Classic Pet Names",
+      "role": "Tester",
+      "created_at": "2026-04-24T22:25:46Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "scribe": {
+      "persistent_name": "Scribe",
+      "universe": "exempt",
+      "role": "Scribe",
+      "created_at": "2026-04-24T22:25:46Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "ralph": {
+      "persistent_name": "Ralph",
+      "universe": "exempt",
+      "role": "Work Monitor",
+      "created_at": "2026-04-24T22:25:46Z",
+      "legacy_named": false,
+      "status": "active"
+    }
+  }
+}
