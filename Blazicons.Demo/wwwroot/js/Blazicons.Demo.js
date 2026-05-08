@@ -13,6 +13,12 @@
         })
     },
 
+    initTooltips: function () {
+        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(function (el) {
+            bootstrap.Tooltip.getOrCreateInstance(el);
+        });
+    },
+
     downloadSvgAsPng: function (svgContent, fileName, size, backgroundColor, cornerRadius, padding) {
         return new Promise(function (resolve, reject) {
             var canvas = document.createElement('canvas');

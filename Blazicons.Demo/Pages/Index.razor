@@ -262,7 +262,7 @@
                         <div class="mb-3">
                             <label class="form-label">
                                 <strong>Corner Radius</strong>
-                                <span class="text-muted ms-1" style="font-size: 0.85em; cursor: help;" title="Only applicable when transparent background is selected">ⓘ</span>
+                                <span class="text-info ms-1" style="font-size: 0.85em; cursor: help;" data-bs-toggle="tooltip" data-bs-placement="top" title="Only applicable when transparent background is selected"><Blazicon Svg="MdiIcon.HelpCircle" /></span>
                             </label>
                             <div class="d-flex align-items-center gap-2">
                                 <input type="range" class="form-range flex-fill" min="0" max="128" @bind="DownloadOptions.CornerRadius" @bind:event="oninput" disabled="@(!DownloadOptions.TransparentBackground)" />

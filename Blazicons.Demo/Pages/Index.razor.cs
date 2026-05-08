@@ -282,6 +282,12 @@ public partial class Index : IDisposable
         }
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.initTooltips").ConfigureAwait(true);
+        await base.OnAfterRenderAsync(firstRender).ConfigureAwait(true);
+    }
+
     protected override Task OnInitializedAsync()
     {
         var uri = new Uri(Navigation.Uri);
