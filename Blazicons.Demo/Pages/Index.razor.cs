@@ -1,6 +1,7 @@
 ﻿using System.Reactive.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Blazicons.Demo.Components;
 using Blazicons.Demo.Models;
 using Blazor.Analytics;
@@ -17,6 +18,9 @@ public partial class Index : IDisposable
         "background-color: #ffffff; background-image: linear-gradient(45deg, #cccccc 25%, transparent 25%), linear-gradient(-45deg, #cccccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #cccccc 75%), linear-gradient(-45deg, transparent 75%, #cccccc 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px;";
 
     private static readonly JsonSerializerOptions defaultExportOptions = new() { WriteIndented = true };
+
+    [GeneratedRegex(@"\s+(?:width|height)=(?:'[^']*'|""[^""]*"")", RegexOptions.IgnoreCase)]
+    private static partial Regex SvgDimensionAttributeRegex();
     private readonly List<IconEntry> filteredIcons = [];
     private string? activeQuery;
     private bool areaFiltersExpanded;
@@ -185,9 +189,15 @@ public partial class Index : IDisposable
     [Inject]
     private KeywordsManager KeywordsManager { get; set; } = default!;
 
-    private string PreviewSvgContent => ActiveIcon.Icon.Markup
-        .Replace("currentColor", DownloadOptions.ForegroundColor, StringComparison.OrdinalIgnoreCase)
-        .Replace("<svg viewBox", "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"width: 128px; height: 128px; display: block;\" viewBox", StringComparison.OrdinalIgnoreCase);
+    private string PreviewSvgContent
+    {
+        get
+        {
+            var markup = ActiveIcon.Icon.Markup
+                .Replace("currentColor", DownloadOptions.ForegroundColor, StringComparison.OrdinalIgnoreCase);
+            return NormalizeSvgMarkup(markup, "width: 128px; height: 128px; display: block;");
+        }
+    }
 
     public void Dispose()
     {
@@ -348,9 +358,8 @@ public partial class Index : IDisposable
         var foregroundColor = DownloadOptions.ForegroundColor;
         var backgroundColor = DownloadOptions.TransparentBackground ? string.Empty : DownloadOptions.BackgroundColor;
         var cornerRadius = DownloadOptions.TransparentBackground ? 0 : DownloadOptions.CornerRadius;
-        var svgContent = ActiveIcon.Icon.Markup
-            .Replace("currentColor", foregroundColor, StringComparison.OrdinalIgnoreCase)
-            .Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.OrdinalIgnoreCase);
+        var svgContent = NormalizeSvgMarkup(
+            ActiveIcon.Icon.Markup.Replace("currentColor", foregroundColor, StringComparison.OrdinalIgnoreCase));
         var fileName = $"{ActiveIcon.Name}.png";
         await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, DownloadOptions.Size, backgroundColor, cornerRadius).ConfigureAwait(true);
         HideAdvancedDownloadModal();
@@ -358,18 +367,16 @@ public partial class Index : IDisposable
 
     private async Task HandleDownloadPngClick()
     {
-        var svgContent = ActiveIcon.Icon.Markup
-            .Replace("currentColor", "#000000", StringComparison.OrdinalIgnoreCase)
-            .Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.OrdinalIgnoreCase);
+        var svgContent = NormalizeSvgMarkup(
+            ActiveIcon.Icon.Markup.Replace("currentColor", "#000000", StringComparison.OrdinalIgnoreCase));
         var fileName = $"{ActiveIcon.Name}.png";
         await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, 256, string.Empty, 0).ConfigureAwait(true);
     }
 
     private async Task HandleDownloadSvgClick()
     {
-        var svgContent = ActiveIcon.Icon.Markup
-            .Replace("currentColor", "#000000", StringComparison.OrdinalIgnoreCase)
-            .Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.OrdinalIgnoreCase);
+        var svgContent = NormalizeSvgMarkup(
+            ActiveIcon.Icon.Markup.Replace("currentColor", "#000000", StringComparison.OrdinalIgnoreCase));
         var fileName = $"{ActiveIcon.Name}.svg";
         await FileDownloader.DownloadFileFromText(fileName, svgContent, Encoding.UTF8, "image/svg+xml", true).ConfigureAwait(true);
     }
@@ -396,6 +403,26 @@ public partial class Index : IDisposable
     {
         ActiveIcon.KeywordsPending = null;
         IsShowingModal = false;
+    }
+
+    private static string NormalizeSvgMarkup(string markup, string? additionalStyle = null)
+    {
+        // Remove explicit width/height attributes so the SVG scales to its container/destination
+        var result = SvgDimensionAttributeRegex().Replace(markup, string.Empty);
+
+        // Add xmlns namespace declaration if not already present
+        if (!result.Contains("xmlns=", StringComparison.OrdinalIgnoreCase))
+        {
+            result = result.Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.OrdinalIgnoreCase);
+        }
+
+        // Inject an inline style to control rendered dimensions when needed (e.g., preview)
+        if (!string.IsNullOrEmpty(additionalStyle))
+        {
+            result = result.Replace("<svg ", $"<svg style=\"{additionalStyle}\" ", StringComparison.OrdinalIgnoreCase);
+        }
+
+        return result;
     }
 
     private void LoadFilteredIcons()
