@@ -1,10 +1,12 @@
-{
+﻿{
   "casting_policy_version": "1.1",
   "universe": "Classic Pet Names",
   "allowlist_universes": [
+    "SquadDash Universe",
     "Classic Pet Names"
   ],
   "universe_capacity": {
-    "Classic Pet Names": 20
+    "Classic Pet Names": 20,
+    "SquadDash Universe": 30
   }
 }

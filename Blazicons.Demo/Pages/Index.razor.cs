@@ -361,7 +361,7 @@ public partial class Index : IDisposable
         var svgContent = NormalizeSvgMarkup(
             ActiveIcon.Icon.Markup.Replace("currentColor", foregroundColor, StringComparison.OrdinalIgnoreCase));
         var fileName = $"{ActiveIcon.Name}.png";
-        await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, DownloadOptions.Size, backgroundColor, cornerRadius).ConfigureAwait(true);
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, DownloadOptions.Size, backgroundColor, cornerRadius, DownloadOptions.Padding).ConfigureAwait(true);
         HideAdvancedDownloadModal();
     }
 

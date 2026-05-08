@@ -267,6 +267,13 @@
                             <label class="form-label"><strong>Size (px)</strong></label>
                             <input type="number" class="form-control" @bind="DownloadOptions.Size" min="16" max="2048" />
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Padding (px)</strong></label>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="range" class="form-range flex-fill" min="0" max="@(DownloadOptions.Size / 2)" @bind="DownloadOptions.Padding" @bind:event="oninput" />
+                                <input type="number" class="form-control" style="width: 75px;" min="0" max="@(DownloadOptions.Size / 2)" @bind="DownloadOptions.Padding" />
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer bg-dark rounded-0">
                         <button type="submit" class="btn btn-primary">Download</button>

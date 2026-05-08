@@ -6,6 +6,8 @@ public class SvgDownloadOptionsModel
 
     public int CornerRadius { get; set; } = 0;
 
+    public int Padding { get; set; } = 0;
+
     public string ForegroundColor { get; set; } = "#000000";
 
     public int Size { get; set; } = 256;
