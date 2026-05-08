@@ -1,24 +1,36 @@
 ﻿using System.Reactive.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Blazicons.Demo.Components;
 using Blazicons.Demo.Models;
 using Blazor.Analytics;
 using BlazorDownloadFile;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.JSInterop;
 
 namespace Blazicons.Demo.Pages;
 
 public partial class Index : IDisposable
 {
+    private const string checkeredStyle =
+        "background-color: #ffffff; background-image: linear-gradient(45deg, #cccccc 25%, transparent 25%), linear-gradient(-45deg, #cccccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #cccccc 75%), linear-gradient(-45deg, transparent 75%, #cccccc 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px;";
+
     private static readonly JsonSerializerOptions defaultExportOptions = new() { WriteIndented = true };
+
     private readonly List<IconEntry> filteredIcons = [];
+
     private string? activeQuery;
+
     private bool areaFiltersExpanded;
+
     private bool hasDisposed;
+
     private string libraryFilter = string.Empty;
+
     private RenderFragment? libraryFilterContent;
+
     private IDisposable? queryChangedSubscription;
 
     public Index()
@@ -73,6 +85,8 @@ public partial class Index : IDisposable
         }
     }
 
+    public ImageDownloadOptionsModel DownloadOptions { get; set; } = new();
+
     public string FilterAreaClass => AreaFiltersExpanded ? "mt-1 mt-md-3" : "d-none d-md-block mt-1 mt-md-3";
 
     public string FilterAreaToggleClass => AreaFiltersExpanded ? "d-none" : "d-md-none";
@@ -98,6 +112,8 @@ public partial class Index : IDisposable
     public bool IsSelectingMultiples { get; set; }
 
     public bool IsShowingAddKeywordModal { get; set; }
+
+    public bool IsShowingAdvancedDownloadModal { get; set; }
 
     public bool IsShowingModal { get; set; }
 
@@ -152,11 +168,59 @@ public partial class Index : IDisposable
 
     public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
 
+    private static string AdvancedPreviewStyle =>
+        $"width: 128px; height: 128px; position: relative; display: inline-block; {checkeredStyle}";
+
+    private string AdvancedPreviewBgStyle
+    {
+        get
+        {
+            if (DownloadOptions.TransparentBackground)
+            {
+                return string.Empty;
+            }
+
+            var radius = DownloadOptions.CornerRadius > 0
+                ? $"border-radius: {DownloadOptions.CornerRadius}px;"
+                : string.Empty;
+            return $"position: absolute; inset: 0; background-color: {DownloadOptions.BackgroundColor}; {radius}";
+        }
+    }
+
     [Inject]
     private IBlazorDownloadFileService FileDownloader { get; set; } = default!;
 
     [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
     private KeywordsManager KeywordsManager { get; set; } = default!;
+
+    private string PreviewIconInsetStyle
+    {
+        get
+        {
+            const int previewSize = 128;
+            var pad = DownloadOptions.Size > 0
+                ? (int)Math.Round(previewSize * (double)DownloadOptions.Padding / DownloadOptions.Size)
+                : 0;
+            var iconSize = previewSize - (2 * pad);
+            var flipX = DownloadOptions.FlipHorizontal ? -1 : 1;
+            var flipY = DownloadOptions.FlipVertical ? -1 : 1;
+            var transform = $"rotate({DownloadOptions.Rotation}deg) scaleX({flipX}) scaleY({flipY})";
+            return $"position: absolute; top: {pad}px; left: {pad}px; width: {iconSize}px; height: {iconSize}px; z-index: 1; transform: {transform}; transform-origin: center;";
+        }
+    }
+
+    private string PreviewSvgContent
+    {
+        get
+        {
+            var markup = ActiveIcon.Icon.Markup
+                .Replace("currentColor", DownloadOptions.ForegroundColor, StringComparison.OrdinalIgnoreCase);
+            return NormalizeSvgMarkup(markup, "width: 100%; height: 100%; display: block;");
+        }
+    }
 
     public void Dispose()
     {
@@ -204,6 +268,17 @@ public partial class Index : IDisposable
         IsShowingAddKeywordModal = false;
     }
 
+    public void HideAdvancedDownloadModal()
+    {
+        IsShowingAdvancedDownloadModal = false;
+    }
+
+    public void ShowAdvancedDownloadModal()
+    {
+        DownloadOptions = new ImageDownloadOptionsModel();
+        IsShowingAdvancedDownloadModal = true;
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         if (!hasDisposed)
@@ -215,6 +290,13 @@ public partial class Index : IDisposable
 
             hasDisposed = true;
         }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.initTooltips").ConfigureAwait(true);
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.initPopovers").ConfigureAwait(true);
+        await base.OnAfterRenderAsync(firstRender).ConfigureAwait(true);
     }
 
     protected override Task OnInitializedAsync()
@@ -245,6 +327,29 @@ public partial class Index : IDisposable
 
         return base.OnInitializedAsync();
     }
+
+    private static string NormalizeSvgMarkup(string markup, string? additionalStyle = null)
+    {
+        // Remove explicit width/height attributes so the SVG scales to its container/destination
+        var result = SvgDimensionAttributeRegex().Replace(markup, string.Empty);
+
+        // Add xmlns namespace declaration if not already present
+        if (!result.Contains("xmlns=", StringComparison.OrdinalIgnoreCase))
+        {
+            result = result.Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.OrdinalIgnoreCase);
+        }
+
+        // Inject an inline style to control rendered dimensions when needed (e.g., preview)
+        if (!string.IsNullOrEmpty(additionalStyle))
+        {
+            result = result.Replace("<svg ", $"<svg style=\"{additionalStyle}\" ", StringComparison.OrdinalIgnoreCase);
+        }
+
+        return result;
+    }
+
+    [GeneratedRegex(@"\s+(?:width|height)=(?:'[^']*'|""[^""]*"")", RegexOptions.IgnoreCase)]
+    private static partial Regex SvgDimensionAttributeRegex();
 
     private void AddLibraryIcons(Type type)
     {
@@ -299,6 +404,34 @@ public partial class Index : IDisposable
         {
             item.IsSelected = false;
         }
+    }
+
+    private async Task HandleAdvancedDownloadSubmit()
+    {
+        var foregroundColor = DownloadOptions.ForegroundColor;
+        var backgroundColor = DownloadOptions.TransparentBackground ? string.Empty : DownloadOptions.BackgroundColor;
+        var cornerRadius = DownloadOptions.TransparentBackground ? 0 : DownloadOptions.CornerRadius;
+        var svgContent = NormalizeSvgMarkup(
+            ActiveIcon.Icon.Markup.Replace("currentColor", foregroundColor, StringComparison.OrdinalIgnoreCase));
+        var fileName = $"{ActiveIcon.Name}.png";
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, DownloadOptions.Size, backgroundColor, cornerRadius, DownloadOptions.Padding, DownloadOptions.Rotation, DownloadOptions.FlipHorizontal, DownloadOptions.FlipVertical).ConfigureAwait(true);
+        HideAdvancedDownloadModal();
+    }
+
+    private async Task HandleDownloadPngClick()
+    {
+        var svgContent = NormalizeSvgMarkup(
+            ActiveIcon.Icon.Markup.Replace("currentColor", "#000000", StringComparison.OrdinalIgnoreCase));
+        var fileName = $"{ActiveIcon.Name}.png";
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, 256, string.Empty, 0, 0, 0, false, false).ConfigureAwait(true);
+    }
+
+    private async Task HandleDownloadSvgClick()
+    {
+        var svgContent = NormalizeSvgMarkup(
+            ActiveIcon.Icon.Markup.Replace("currentColor", "#000000", StringComparison.OrdinalIgnoreCase));
+        var fileName = $"{ActiveIcon.Name}.svg";
+        await FileDownloader.DownloadFileFromText(fileName, svgContent, Encoding.UTF8, "image/svg+xml", true).ConfigureAwait(true);
     }
 
     private async Task HandleExportClick()

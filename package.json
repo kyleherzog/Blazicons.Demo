@@ -1,0 +1,8 @@
+{
+  "name": "blazicons.demo",
+  "private": true,
+  "version": "1.0.0",
+  "devDependencies": {
+    "@bradygaster/squad-cli": "^0.9.4"
+  }
+}
