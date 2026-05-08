@@ -19,6 +19,12 @@
         });
     },
 
+    initPopovers: function () {
+        document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => {
+            bootstrap.Popover.getOrCreateInstance(el);
+        });
+    },
+
     downloadSvgAsPng: function (svgContent, fileName, size, backgroundColor, cornerRadius, padding) {
         return new Promise(function (resolve, reject) {
             var canvas = document.createElement('canvas');

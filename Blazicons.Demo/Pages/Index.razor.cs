@@ -285,6 +285,7 @@ public partial class Index : IDisposable
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await JSRuntime.InvokeVoidAsync("blaziconsDemo.initTooltips").ConfigureAwait(true);
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.initPopovers").ConfigureAwait(true);
         await base.OnAfterRenderAsync(firstRender).ConfigureAwait(true);
     }
 
