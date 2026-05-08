@@ -19,14 +19,18 @@ public partial class Index : IDisposable
 
     private static readonly JsonSerializerOptions defaultExportOptions = new() { WriteIndented = true };
 
-    [GeneratedRegex(@"\s+(?:width|height)=(?:'[^']*'|""[^""]*"")", RegexOptions.IgnoreCase)]
-    private static partial Regex SvgDimensionAttributeRegex();
     private readonly List<IconEntry> filteredIcons = [];
+
     private string? activeQuery;
+
     private bool areaFiltersExpanded;
+
     private bool hasDisposed;
+
     private string libraryFilter = string.Empty;
+
     private RenderFragment? libraryFilterContent;
+
     private IDisposable? queryChangedSubscription;
 
     public Index()
@@ -180,6 +184,15 @@ public partial class Index : IDisposable
     private string AdvancedPreviewStyle =>
         $"width: 128px; height: 128px; position: relative; display: inline-block; {CheckeredStyle}";
 
+    [Inject]
+    private IBlazorDownloadFileService FileDownloader { get; set; } = default!;
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
+    private KeywordsManager KeywordsManager { get; set; } = default!;
+
     private string PreviewIconInsetStyle
     {
         get
@@ -195,15 +208,6 @@ public partial class Index : IDisposable
             return $"position: absolute; top: {pad}px; left: {pad}px; width: {iconSize}px; height: {iconSize}px; z-index: 1; transform: {transform}; transform-origin: center;";
         }
     }
-
-    [Inject]
-    private IBlazorDownloadFileService FileDownloader { get; set; } = default!;
-
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    [Inject]
-    private KeywordsManager KeywordsManager { get; set; } = default!;
 
     private string PreviewSvgContent
     {
@@ -321,6 +325,29 @@ public partial class Index : IDisposable
         return base.OnInitializedAsync();
     }
 
+    private static string NormalizeSvgMarkup(string markup, string? additionalStyle = null)
+    {
+        // Remove explicit width/height attributes so the SVG scales to its container/destination
+        var result = SvgDimensionAttributeRegex().Replace(markup, string.Empty);
+
+        // Add xmlns namespace declaration if not already present
+        if (!result.Contains("xmlns=", StringComparison.OrdinalIgnoreCase))
+        {
+            result = result.Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.OrdinalIgnoreCase);
+        }
+
+        // Inject an inline style to control rendered dimensions when needed (e.g., preview)
+        if (!string.IsNullOrEmpty(additionalStyle))
+        {
+            result = result.Replace("<svg ", $"<svg style=\"{additionalStyle}\" ", StringComparison.OrdinalIgnoreCase);
+        }
+
+        return result;
+    }
+
+    [GeneratedRegex(@"\s+(?:width|height)=(?:'[^']*'|""[^""]*"")", RegexOptions.IgnoreCase)]
+    private static partial Regex SvgDimensionAttributeRegex();
+
     private void AddLibraryIcons(Type type)
     {
         var properties = type.GetProperties();
@@ -426,26 +453,6 @@ public partial class Index : IDisposable
     {
         ActiveIcon.KeywordsPending = null;
         IsShowingModal = false;
-    }
-
-    private static string NormalizeSvgMarkup(string markup, string? additionalStyle = null)
-    {
-        // Remove explicit width/height attributes so the SVG scales to its container/destination
-        var result = SvgDimensionAttributeRegex().Replace(markup, string.Empty);
-
-        // Add xmlns namespace declaration if not already present
-        if (!result.Contains("xmlns=", StringComparison.OrdinalIgnoreCase))
-        {
-            result = result.Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.OrdinalIgnoreCase);
-        }
-
-        // Inject an inline style to control rendered dimensions when needed (e.g., preview)
-        if (!string.IsNullOrEmpty(additionalStyle))
-        {
-            result = result.Replace("<svg ", $"<svg style=\"{additionalStyle}\" ", StringComparison.OrdinalIgnoreCase);
-        }
-
-        return result;
     }
 
     private void LoadFilteredIcons()
