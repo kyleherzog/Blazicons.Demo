@@ -25,7 +25,7 @@
         });
     },
 
-    downloadSvgAsPng: function (svgContent, fileName, size, backgroundColor, cornerRadius, padding) {
+    downloadSvgAsPng: function (svgContent, fileName, size, backgroundColor, cornerRadius, padding, rotation, flipHorizontal, flipVertical) {
         return new Promise(function (resolve, reject) {
             var canvas = document.createElement('canvas');
             canvas.width = size;
@@ -36,8 +36,6 @@
             var img = new Image();
             img.onload = function () {
                 var pad = (padding && padding > 0) ? Math.min(padding, size / 2) : 0;
-                var iconX = pad;
-                var iconY = pad;
                 var iconSize = size - pad * 2;
                 var hasBackground = backgroundColor && backgroundColor.trim() !== '';
                 var radius = (hasBackground && cornerRadius > 0) ? Math.min(cornerRadius, size / 2) : 0;
@@ -59,7 +57,13 @@
                     ctx.fillStyle = backgroundColor;
                     ctx.fillRect(0, 0, size, size);
                 }
-                ctx.drawImage(img, iconX, iconY, iconSize, iconSize);
+                ctx.save();
+                ctx.translate(size / 2, size / 2);
+                if (flipHorizontal) ctx.scale(-1, 1);
+                if (flipVertical) ctx.scale(1, -1);
+                ctx.rotate((rotation || 0) * Math.PI / 180);
+                ctx.drawImage(img, -iconSize / 2, -iconSize / 2, iconSize, iconSize);
+                ctx.restore();
                 URL.revokeObjectURL(url);
                 canvas.toBlob(function (blob) {
                     var a = document.createElement('a');

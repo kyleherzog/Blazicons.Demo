@@ -189,7 +189,10 @@ public partial class Index : IDisposable
                 ? (int)Math.Round(previewSize * (double)DownloadOptions.Padding / DownloadOptions.Size)
                 : 0;
             var iconSize = previewSize - (2 * pad);
-            return $"position: absolute; top: {pad}px; left: {pad}px; width: {iconSize}px; height: {iconSize}px; z-index: 1;";
+            var flipX = DownloadOptions.FlipHorizontal ? -1 : 1;
+            var flipY = DownloadOptions.FlipVertical ? -1 : 1;
+            var transform = $"rotate({DownloadOptions.Rotation}deg) scaleX({flipX}) scaleY({flipY})";
+            return $"position: absolute; top: {pad}px; left: {pad}px; width: {iconSize}px; height: {iconSize}px; z-index: 1; transform: {transform}; transform-origin: center;";
         }
     }
 
@@ -381,7 +384,7 @@ public partial class Index : IDisposable
         var svgContent = NormalizeSvgMarkup(
             ActiveIcon.Icon.Markup.Replace("currentColor", foregroundColor, StringComparison.OrdinalIgnoreCase));
         var fileName = $"{ActiveIcon.Name}.png";
-        await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, DownloadOptions.Size, backgroundColor, cornerRadius, DownloadOptions.Padding).ConfigureAwait(true);
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, DownloadOptions.Size, backgroundColor, cornerRadius, DownloadOptions.Padding, DownloadOptions.Rotation, DownloadOptions.FlipHorizontal, DownloadOptions.FlipVertical).ConfigureAwait(true);
         HideAdvancedDownloadModal();
     }
 
@@ -390,7 +393,7 @@ public partial class Index : IDisposable
         var svgContent = NormalizeSvgMarkup(
             ActiveIcon.Icon.Markup.Replace("currentColor", "#000000", StringComparison.OrdinalIgnoreCase));
         var fileName = $"{ActiveIcon.Name}.png";
-        await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, 256, string.Empty, 0).ConfigureAwait(true);
+        await JSRuntime.InvokeVoidAsync("blaziconsDemo.downloadSvgAsPng", svgContent, fileName, 256, string.Empty, 0, 0, 0, false, false).ConfigureAwait(true);
     }
 
     private async Task HandleDownloadSvgClick()

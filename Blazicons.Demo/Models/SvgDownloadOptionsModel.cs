@@ -13,4 +13,10 @@ public class SvgDownloadOptionsModel
     public int Size { get; set; } = 256;
 
     public bool TransparentBackground { get; set; } = true;
+
+    public int Rotation { get; set; } = 0;
+
+    public bool FlipHorizontal { get; set; } = false;
+
+    public bool FlipVertical { get; set; } = false;
 }
