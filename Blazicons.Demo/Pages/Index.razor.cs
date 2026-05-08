@@ -14,7 +14,7 @@ namespace Blazicons.Demo.Pages;
 
 public partial class Index : IDisposable
 {
-    private const string CheckeredStyle =
+    private const string checkeredStyle =
         "background-color: #ffffff; background-image: linear-gradient(45deg, #cccccc 25%, transparent 25%), linear-gradient(-45deg, #cccccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #cccccc 75%), linear-gradient(-45deg, transparent 75%, #cccccc 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px;";
 
     private static readonly JsonSerializerOptions defaultExportOptions = new() { WriteIndented = true };
@@ -168,21 +168,24 @@ public partial class Index : IDisposable
 
     public Virtualize<IconEntry>? VirtualizedIcons { get; set; }
 
+    private static string AdvancedPreviewStyle =>
+        $"width: 128px; height: 128px; position: relative; display: inline-block; {checkeredStyle}";
+
     private string AdvancedPreviewBgStyle
     {
         get
         {
             if (DownloadOptions.TransparentBackground)
+            {
                 return string.Empty;
+            }
+
             var radius = DownloadOptions.CornerRadius > 0
                 ? $"border-radius: {DownloadOptions.CornerRadius}px;"
                 : string.Empty;
             return $"position: absolute; inset: 0; background-color: {DownloadOptions.BackgroundColor}; {radius}";
         }
     }
-
-    private string AdvancedPreviewStyle =>
-        $"width: 128px; height: 128px; position: relative; display: inline-block; {CheckeredStyle}";
 
     [Inject]
     private IBlazorDownloadFileService FileDownloader { get; set; } = default!;
