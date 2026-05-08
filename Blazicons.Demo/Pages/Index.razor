@@ -240,14 +240,21 @@
                                 <div class="col-6">
                                     <label class="form-label d-flex align-items-center gap-2 flex-wrap">
                                         <strong>Background Color</strong>
-                                        <div class="form-check mb-0">
+                                        <div class="form-check mb-0 ms-2">
                                             <input class="form-check-input" type="checkbox" id="transparentBg" @bind="DownloadOptions.TransparentBackground" />
                                             <label class="form-check-label" for="transparentBg">Transparent</label>
                                         </div>
                                     </label>
                                     <div class="d-flex align-items-center gap-2">
-                                        <input type="color" class="form-control form-control-color" @bind="DownloadOptions.BackgroundColor" @bind:event="oninput" disabled="@DownloadOptions.TransparentBackground" />
-                                        <span class="small font-monospace">@DownloadOptions.BackgroundColor</span>
+                                        @if (DownloadOptions.TransparentBackground)
+                                        {
+                                            <div style="width: 3rem; height: 2.25rem; border: 1px solid #6c757d; border-radius: 4px; background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%); background-size: 10px 10px; background-position: 0 0, 0 5px, 5px -5px, -5px 0px;"></div>
+                                        }
+                                        else
+                                        {
+                                            <input type="color" class="form-control form-control-color" @bind="DownloadOptions.BackgroundColor" @bind:event="oninput" />
+                                            <span class="small font-monospace">@DownloadOptions.BackgroundColor</span>
+                                        }
                                     </div>
                                 </div>
                             </div>
