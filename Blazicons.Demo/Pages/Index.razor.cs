@@ -180,6 +180,19 @@ public partial class Index : IDisposable
     private string AdvancedPreviewStyle =>
         $"width: 128px; height: 128px; position: relative; display: inline-block; {CheckeredStyle}";
 
+    private string PreviewIconInsetStyle
+    {
+        get
+        {
+            const int previewSize = 128;
+            var pad = DownloadOptions.Size > 0
+                ? (int)Math.Round(previewSize * (double)DownloadOptions.Padding / DownloadOptions.Size)
+                : 0;
+            var iconSize = previewSize - (2 * pad);
+            return $"position: absolute; top: {pad}px; left: {pad}px; width: {iconSize}px; height: {iconSize}px; z-index: 1;";
+        }
+    }
+
     [Inject]
     private IBlazorDownloadFileService FileDownloader { get; set; } = default!;
 
@@ -195,7 +208,7 @@ public partial class Index : IDisposable
         {
             var markup = ActiveIcon.Icon.Markup
                 .Replace("currentColor", DownloadOptions.ForegroundColor, StringComparison.OrdinalIgnoreCase);
-            return NormalizeSvgMarkup(markup, "width: 128px; height: 128px; display: block;");
+            return NormalizeSvgMarkup(markup, "width: 100%; height: 100%; display: block;");
         }
     }
 
