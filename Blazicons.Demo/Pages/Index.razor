@@ -262,11 +262,11 @@
                         <div class="mb-3">
                             <label class="form-label">
                                 <strong>Corner Radius</strong>
-                                <span class="text-info ms-1" style="font-size: 0.85em; cursor: help;" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="top" data-bs-content="Only applicable when transparent background is selected" title="Corner Radius" tabindex="0"><Blazicon Svg="MdiIcon.HelpCircle" /></span>
+                                <span class="text-info ms-1" style="font-size: 0.85em; cursor: help;" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="top" data-bs-content="Adds rounded corners to the background color. Not available with transparent backgrounds." title="Corner Radius" tabindex="0"><Blazicon Svg="MdiIcon.HelpCircle" /></span>
                             </label>
                             <div class="d-flex align-items-center gap-2">
-                                <input type="range" class="form-range flex-fill" min="0" max="128" @bind="DownloadOptions.CornerRadius" @bind:event="oninput" disabled="@(!DownloadOptions.TransparentBackground)" />
-                                <input type="number" class="form-control" style="width: 75px;" min="0" max="512" @bind="DownloadOptions.CornerRadius" disabled="@(!DownloadOptions.TransparentBackground)" />
+                                <input type="range" class="form-range flex-fill" min="0" max="128" @bind="DownloadOptions.CornerRadius" @bind:event="oninput" disabled="@(DownloadOptions.TransparentBackground)" />
+                                <input type="number" class="form-control" style="width: 75px;" min="0" max="512" @bind="DownloadOptions.CornerRadius" disabled="@(DownloadOptions.TransparentBackground)" />
                             </div>
                         </div>
                         <div class="mb-3">
