@@ -260,18 +260,14 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label"><strong>Corner Radius</strong></label>
-                            @if (DownloadOptions.TransparentBackground)
-                            {
-                                <div class="text-muted small">Not applicable with a transparent background.</div>
-                            }
-                            else
-                            {
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="range" class="form-range flex-fill" min="0" max="128" @bind="DownloadOptions.CornerRadius" @bind:event="oninput" />
-                                    <input type="number" class="form-control" style="width: 75px;" min="0" max="512" @bind="DownloadOptions.CornerRadius" />
-                                </div>
-                            }
+                            <label class="form-label">
+                                <strong>Corner Radius</strong>
+                                <span class="text-muted ms-1" style="font-size: 0.85em; cursor: help;" title="Only applicable when transparent background is selected">ⓘ</span>
+                            </label>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="range" class="form-range flex-fill" min="0" max="128" @bind="DownloadOptions.CornerRadius" @bind:event="oninput" disabled="@(!DownloadOptions.TransparentBackground)" />
+                                <input type="number" class="form-control" style="width: 75px;" min="0" max="512" @bind="DownloadOptions.CornerRadius" disabled="@(!DownloadOptions.TransparentBackground)" />
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label"><strong>Size (px)</strong></label>
