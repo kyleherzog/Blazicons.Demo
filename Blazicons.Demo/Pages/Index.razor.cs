@@ -81,7 +81,7 @@ public partial class Index : IDisposable
         }
     }
 
-    public SvgDownloadOptionsModel DownloadOptions { get; set; } = new();
+    public ImageDownloadOptionsModel DownloadOptions { get; set; } = new();
 
     public string FilterAreaClass => AreaFiltersExpanded ? "mt-1 mt-md-3" : "d-none d-md-block mt-1 mt-md-3";
 
@@ -268,7 +268,7 @@ public partial class Index : IDisposable
 
     public void ShowAdvancedDownloadModal()
     {
-        DownloadOptions = new SvgDownloadOptionsModel();
+        DownloadOptions = new ImageDownloadOptionsModel();
         IsShowingAdvancedDownloadModal = true;
     }
 
