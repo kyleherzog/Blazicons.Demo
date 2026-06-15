@@ -4,11 +4,19 @@
     <header>
         <nav class="navbar navbar-expand bg-primary bg-gradient navbar-dark text-white px-md-2 pt-0 pb-1 py-md-2">
             <div class="container-fluid">
-                <div class="d-flex justify-content-between w-100">
+                <div class="d-flex justify-content-between align-items-center w-100">
                     <div>
                         <a class="navbar-brand me-1 d-block d-md-inline" href="/"><Blazicon Svg="@Logo"></Blazicon>Blazicons</a>
-                        <span class="tagline d-none d-md-inline">Icon Component Libraries for Blazor</span>
+                        <span class="tagline d-none d-lg-inline">Icon Component Libraries for Blazor</span>
                     </div>
+                    <ul class="navbar-nav site-nav d-none d-md-flex align-items-center gap-2">
+                        <li class="nav-item">
+                            <NavLink href="/icons" class="nav-link" Match="NavLinkMatch.All"><Blazicon Svg="MdiIcon.Magnify" /> Icons</NavLink>
+                        </li>
+                        <li class="nav-item">
+                            <NavLink href="/layers" class="nav-link" Match="NavLinkMatch.All"><Blazicon Svg="MdiIcon.Layers" /> Layers</NavLink>
+                        </li>
+                    </ul>
                     <div class="text-end pe-0">
                         <ul class="navbar-nav justify-content-end">
                             <li class="nav-item">

@@ -194,6 +194,9 @@
       </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Blazicons\Blazicons\Blazicons.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="wwwroot\images\Blazicons-text.png" />
   </ItemGroup>
   <ItemGroup>

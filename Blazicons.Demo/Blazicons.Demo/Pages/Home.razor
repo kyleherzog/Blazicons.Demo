@@ -1,0 +1,65 @@
+@page "/"
+
+<PageTitle>Blazicons</PageTitle>
+
+<main class="d-flex flex-column align-items-center text-light py-5 px-3">
+    <div class="text-center mb-5">
+        <div class="hero-logo mb-4">
+            <img src="images/blazicons-512.svg" alt="Blazicons" />
+        </div>
+        <h1 class="hero-title mb-1">Blazicons</h1>
+        <p class="tagline mb-4">Icon Component Libraries for Blazor</p>
+        <p class="lead hero-description text-muted mx-auto">
+            SVG-based icon components that deliver only the icons you use&mdash;powered by assembly
+            trimming with full IntelliSense support across multiple popular icon libraries.
+        </p>
+    </div>
+
+    <div class="row g-4 justify-content-center feature-cards w-100">
+        <div class="col-12 col-sm-6 col-xl-4">
+            <a href="/icons" class="feature-card card h-100 text-decoration-none">
+                <div class="card-body text-center py-4 px-4">
+                    <div class="feature-icon mb-3">
+                        <Blazicon Svg="MdiIcon.Magnify" />
+                    </div>
+                    <h2 class="card-title h4">Browse Icons</h2>
+                    <p class="card-text text-muted">
+                        Search and explore thousands of SVG icons from popular libraries including
+                        Bootstrap, Font Awesome, Material Design Icons, and more.
+                    </p>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-4">
+            <a href="/layers" class="feature-card card h-100 text-decoration-none">
+                <div class="card-body text-center py-4 px-4">
+                    <div class="feature-icon mb-3">
+                        <Blazicon Svg="MdiIcon.Layers" />
+                    </div>
+                    <h2 class="card-title h4">Layers</h2>
+                    <p class="card-text text-muted">
+                        Stack multiple icons to create rich composite visuals using the
+                        <code>BlaziconLayers</code> component, inspired by Font Awesome Layers.
+                    </p>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-4">
+            <div class="feature-card feature-card-disabled card h-100">
+                <div class="card-body text-center py-4 px-4">
+                    <div class="feature-icon mb-3">
+                        <Blazicon Svg="MdiIcon.Animation" />
+                    </div>
+                    <h2 class="card-title h4">
+                        Animations
+                        <span class="coming-soon ms-2">Coming Soon</span>
+                    </h2>
+                    <p class="card-text text-muted">
+                        Bring icons to life with declarative animation support built directly
+                        into Blazicons.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

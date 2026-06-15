@@ -1,0 +1,58 @@
+main {
+    overflow-y: auto;
+}
+
+.hero-logo img {
+    width: 8rem;
+    height: 8rem;
+}
+
+.hero-title {
+    font-family: "Audiowide", sans-serif;
+    font-size: 3rem;
+}
+
+.hero-description {
+    max-width: 580px;
+}
+
+.feature-cards {
+    max-width: 900px;
+}
+
+.feature-icon {
+    font-size: 4rem;
+    line-height: 1;
+    color: #bd9de1;
+}
+
+.feature-card {
+    background-color: #212529;
+    border: 2px solid #495057;
+    color: #f8f9fa;
+    transition: border-color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.feature-card:hover {
+    border-color: #5c2d91;
+    background-color: #1a1225;
+    color: #f8f9fa;
+    text-decoration: none;
+}
+
+.feature-card-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.coming-soon {
+    font-family: "Saira Extra Condensed", sans-serif;
+    font-size: 0.45em;
+    font-weight: 400;
+    vertical-align: middle;
+    background-color: #5c2d91;
+    color: #f8f9fa;
+    padding: 0.2em 0.6em;
+    border-radius: 0.25em;
+    letter-spacing: 0.03em;
+}
