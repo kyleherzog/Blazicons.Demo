@@ -1,0 +1,43 @@
+main {
+    overflow-y: auto;
+}
+
+h1 {
+    font-family: "Audiowide", sans-serif;
+}
+
+h2 {
+    font-size: 1.6rem;
+    color: #bd9de1;
+}
+
+.demo-area {
+    display: flex;
+    align-items: center;
+    background-color: #1a1a2e;
+    border: 1px solid #495057;
+    border-radius: 0.375rem;
+    padding: 2rem;
+    font-size: 3.5rem;
+    line-height: 1;
+    min-height: 8rem;
+}
+
+.code-snippet {
+    background-color: #1a1a2e;
+    border: 1px solid #495057;
+    border-radius: 0.375rem;
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+    white-space: pre;
+    overflow-x: auto;
+    color: #bd9de1;
+}
+
+.code-snippet code {
+    font-family: "Consolas", "Courier New", monospace;
+}
+
+section {
+    scroll-margin-top: 1rem;
+}
