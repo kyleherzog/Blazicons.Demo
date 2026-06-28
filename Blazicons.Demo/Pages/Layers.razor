@@ -148,6 +148,64 @@
                 <pre class="code-snippet"><code>@transformsSnippet</code></pre>
             </section>
 
+            <section class="mb-5" id="text-layers">
+                <h2>Text Layers</h2>
+                <p>
+                    <code>BlaziconLayersText</code> places a text label centered over the icon stack.
+                    Provide the label as child content and pass a <code>TextLayerStyling</code> instance
+                    to the <code>Styling</code> parameter to control color, size, and transforms.
+                    Start a chain with <code>TextLayerStyling.Default</code> (pre-configured with black text)
+                    and call <code>.WithColor()</code>, <code>.WithSize()</code>, <code>.Shrink()</code>, etc.
+                </p>
+                <div class="demo-area mb-3">
+                    <BlaziconLayers>
+                        <Blazicon Svg='MdiIcon.Square.WithColor("#5c2d91")' />
+                        <BlaziconLayersText Styling='TextLayerStyling.Default.WithColor("white")'>A</BlaziconLayersText>
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Square.WithColor("#0d6efd")' />
+                        <BlaziconLayersText Styling='TextLayerStyling.Default.WithColor("white").WithSize("0.4em")'>42</BlaziconLayersText>
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#198754")' />
+                        <BlaziconLayersText Styling='TextLayerStyling.Default.WithColor("white").WithSize("0.35em")'>OK</BlaziconLayersText>
+                    </BlaziconLayers>
+                </div>
+                <pre class="code-snippet"><code>@textLayersSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="counter-layers">
+                <h2>Counter Layers</h2>
+                <p>
+                    <code>BlaziconLayersCounter</code> renders a pill-shaped badge.
+                    <code>CounterLayerStyling</code> provides four corner presets —
+                    <code>TopRight</code>, <code>TopLeft</code>, <code>BottomRight</code>, and
+                    <code>BottomLeft</code> — each pre-configured with white text and a red
+                    background. <code>CounterLayerStyling.Default</code> is an alias for
+                    <code>TopRight</code>. Chain <code>.WithBackgroundColor()</code> to override
+                    the badge color.
+                </p>
+                <div class="demo-area mb-3">
+                    <BlaziconLayers>
+                        <Blazicon Svg="MdiIcon.Bell" />
+                        <BlaziconLayersCounter Styling='CounterLayerStyling.TopRight'>3</BlaziconLayersCounter>
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg="MdiIcon.Email" />
+                        <BlaziconLayersCounter Styling='CounterLayerStyling.TopLeft.WithBackgroundColor("#0d6efd")'>12</BlaziconLayersCounter>
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.ChatOutline' />
+                        <BlaziconLayersCounter Styling='CounterLayerStyling.BottomRight.WithBackgroundColor("#198754")'>99+</BlaziconLayersCounter>
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Folder' />
+                        <BlaziconLayersCounter Styling='CounterLayerStyling.BottomLeft.WithBackgroundColor("#ffc107")'>5</BlaziconLayersCounter>
+                    </BlaziconLayers>
+                </div>
+                <pre class="code-snippet"><code>@counterLayersSnippet</code></pre>
+            </section>
+
             <section class="mb-5" id="practical-examples">
                 <h2>Practical Examples</h2>
                 <p>
@@ -228,6 +286,32 @@
         <BlaziconLayers>
             <Blazicon Svg="MdiIcon.CircleOutline" />
             <Blazicon Svg='MdiIcon.ArrowRight.Shrink(6).FlipHorizontal()' />
+        </BlaziconLayers>
+        """;
+
+    private static readonly string textLayersSnippet =
+        """
+        <BlaziconLayers>
+            <Blazicon Svg='MdiIcon.Square.WithColor("#5c2d91")' />
+            <BlaziconLayersText Styling='TextLayerStyling.Default.WithColor("white")'>A</BlaziconLayersText>
+        </BlaziconLayers>
+
+        <BlaziconLayers>
+            <Blazicon Svg='MdiIcon.Square.WithColor("#0d6efd")' />
+            <BlaziconLayersText Styling='TextLayerStyling.Default.WithColor("white").WithSize("0.4em")'>42</BlaziconLayersText>
+        </BlaziconLayers>
+        """;
+
+    private static readonly string counterLayersSnippet =
+        """
+        <BlaziconLayers>
+            <Blazicon Svg="MdiIcon.Bell" />
+            <BlaziconLayersCounter Styling='CounterLayerStyling.TopRight'>3</BlaziconLayersCounter>
+        </BlaziconLayers>
+
+        <BlaziconLayers>
+            <Blazicon Svg="MdiIcon.Email" />
+            <BlaziconLayersCounter Styling='CounterLayerStyling.TopLeft.WithBackgroundColor("#0d6efd")'>12</BlaziconLayersCounter>
         </BlaziconLayers>
         """;
 }

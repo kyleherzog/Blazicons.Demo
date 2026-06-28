@@ -56,3 +56,27 @@ main {
     border-radius: 0.25em;
     letter-spacing: 0.03em;
 }
+
+.featured-image {
+    max-height: 10rem;
+    opacity: 0.85;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.featured-image:hover {
+    opacity: 1;
+}
+
+.project-links {
+    font-size: 2rem;
+    color: #bd9de1;
+}
+
+.project-links a {
+    color: inherit;
+    transition: color 0.15s ease-in-out;
+}
+
+.project-links a:hover {
+    color: #f8f9fa;
+}
