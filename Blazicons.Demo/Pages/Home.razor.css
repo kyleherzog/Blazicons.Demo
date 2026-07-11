@@ -58,7 +58,6 @@ main {
 }
 
 .featured-image {
-    max-height: 10rem;
     opacity: 0.85;
     transition: opacity 0.15s ease-in-out;
 }
