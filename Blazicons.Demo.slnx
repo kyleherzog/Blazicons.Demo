@@ -5,6 +5,5 @@
     <File Path="LICENSE" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="../Blazicons/Blazicons/Blazicons.csproj" />
   <Project Path="Blazicons.Demo/Blazicons.Demo.csproj" />
 </Solution>

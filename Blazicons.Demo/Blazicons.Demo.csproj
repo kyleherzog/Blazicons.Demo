@@ -155,28 +155,28 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BindingBits" Version="2.0.862" />
-    <PackageReference Include="Blazicons.Bootstrap" Version="3.0.1" />
-    <PackageReference Include="Blazicons.Devicon" Version="2.1.9" />
-    <PackageReference Include="Blazicons.FlagIcons" Version="2.0.5" />
-    <PackageReference Include="Blazicons.FluentUI" Version="3.1.12" />
-    <PackageReference Include="Blazicons.FontAwesome" Version="3.0.3" />
-    <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="3.0.4" />
-    <PackageReference Include="Blazicons.Ionicons" Version="4.0.2" />
-    <PackageReference Include="Blazicons.Lucide" Version="2.2.6" />
-    <PackageReference Include="Blazicons.MaterialDesignIcons" Version="3.0.1" />
+    <PackageReference Include="Blazicons.Bootstrap" Version="4.0.5" />
+    <PackageReference Include="Blazicons.Devicon" Version="3.0.13" />
+    <PackageReference Include="Blazicons.FlagIcons" Version="3.0.9" />
+    <PackageReference Include="Blazicons.FluentUI" Version="4.0.14" />
+    <PackageReference Include="Blazicons.FontAwesome" Version="4.0.5" />
+    <PackageReference Include="Blazicons.GoogleMaterialDesign" Version="4.0.8" />
+    <PackageReference Include="Blazicons.Ionicons" Version="5.0.4" />
+    <PackageReference Include="Blazicons.Lucide" Version="3.0.8" />
+    <PackageReference Include="Blazicons.MaterialDesignIcons" Version="4.0.3" />
     <PackageReference Include="Blazor-Analytics" Version="4.0.0" />
     <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
     <PackageReference Include="CodeCasing" Version="4.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.7" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.10" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.114" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="System.Reactive" Version="6.1.0" />
-      <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.203">
+    <PackageReference Include="System.Reactive" Version="7.0.0" />
+      <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.302">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
+      <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
@@ -184,17 +184,14 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="SonarAnalyzer.CSharp" Version="10.25.0.139117">
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="10.30.0.144632">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Text.Analyzers" Version="4.14.0">
+      <PackageReference Include="Text.Analyzers" Version="5.6.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Blazicons\Blazicons\Blazicons.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="wwwroot\images\Blazicons-text.png" />
