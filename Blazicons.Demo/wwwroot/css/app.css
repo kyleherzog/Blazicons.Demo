@@ -205,3 +205,30 @@ h1:focus {
 .modal-body .form-label, .modal-body strong {
   font-size: 1.2rem;
 }
+
+/* Site navigation (internal page links) — overrides the icon-only nav rules */
+.navbar .site-nav {
+  height: auto;
+  font-size: 115%;
+}
+
+.navbar .site-nav li .nav-link {
+  height: auto;
+  padding: 0.2rem 0.6rem;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.navbar .site-nav li .nav-link svg {
+  height: 1em;
+}
+
+.navbar .site-nav .nav-link.active {
+  border-bottom-color: #bd9de1;
+  color: #fff;
+}
+
+.navbar .site-nav .nav-link:hover {
+  color: #bd9de1;
+}

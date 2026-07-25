@@ -1,6 +1,4 @@
-﻿using Blazicons;
-
-namespace Blazicons.Demo.Shared;
+﻿namespace Blazicons.Demo.Shared;
 
 public partial class MainLayout
 {

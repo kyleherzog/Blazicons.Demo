@@ -1,0 +1,252 @@
+@page "/animations"
+
+<PageTitle>Blazicons - Animations</PageTitle>
+
+<main class="container-fluid text-light py-4">
+    <div class="row">
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+            <h1>Animations</h1>
+            <p class="lead">
+                Blazicons supports declarative animation via the <code>.Animate()</code> method on
+                any <code>SvgIcon</code> value. Pass a <code>BlaziconAnimation</code> instance to
+                choose the animation type, then fluently customize duration, delay, direction, and
+                type-specific options.
+            </p>
+            <p>
+                <code>BlaziconAnimation</code> exposes static factory properties for each of the
+                nine supported animation types. Every property returns a fresh instance that can be
+                customized with fluent methods such as <code>.WithDuration()</code>,
+                <code>.WithDelay()</code>, <code>.WithBeatScale()</code>, and more before being
+                passed to <code>.Animate()</code>.
+            </p>
+
+            <section class="mb-5" id="getting-started">
+                <h2>Getting Started</h2>
+                <p>
+                    Call <code>.Animate(BlaziconAnimation.*)</code> on any icon value and assign
+                    the result to the <code>Svg</code> parameter of a <code>Blazicon</code>
+                    component.
+                </p>
+                <div class="demo-area mb-3">
+                    <Blazicon Svg="MdiIcon.Heart.Animate(BlaziconAnimation.Beat)" />
+                    <Blazicon Svg="MdiIcon.Loading.Animate(BlaziconAnimation.Spin)" style="margin-left: 1.5rem;" />
+                    <Blazicon Svg="MdiIcon.Bell.Animate(BlaziconAnimation.Shake)" style="margin-left: 1.5rem;" />
+                </div>
+                <pre class="code-snippet"><code>@gettingStartedSnippet</code></pre>
+            </section>
+
+            <hr class="border-secondary my-4" />
+
+            <section class="mb-5" id="beat">
+                <h2>Beat</h2>
+                <p>
+                    The icon pulses in and out by scaling up at each beat. Use
+                    <code>.WithBeatScale()</code> to control how large the icon grows at its peak.
+                </p>
+                <div class="demo-area mb-3">
+                    <Blazicon Svg="MdiIcon.Heart.Animate(BlaziconAnimation.Beat)" />
+                    <Blazicon Svg="MdiIcon.Star.Animate(BlaziconAnimation.Beat.WithBeatScale(1.4))" style="margin-left: 1.5rem;" />
+                </div>
+                <pre class="code-snippet"><code>@beatSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="beat-fade">
+                <h2>Beat Fade</h2>
+                <p>
+                    The icon pulses while simultaneously fading in and out. Customize opacity and
+                    scale at the peak with <code>.WithBeatFadeOpacity()</code> and
+                    <code>.WithBeatFadeScale()</code>.
+                </p>
+                <div class="demo-area mb-3">
+                    <Blazicon Svg="MdiIcon.HeartPulse.Animate(BlaziconAnimation.BeatFade)" />
+                    <Blazicon Svg="MdiIcon.AlertCircle.Animate(BlaziconAnimation.BeatFade.WithBeatFadeOpacity(0.1).WithBeatFadeScale(1.3))" style="margin-left: 1.5rem;" />
+                </div>
+                <pre class="code-snippet"><code>@beatFadeSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="bounce">
+                <h2>Bounce</h2>
+                <p>
+                    The icon jumps upward and lands with a subtle squash. Control the arc height
+                    with <code>.WithBounceHeight()</code> and fine-tune landing squash via
+                    <code>.WithBounceLandScaleX()</code> and <code>.WithBounceLandScaleY()</code>.
+                </p>
+                <div class="demo-area mb-3">
+                    <Blazicon Svg="MdiIcon.ArrowDownCircle.Animate(BlaziconAnimation.Bounce)" />
+                    <Blazicon Svg="MdiIcon.ChevronDown.Animate(BlaziconAnimation.Bounce.WithDuration(600))" style="margin-left: 1.5rem;" />
+                </div>
+                <pre class="code-snippet"><code>@bounceSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="fade">
+                <h2>Fade</h2>
+                <p>
+                    The icon fades in and out continuously. Use <code>.WithFadeOpacity()</code> to
+                    set the minimum opacity reached at the darkest point of the cycle.
+                </p>
+                <div class="demo-area mb-3">
+                    <Blazicon Svg="MdiIcon.Lightbulb.Animate(BlaziconAnimation.Fade)" />
+                    <Blazicon Svg="MdiIcon.Eye.Animate(BlaziconAnimation.Fade.WithFadeOpacity(0.1))" style="margin-left: 1.5rem;" />
+                </div>
+                <pre class="code-snippet"><code>@fadeSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="flip">
+                <h2>Flip</h2>
+                <p>
+                    The icon flips around a configurable axis in 3D. Use <code>.WithFlipX()</code>,
+                    <code>.WithFlipY()</code>, and <code>.WithFlipZ()</code> to set the axis vector,
+                    and <code>.WithFlipAngle()</code> to set the rotation depth.
+                </p>
+                <div class="demo-area mb-3">
+                    <Blazicon Svg="MdiIcon.Rotate3d.Animate(BlaziconAnimation.Flip)" />
+                    <Blazicon Svg="MdiIcon.CreditCard.Animate(BlaziconAnimation.Flip.WithDuration(1500))" style="margin-left: 1.5rem;" />
+                </div>
+                <pre class="code-snippet"><code>@flipSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="shake">
+                <h2>Shake</h2>
+                <p>
+                    The icon shakes left and right to draw attention. Use
+                    <code>.WithDuration()</code> to slow it down for a more deliberate effect.
+                </p>
+                <div class="demo-area mb-3">
+                    <Blazicon Svg="MdiIcon.Bell.Animate(BlaziconAnimation.Shake)" />
+                    <Blazicon Svg="MdiIcon.AlertCircle.Animate(BlaziconAnimation.Shake.WithDuration(2000))" style="margin-left: 1.5rem;" />
+                </div>
+                <pre class="code-snippet"><code>@shakeSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="spin">
+                <h2>Spin</h2>
+                <p>
+                    The icon rotates continuously in a smooth, linear loop. Works great for
+                    loading and processing indicators. Adjust speed with
+                    <code>.WithDuration()</code>.
+                </p>
+                <div class="demo-area mb-3">
+                    <Blazicon Svg="MdiIcon.Loading.Animate(BlaziconAnimation.Spin)" />
+                    <Blazicon Svg="MdiIcon.Cog.Animate(BlaziconAnimation.Spin.WithDuration(3000))" style="margin-left: 1.5rem;" />
+                </div>
+                <pre class="code-snippet"><code>@spinSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="spin-pulse">
+                <h2>Spin Pulse</h2>
+                <p>
+                    Like Spin, but rotates in discrete clockwise steps rather than a continuous
+                    sweep — reminiscent of a clock hand or a stepped progress indicator.
+                </p>
+                <div class="demo-area mb-3">
+                    <Blazicon Svg="MdiIcon.Sync.Animate(BlaziconAnimation.SpinPulse)" />
+                    <Blazicon Svg="MdiIcon.ClockOutline.Animate(BlaziconAnimation.SpinPulse.WithDuration(1000))" style="margin-left: 1.5rem;" />
+                </div>
+                <pre class="code-snippet"><code>@spinPulseSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="spin-reverse">
+                <h2>Spin Reverse</h2>
+                <p>
+                    Identical to Spin but rotates counter-clockwise. Useful for pairing with a
+                    forward-spinning icon to create a contrarotating effect.
+                </p>
+                <div class="demo-area mb-3">
+                    <Blazicon Svg="MdiIcon.Autorenew.Animate(BlaziconAnimation.SpinReverse)" />
+                    <Blazicon Svg="MdiIcon.Reload.Animate(BlaziconAnimation.SpinReverse.WithDuration(500))" style="margin-left: 1.5rem;" />
+                </div>
+                <pre class="code-snippet"><code>@spinReverseSnippet</code></pre>
+            </section>
+        </div>
+    </div>
+</main>
+
+@code {
+    private static readonly string gettingStartedSnippet =
+        """
+        <Blazicon Svg="MdiIcon.Heart.Animate(BlaziconAnimation.Beat)" />
+        <Blazicon Svg="MdiIcon.Loading.Animate(BlaziconAnimation.Spin)" />
+        <Blazicon Svg="MdiIcon.Bell.Animate(BlaziconAnimation.Shake)" />
+        """;
+
+    private static readonly string beatSnippet =
+        """
+        @* Default beat *@
+        <Blazicon Svg="MdiIcon.Heart.Animate(BlaziconAnimation.Beat)" />
+
+        @* Custom scale at peak *@
+        <Blazicon Svg="MdiIcon.Star.Animate(BlaziconAnimation.Beat.WithBeatScale(1.4))" />
+        """;
+
+    private static readonly string beatFadeSnippet =
+        """
+        @* Default beat-fade *@
+        <Blazicon Svg="MdiIcon.HeartPulse.Animate(BlaziconAnimation.BeatFade)" />
+
+        @* Custom opacity and scale *@
+        <Blazicon Svg="MdiIcon.AlertCircle.Animate(BlaziconAnimation.BeatFade.WithBeatFadeOpacity(0.1).WithBeatFadeScale(1.3))" />
+        """;
+
+    private static readonly string bounceSnippet =
+        """
+        @* Default bounce *@
+        <Blazicon Svg="MdiIcon.ArrowDownCircle.Animate(BlaziconAnimation.Bounce)" />
+
+        @* Faster bounce *@
+        <Blazicon Svg="MdiIcon.ChevronDown.Animate(BlaziconAnimation.Bounce.WithDuration(600))" />
+        """;
+
+    private static readonly string fadeSnippet =
+        """
+        @* Default fade *@
+        <Blazicon Svg="MdiIcon.Lightbulb.Animate(BlaziconAnimation.Fade)" />
+
+        @* Nearly invisible at minimum opacity *@
+        <Blazicon Svg="MdiIcon.Eye.Animate(BlaziconAnimation.Fade.WithFadeOpacity(0.1))" />
+        """;
+
+    private static readonly string flipSnippet =
+        """
+        @* Default flip *@
+        <Blazicon Svg="MdiIcon.Rotate3d.Animate(BlaziconAnimation.Flip)" />
+
+        @* Slower flip *@
+        <Blazicon Svg="MdiIcon.CreditCard.Animate(BlaziconAnimation.Flip.WithDuration(1500))" />
+        """;
+
+    private static readonly string shakeSnippet =
+        """
+        @* Default shake *@
+        <Blazicon Svg="MdiIcon.Bell.Animate(BlaziconAnimation.Shake)" />
+
+        @* Slower shake — more deliberate *@
+        <Blazicon Svg="MdiIcon.AlertCircle.Animate(BlaziconAnimation.Shake.WithDuration(2000))" />
+        """;
+
+    private static readonly string spinSnippet =
+        """
+        @* Default spin *@
+        <Blazicon Svg="MdiIcon.Loading.Animate(BlaziconAnimation.Spin)" />
+
+        @* Slow spin *@
+        <Blazicon Svg="MdiIcon.Cog.Animate(BlaziconAnimation.Spin.WithDuration(3000))" />
+        """;
+
+    private static readonly string spinPulseSnippet =
+        """
+        @* Default spin-pulse *@
+        <Blazicon Svg="MdiIcon.Sync.Animate(BlaziconAnimation.SpinPulse)" />
+
+        @* Slower stepped rotation *@
+        <Blazicon Svg="MdiIcon.ClockOutline.Animate(BlaziconAnimation.SpinPulse.WithDuration(1000))" />
+        """;
+
+    private static readonly string spinReverseSnippet =
+        """
+        @* Default spin-reverse *@
+        <Blazicon Svg="MdiIcon.Autorenew.Animate(BlaziconAnimation.SpinReverse)" />
+
+        @* Fast counter-clockwise spin *@
+        <Blazicon Svg="MdiIcon.Reload.Animate(BlaziconAnimation.SpinReverse.WithDuration(500))" />
+        """;
+}

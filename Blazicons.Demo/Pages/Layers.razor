@@ -1,0 +1,317 @@
+@page "/layers"
+
+<PageTitle>Blazicons - Layers</PageTitle>
+
+<main class="container-fluid text-light py-4">
+    <div class="row">
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+            <h1>Layers</h1>
+            <p class="lead">
+                The <code>BlaziconLayers</code> component stacks multiple icons on top of each
+                other to create composite visuals, inspired by
+                <a href="https://fontawesome.com/docs/web/style/layer" target="_blank" rel="noopener noreferrer">Font Awesome Layers</a>.
+            </p>
+            <p>
+                Place any number of <code>Blazicon</code> components inside
+                <code>BlaziconLayers</code>. Each icon fills the same bounding box, and the
+                overall size is controlled by the surrounding <code>font-size</code>.
+            </p>
+
+            <hr class="border-secondary my-4" />
+
+            <section class="mb-5" id="basic-layering">
+                <h2>Basic Layering</h2>
+                <p>
+                    Nest two or more <code>Blazicon</code> components inside
+                    <code>BlaziconLayers</code>. Later children render on top of earlier ones.
+                </p>
+                <div class="demo-area mb-3">
+                    <BlaziconLayers>
+                        <Blazicon Svg="MdiIcon.CircleOutline" />
+                        <Blazicon Svg="MdiIcon.Home" />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg="MdiIcon.CircleOutline" />
+                        <Blazicon Svg="MdiIcon.Star" />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg="MdiIcon.CircleOutline" />
+                        <Blazicon Svg="MdiIcon.Cog" />
+                    </BlaziconLayers>
+                </div>
+                <pre class="code-snippet"><code>@basicLayeringSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="color-customization">
+                <h2>Color Customization</h2>
+                <p>
+                    Use <code>.WithColor()</code> on individual <code>SvgIcon</code> values to
+                    independently color each layer.
+                </p>
+                <div class="demo-area mb-3">
+                    <BlaziconLayers>
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#5c2d91")' />
+                        <Blazicon Svg='MdiIcon.Home.WithColor("white")' />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#bd9de1")' />
+                        <Blazicon Svg='MdiIcon.Star.WithColor("#5c2d91")' />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#198754")' />
+                        <Blazicon Svg='MdiIcon.Check.WithColor("white")' />
+                    </BlaziconLayers>
+                </div>
+                <pre class="code-snippet"><code>@colorCustomizationSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="size-positioning">
+                <h2>Size &amp; Positioning</h2>
+                <p>
+                    Use <code>.Shrink(n)</code> and <code>.Grow(n)</code> to scale icons relative
+                    to a base of 16 units, and the <code>Push*</code> methods to offset icons within
+                    the bounding box. All adjustments compose via CSS <code>transform</code>.
+                </p>
+
+                <p><strong>Shrink &amp; Grow</strong></p>
+                <p>
+                    <code>.Shrink(n)</code> scales to <code>(16&minus;n)/16</code> of the icon's
+                    natural size; <code>.Grow(n)</code> scales it up. Both keep the icon centered in
+                    the bounding box.
+                </p>
+                <div class="demo-area mb-3">
+                    <BlaziconLayers>
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#5c2d91")' />
+                        <Blazicon Svg='MdiIcon.Home.WithColor("white").Shrink(6)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#bd9de1")' />
+                        <Blazicon Svg='MdiIcon.Star.WithColor("#5c2d91").Shrink(4)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#198754")' />
+                        <Blazicon Svg='MdiIcon.Check.WithColor("white").Shrink(4)' />
+                    </BlaziconLayers>
+                </div>
+                <pre class="code-snippet"><code>@shrinkGrowSnippet</code></pre>
+
+                <p class="mt-4"><strong>Push &amp; Offset</strong></p>
+                <p>
+                    <code>.PushRight(n)</code>, <code>.PushUp(n)</code>, and the other
+                    <code>Push*</code> methods shift an icon by <code>n/16</code> em from its
+                    centered position. Combine with <code>.Shrink()</code> to create corner
+                    badges and indicators.
+                </p>
+                <div class="demo-area mb-3">
+                    <BlaziconLayers>
+                        <Blazicon Svg="MdiIcon.Bell" />
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#dc3545").Shrink(10).PushRight(5).PushUp(5)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg="MdiIcon.Email" />
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#0d6efd").Shrink(10).PushRight(5).PushUp(5)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg="MdiIcon.Folder" />
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#ffc107").Shrink(10).PushRight(5).PushUp(5)' />
+                    </BlaziconLayers>
+                </div>
+                <pre class="code-snippet"><code>@pushOffsetSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="transforms">
+                <h2>Transforms</h2>
+                <p>
+                    <code>.Rotate(degrees)</code> spins an icon around its center.
+                    <code>.FlipHorizontal()</code> and <code>.FlipVertical()</code> mirror it on
+                    the respective axis. All transforms compose freely with size and position
+                    adjustments.
+                </p>
+                <div class="demo-area mb-3">
+                    <BlaziconLayers>
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#5c2d91")' />
+                        <Blazicon Svg='MdiIcon.Wrench.WithColor("white").Shrink(4).Rotate(45)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg="MdiIcon.CircleOutline" />
+                        <Blazicon Svg='MdiIcon.ArrowRight.Shrink(6).FlipHorizontal()' />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg="MdiIcon.CircleOutline" />
+                        <Blazicon Svg='MdiIcon.ArrowRight.Shrink(6).Rotate(90)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#5c2d91")' />
+                        <Blazicon Svg='MdiIcon.Cog.WithColor("white").Shrink(4).Rotate(45)' />
+                    </BlaziconLayers>
+                </div>
+                <pre class="code-snippet"><code>@transformsSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="text-layers">
+                <h2>Text Layers</h2>
+                <p>
+                    <code>BlaziconLayersText</code> places a text label centered over the icon stack.
+                    Provide the label as child content and pass a <code>TextLayerStyling</code> instance
+                    to the <code>Styling</code> parameter to control color, size, and transforms.
+                    Start a chain with <code>TextLayerStyling.Default</code> (pre-configured with black text)
+                    and call <code>.WithColor()</code>, <code>.WithSize()</code>, <code>.Shrink()</code>, etc.
+                </p>
+                <div class="demo-area mb-3">
+                    <BlaziconLayers>
+                        <Blazicon Svg='MdiIcon.Square.WithColor("#5c2d91")' />
+                        <BlaziconLayersText Styling='TextLayerStyling.Default.WithColor("white")'>A</BlaziconLayersText>
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Square.WithColor("#0d6efd")' />
+                        <BlaziconLayersText Styling='TextLayerStyling.Default.WithColor("white").WithSize("0.4em")'>42</BlaziconLayersText>
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#198754")' />
+                        <BlaziconLayersText Styling='TextLayerStyling.Default.WithColor("white").WithSize("0.35em")'>OK</BlaziconLayersText>
+                    </BlaziconLayers>
+                </div>
+                <pre class="code-snippet"><code>@textLayersSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="counter-layers">
+                <h2>Counter Layers</h2>
+                <p>
+                    <code>BlaziconLayersCounter</code> renders a pill-shaped badge.
+                    <code>CounterLayerStyling</code> provides four corner presets —
+                    <code>TopRight</code>, <code>TopLeft</code>, <code>BottomRight</code>, and
+                    <code>BottomLeft</code> — each pre-configured with white text and a red
+                    background. <code>CounterLayerStyling.Default</code> is an alias for
+                    <code>TopRight</code>. Chain <code>.WithBackgroundColor()</code> to override
+                    the badge color.
+                </p>
+                <div class="demo-area mb-3">
+                    <BlaziconLayers>
+                        <Blazicon Svg="MdiIcon.Bell" />
+                        <BlaziconLayersCounter Styling='CounterLayerStyling.TopRight'>3</BlaziconLayersCounter>
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg="MdiIcon.Email" />
+                        <BlaziconLayersCounter Styling='CounterLayerStyling.TopLeft.WithBackgroundColor("#0d6efd")'>12</BlaziconLayersCounter>
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.ChatOutline' />
+                        <BlaziconLayersCounter Styling='CounterLayerStyling.BottomRight.WithBackgroundColor("#198754")'>99+</BlaziconLayersCounter>
+                    </BlaziconLayers>
+                    <BlaziconLayers style="margin-left: 1.5rem;">
+                        <Blazicon Svg='MdiIcon.Folder' />
+                        <BlaziconLayersCounter Styling='CounterLayerStyling.BottomLeft.WithBackgroundColor("#ffc107")'>5</BlaziconLayersCounter>
+                    </BlaziconLayers>
+                </div>
+                <pre class="code-snippet"><code>@counterLayersSnippet</code></pre>
+            </section>
+
+            <section class="mb-5" id="practical-examples">
+                <h2>Practical Examples</h2>
+                <p>
+                    Combining layers, colors, and positioning enables common icon compositions
+                    seen in modern UIs.
+                </p>
+                <div class="demo-area mb-3 flex-wrap" style="gap: 2rem;">
+                    <BlaziconLayers title="Add">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#5c2d91")' />
+                        <Blazicon Svg='MdiIcon.Plus.WithColor("white").Shrink(6)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers title="Success">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#198754")' />
+                        <Blazicon Svg='MdiIcon.Check.WithColor("white").Shrink(4)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers title="Alert">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#dc3545")' />
+                        <Blazicon Svg='MdiIcon.AlertCircle.WithColor("white").Shrink(4)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers title="Notification">
+                        <Blazicon Svg="MdiIcon.Bell" />
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#dc3545").Shrink(10).PushRight(5).PushUp(5)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers title="Locked Folder">
+                        <Blazicon Svg='MdiIcon.Folder.WithColor("#ffc107")' />
+                        <Blazicon Svg='MdiIcon.Lock.WithColor("white").Shrink(8).PushRight(5).PushDown(4)' />
+                    </BlaziconLayers>
+                    <BlaziconLayers title="Settings">
+                        <Blazicon Svg='MdiIcon.Circle.WithColor("#495057")' />
+                        <Blazicon Svg='MdiIcon.Cog.WithColor("white").Shrink(4)' />
+                    </BlaziconLayers>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+@code {
+    private static readonly string basicLayeringSnippet =
+        """
+        <BlaziconLayers>
+            <Blazicon Svg="MdiIcon.CircleOutline" />
+            <Blazicon Svg="MdiIcon.Home" />
+        </BlaziconLayers>
+        """;
+
+    private static readonly string colorCustomizationSnippet =
+        """
+        <BlaziconLayers>
+            <Blazicon Svg='MdiIcon.Circle.WithColor("#5c2d91")' />
+            <Blazicon Svg='MdiIcon.Home.WithColor("white")' />
+        </BlaziconLayers>
+        """;
+
+    private static readonly string shrinkGrowSnippet =
+        """
+        <BlaziconLayers>
+            <Blazicon Svg='MdiIcon.Circle.WithColor("#5c2d91")' />
+            <Blazicon Svg='MdiIcon.Home.WithColor("white").Shrink(6)' />
+        </BlaziconLayers>
+        """;
+
+    private static readonly string pushOffsetSnippet =
+        """
+        <BlaziconLayers>
+            <Blazicon Svg="MdiIcon.Bell" />
+            <Blazicon Svg='MdiIcon.Circle.WithColor("#dc3545").Shrink(10).PushRight(5).PushUp(5)' />
+        </BlaziconLayers>
+        """;
+
+    private static readonly string transformsSnippet =
+        """
+        <BlaziconLayers>
+            <Blazicon Svg='MdiIcon.Circle.WithColor("#5c2d91")' />
+            <Blazicon Svg='MdiIcon.Wrench.WithColor("white").Shrink(4).Rotate(45)' />
+        </BlaziconLayers>
+
+        <BlaziconLayers>
+            <Blazicon Svg="MdiIcon.CircleOutline" />
+            <Blazicon Svg='MdiIcon.ArrowRight.Shrink(6).FlipHorizontal()' />
+        </BlaziconLayers>
+        """;
+
+    private static readonly string textLayersSnippet =
+        """
+        <BlaziconLayers>
+            <Blazicon Svg='MdiIcon.Square.WithColor("#5c2d91")' />
+            <BlaziconLayersText Styling='TextLayerStyling.Default.WithColor("white")'>A</BlaziconLayersText>
+        </BlaziconLayers>
+
+        <BlaziconLayers>
+            <Blazicon Svg='MdiIcon.Square.WithColor("#0d6efd")' />
+            <BlaziconLayersText Styling='TextLayerStyling.Default.WithColor("white").WithSize("0.4em")'>42</BlaziconLayersText>
+        </BlaziconLayers>
+        """;
+
+    private static readonly string counterLayersSnippet =
+        """
+        <BlaziconLayers>
+            <Blazicon Svg="MdiIcon.Bell" />
+            <BlaziconLayersCounter Styling='CounterLayerStyling.TopRight'>3</BlaziconLayersCounter>
+        </BlaziconLayers>
+
+        <BlaziconLayers>
+            <Blazicon Svg="MdiIcon.Email" />
+            <BlaziconLayersCounter Styling='CounterLayerStyling.TopLeft.WithBackgroundColor("#0d6efd")'>12</BlaziconLayersCounter>
+        </BlaziconLayers>
+        """;
+}
